@@ -1,0 +1,64 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="alert alert-info-light">
+        可以从 AI 工作台把问题跟进草稿直接带过来。确认所属问题、状态和下一步动作后保存即可。
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">所属问题:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-issue_id" data-rule="required" class="form-control selectpicker" name="row[issue_id]" data-live-search="true">
+                {foreach name="issueList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.issue_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-type" data-rule="required" class="form-control selectpicker" name="row[type]">
+                {foreach name="typeList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.type" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">可见范围:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-visibility" data-rule="required" class="form-control selectpicker" name="row[visibility]">
+                {foreach name="visibilityList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.visibility" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进内容:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-content" class="form-control" data-rule="required" rows="6" name="row[content]" cols="50" placeholder="填写本次处理进展、客户反馈或内部判断">{$defaultRow.content|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">问题状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-status" data-rule="required" class="form-control selectpicker" name="row[status]">
+                {foreach name="statusList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.status" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">下一步动作:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-next_action" class="form-control" rows="4" name="row[next_action]" cols="50" placeholder="例如：等待客户复测、转研发处理、下个版本回告">{$defaultRow.next_action|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

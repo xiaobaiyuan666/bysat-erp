@@ -1,0 +1,113 @@
+<script>
+    window.approvalTemplateMap = {:json_encode($approvalTemplateMap, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)};
+</script>
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">审批类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-object_type" data-rule="required" class="form-control selectpicker" data-live-search="true" name="row[object_type]">
+                <option value="">请选择</option>
+                {foreach name="objectTypeList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.object_type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="contract">
+        <label class="control-label col-xs-12 col-sm-2">审批合同:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-contract_id" class="form-control selectpicker" data-live-search="true" name="row[contract_id]">
+                <option value="">请选择合同</option>
+                {foreach name="contractList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.contract_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="payment_plan">
+        <label class="control-label col-xs-12 col-sm-2">审批付款计划:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-payment_plan_id" class="form-control selectpicker" data-live-search="true" name="row[payment_plan_id]">
+                <option value="">请选择付款计划</option>
+                {foreach name="paymentPlanList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.payment_plan_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="expense_request">
+        <label class="control-label col-xs-12 col-sm-2">审批费用申请:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-expense_request_id" class="form-control selectpicker" data-live-search="true" name="row[expense_request_id]">
+                <option value="">请选择费用申请</option>
+                {foreach name="expenseRequestList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.expense_request_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="purchase_order">
+        <label class="control-label col-xs-12 col-sm-2">审批采购单:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-purchase_order_id" class="form-control selectpicker" data-live-search="true" name="row[purchase_order_id]">
+                <option value="">请选择采购单</option>
+                {foreach name="purchaseOrderList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.purchase_order_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="payment_request">
+        <label class="control-label col-xs-12 col-sm-2">付款申请:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-payment_request_id" class="form-control selectpicker" data-live-search="true" name="row[payment_request_id]">
+                <option value="">请选择付款申请</option>
+                {foreach name="paymentRequestList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.payment_request_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">审批模板:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-template_id" class="form-control selectpicker" data-live-search="true" name="row[template_id]">
+                <option value="">按金额自动匹配模板</option>
+                {foreach name="approvalTemplateList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.template_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+            <span class="help-block">留空时系统会先按金额区间自动匹配，再回落到默认模板；如果仍不合适，可指定手动审批人。</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">模板预览:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div id="approval-template-preview" class="well well-sm text-muted">请先选择审批类型和审批模板。</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">手动审批人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-approver_admin_id" class="form-control selectpicker" data-live-search="true" name="row[approver_admin_id]">
+                <option value="">未指定审批人</option>
+                {foreach name="approverList" item="vo" key="key"}
+                <option value="{$key}" {in name="key" value="$defaultRow.approver_admin_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+            <span class="help-block">仅在没有命中模板时生效，适合临时单级审批。</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">发起原因:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-submit_reason" data-rule="required" class="form-control" rows="4" name="row[submit_reason]" placeholder="说明为什么发起审批，需要审批人确认什么">{$defaultRow.submit_reason|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">提交审批</button>
+        </div>
+    </div>
+</form>

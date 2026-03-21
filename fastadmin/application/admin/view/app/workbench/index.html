@@ -1,0 +1,335 @@
+<style>
+    .wb-page {
+        padding: 18px;
+        background: #f5f7fa;
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel {
+        background: #fff;
+        border: 1px solid #e8eef5;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(31, 45, 61, 0.05);
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel {
+        padding: 18px;
+    }
+
+    .wb-toolbar {
+        margin-bottom: 16px;
+    }
+
+    .wb-toolbar h2,
+    .wb-panel h3 {
+        margin: 0 0 8px;
+        color: #1f2d3d;
+    }
+
+    .wb-toolbar p,
+    .wb-user-tip,
+    .wb-card p {
+        margin: 0;
+        color: #6b7b8d;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .wb-toolbar-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .wb-user-card {
+        min-width: 260px;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: #f8fbff;
+        border: 1px solid #dfeaf5;
+    }
+
+    .wb-user-name {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #1f2d3d;
+    }
+
+    .wb-user-meta {
+        margin-top: 6px;
+        color: #52616b;
+        font-size: 13px;
+    }
+
+    .wb-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .wb-card-grid,
+    .wb-panel-grid {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .wb-card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .wb-panel-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .wb-quick-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .wb-quick-grid .wb-card {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .wb-quick-grid h3 {
+        font-size: 16px;
+        margin: 0 0 4px;
+    }
+
+    .wb-quick-grid p {
+        margin-bottom: 10px;
+    }
+
+    .wb-card-value {
+        font-size: 30px;
+        font-weight: 700;
+        color: #3c8dbc;
+        margin-bottom: 8px;
+    }
+
+    .wb-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .wb-table th,
+    .wb-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #edf2f7;
+        font-size: 12px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .wb-table th {
+        color: #7b8794;
+        font-weight: 600;
+    }
+
+    .wb-table tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .wb-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #f0f6ff;
+        color: #3c8dbc;
+        font-size: 12px;
+    }
+
+    @media (max-width: 960px) {
+        .wb-page {
+            padding: 12px;
+        }
+
+        .wb-toolbar,
+        .wb-card,
+        .wb-panel {
+            padding: 16px;
+        }
+    }
+</style>
+
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        <div class="panel-lead"><em>APP 运营工作台</em> 先接问题，再挂研发，再盯版本与 APP 节奏。</div>
+    </div>
+    <div class="panel-body">
+        <div class="wb-page">
+            <div class="wb-toolbar">
+                <div class="wb-toolbar-header">
+                    <div>
+                        <h2>APP 运营工作台</h2>
+                        <p>把问题记录、研发联动、版本发布和 APP 台账收在一个入口，先处理自己最该推进的事情。</p>
+                    </div>
+                    <div class="wb-user-card">
+                        <div class="wb-user-name">{$currentUser.name}</div>
+                        <div class="wb-user-meta">{$currentUser.title} · {$currentUser.department}</div>
+                        <div class="wb-user-tip">{$currentUser.guide}</div>
+                    </div>
+                </div>
+                <div class="wb-actions">
+                    {foreach name="quickActions" item="action"}
+                    <a href="{$action.url}" class="btn btn-primary addtabsit"><i class="{$action.icon}"></i> {$action.title}</a>
+                    {/foreach}
+                </div>
+            </div>
+
+            <div class="wb-quick-grid">
+                {foreach name="quickPanels" item="panel"}
+                <div class="wb-card">
+                    <h3>{$panel.title}</h3>
+                    <p>{$panel.hint}</p>
+                    <div class="wb-actions">
+                        {foreach name="panel.items" item="item"}
+                        <a href="{$item.url}" class="btn btn-default addtabsit">{$item.title}</a>
+                        {/foreach}
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+
+            <div class="wb-card-grid">
+                {foreach name="summaryCards" item="item"}
+                <div class="wb-card">
+                    <div class="wb-card-value">{$item.value}</div>
+                    <h3>{$item.title}</h3>
+                    <p>{$item.hint}</p>
+                    <a href="{$item.url}" class="btn btn-default addtabsit">立即进入</a>
+                </div>
+                {/foreach}
+            </div>
+
+            <div class="wb-panel-grid">
+                <div class="wb-panel">
+                    <h3>我的问题</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>单号</th>
+                            <th>标题</th>
+                            <th>客户</th>
+                            <th>状态</th>
+                            <th>优先级</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myIssues" id="row"}
+                        <tr>
+                            <td><a href="{:url('app/issue/edit', ['ids' => $row.id])}" class="addtabsit">{$row.ticket_no}</a></td>
+                            <td>{$row.title}</td>
+                            <td>{$row.customer|default='-'}</td>
+                            <td><span class="wb-tag">{$row.status_text}</span></td>
+                            <td>{$row.priority_text}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($myIssues)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有需要跟进的问题</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="wb-panel">
+                    <h3>我的研发联动</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>类型</th>
+                            <th>状态</th>
+                            <th>优先级</th>
+                            <th>截止日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myTechTickets" id="row"}
+                        <tr>
+                            <td><a href="{:url('app/tech_ticket/edit', ['ids' => $row.id])}" class="addtabsit">{$row.title}</a></td>
+                            <td>{$row.type_text}</td>
+                            <td><span class="wb-tag">{$row.status_text}</span></td>
+                            <td>{$row.priority_text}</td>
+                            <td>{$row.due_date|default=''}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($myTechTickets)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有研发联动待办</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="wb-panel-grid">
+                <div class="wb-panel">
+                    <h3>待发布版本</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>版本号</th>
+                            <th>标题</th>
+                            <th>状态</th>
+                            <th>发布日期</th>
+                            <th>客户回告</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="releaseTodos" id="row"}
+                        <tr>
+                            <td><a href="{:url('app/release/edit', ['ids' => $row.id])}" class="addtabsit">{$row.version}</a></td>
+                            <td>{$row.title}</td>
+                            <td><span class="wb-tag">{$row.status_text}</span></td>
+                            <td>{$row.release_date|default=''}</td>
+                            <td>{$row.customer_sync_status_text}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($releaseTodos)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有待发布版本</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="wb-panel">
+                    <h3>我负责的 APP</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>APP</th>
+                            <th>运营项目</th>
+                            <th>生命周期</th>
+                            <th>状态</th>
+                            <th>版本</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myAppProjects" id="row"}
+                        <tr>
+                            <td><a href="{:url('app/project/edit', ['ids' => $row.id])}" class="addtabsit">{$row.app_name}</a></td>
+                            <td>{$row.name}</td>
+                            <td>{$row.lifecycle_text}</td>
+                            <td><span class="wb-tag">{$row.status_text}</span></td>
+                            <td>{$row.app_version|default='-'}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($myAppProjects)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有我负责的 APP 项目</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

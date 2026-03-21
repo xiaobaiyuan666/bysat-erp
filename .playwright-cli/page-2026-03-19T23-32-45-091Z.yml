@@ -1,0 +1,291 @@
+- generic [ref=e86]:
+  - complementary [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]: SC
+      - generic [ref=e90]:
+        - generic [ref=e91]: Smart Console
+        - heading "云帆软件" [level=1] [ref=e92]
+        - paragraph [ref=e93]: PHP API + Vue Console
+    - generic [ref=e94]:
+      - button "BI 经营驾驶舱" [ref=e95] [cursor=pointer]:
+        - generic [ref=e96]: BI
+        - generic [ref=e97]: 经营驾驶舱
+      - button "FI 财务中心" [ref=e98] [cursor=pointer]:
+        - generic [ref=e99]: FI
+        - generic [ref=e100]: 财务中心
+      - button "PM 项目交付" [ref=e101] [cursor=pointer]:
+        - generic [ref=e102]: PM
+        - generic [ref=e103]: 项目交付
+      - button "OP APP 运营" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: OP
+        - generic [ref=e106]: APP 运营
+      - button "HR 人员权限" [ref=e107] [cursor=pointer]:
+        - generic [ref=e108]: HR
+        - generic [ref=e109]: 人员权限
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: 部署方式
+        - strong [ref=e113]: PHP + JSON + Vue
+      - generic [ref=e114]:
+        - generic [ref=e115]: 模型状态
+        - strong [ref=e116]: 待配置模型
+      - generic [ref=e117]:
+        - generic [ref=e118]: 数据版本
+        - strong [ref=e119]: v1.5.0
+  - generic [ref=e120]:
+    - banner [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 软件企业运营后台
+        - heading "项目交付" [level=2] [ref=e790]
+        - paragraph [ref=e125]: 项目进度、任务、风险和负责人负荷统一在这里处理。
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: 登录账号
+          - strong [ref=e129]: 陈总
+          - generic [ref=e130]: admin / 系统管理员
+        - generic [ref=e131]:
+          - generic [ref=e132]: 当前工作身份
+          - generic [ref=e134] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e136]
+              - generic [ref=e137]: 陈总 / 系统管理员
+            - img [ref=e140]
+          - generic [ref=e142]: 系统管理员
+        - generic [ref=e143]: 最近同步 2026-03-20 07:32:13
+        - button "刷新" [ref=e144] [cursor=pointer]:
+          - img [ref=e146]
+          - generic [ref=e148]: 刷新
+        - button "使用说明" [ref=e149] [cursor=pointer]:
+          - img [ref=e151]
+          - generic [ref=e153]: 使用说明
+        - button "AI 助手" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: AI 助手
+        - button "退出" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+          - generic [ref=e161]: 退出
+    - main [ref=e162]:
+      - generic [ref=e791]:
+        - generic [ref=e792]:
+          - generic [ref=e794]:
+            - heading "先看项目和任务" [level=3] [ref=e795]
+            - paragraph [ref=e796]: 默认只保留项目台账和任务台账。高风险排行、负荷和统计放到下方折叠区。
+          - generic [ref=e798]:
+            - generic [ref=e799]:
+              - generic [ref=e800]: 今天优先
+              - generic [ref=e801]:
+                - article [ref=e802]:
+                  - generic [ref=e803]: 进行中项目
+                  - strong [ref=e804]: "3"
+                - article [ref=e805]:
+                  - generic [ref=e806]: 逾期任务
+                  - strong [ref=e807]: "0"
+                - article [ref=e808]:
+                  - generic [ref=e809]: 已完成任务
+                  - strong [ref=e810]: "2"
+                - article [ref=e811]:
+                  - generic [ref=e812]: 项目净利润
+                  - strong [ref=e813]: ¥137,800.00
+            - generic [ref=e814]:
+              - generic [ref=e815]: 常用动作
+              - generic [ref=e816]:
+                - button "新增项目 先建项目，再把状态、预算和负责人补齐。" [ref=e817]:
+                  - img [ref=e818]
+                  - generic [ref=e822]:
+                    - strong [ref=e823]: 新增项目
+                    - generic [ref=e824]: 先建项目，再把状态、预算和负责人补齐。
+                - button "新增任务 把负责人、截止时间和优先级先挂进去。" [ref=e825]:
+                  - img [ref=e826]
+                  - generic [ref=e830]:
+                    - strong [ref=e831]: 新增任务
+                    - generic [ref=e832]: 把负责人、截止时间和优先级先挂进去。
+            - generic [ref=e833]:
+              - generic [ref=e834]: 先盯住这些项目
+              - generic [ref=e835]:
+                - article [ref=e836] [cursor=pointer]:
+                  - generic [ref=e837]:
+                    - strong [ref=e838]: 企业官网重构
+                    - generic [ref=e840]: 风险 3
+                  - generic [ref=e841]:
+                    - generic [ref=e842]: 林晨
+                    - generic [ref=e843]: 进度 50%
+                    - generic [ref=e844]: 逾期任务 0
+                - article [ref=e845] [cursor=pointer]:
+                  - generic [ref=e846]:
+                    - strong [ref=e847]: 客服工单 SaaS
+                    - generic [ref=e849]: 风险 0
+                  - generic [ref=e850]:
+                    - generic [ref=e851]: 张敏
+                    - generic [ref=e852]: 进度 50%
+                    - generic [ref=e853]: 逾期任务 0
+                - article [ref=e854] [cursor=pointer]:
+                  - generic [ref=e855]:
+                    - strong [ref=e856]: 财务 BI 看板
+                    - generic [ref=e858]: 风险 0
+                  - generic [ref=e859]:
+                    - generic [ref=e860]: 王越
+                    - generic [ref=e861]: 进度 0%
+                    - generic [ref=e862]: 逾期任务 0
+        - button "更多项目概览" [ref=e865] [cursor=pointer]:
+          - generic [ref=e866]: 更多项目概览
+          - img [ref=e868]
+        - generic [ref=e870]:
+          - generic [ref=e872]:
+            - heading "项目与任务台账" [level=3] [ref=e873]
+            - paragraph [ref=e874]: 筛选、详情、弹窗编辑和行内状态推进都统一成一套交互。
+          - generic [ref=e876]:
+            - tablist [ref=e880]:
+              - tab "项目台账" [selected] [ref=e882]
+              - tab "任务清单" [ref=e883]
+            - tabpanel "项目台账" [ref=e885]:
+              - generic [ref=e886]:
+                - button "全部项目" [ref=e887]
+                - button "高风险" [ref=e888]
+                - button "交付中" [ref=e889]
+                - button "预算高占用" [ref=e890]
+                - button "进度偏慢" [ref=e891]
+              - group [ref=e892]:
+                - generic [ref=e893]:
+                  - generic [ref=e895]:
+                    - img [ref=e898]
+                    - textbox "搜项目 / 客户 / 负责人" [ref=e900]
+                  - generic [ref=e902] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e904]
+                      - generic [ref=e905]: 全部状态
+                    - img [ref=e908]
+                  - textbox "负责人筛选" [ref=e912]
+                  - button "重置" [ref=e913] [cursor=pointer]:
+                    - img [ref=e915]
+                    - generic [ref=e917]: 重置
+                  - button "新增项目" [ref=e918] [cursor=pointer]:
+                    - img [ref=e920]
+                    - generic [ref=e924]: 新增项目
+              - generic [ref=e925]:
+                - generic [ref=e926]: 当前结果 3 条
+                - generic [ref=e927]: 双击行可打开详情
+              - generic [ref=e930]:
+                - table [ref=e932]:
+                  - rowgroup [ref=e943]:
+                    - row "项目名称 客户/业务线 负责人 状态 优先级 预算/成本 进度 截止日 操作" [ref=e944]:
+                      - columnheader "项目名称" [ref=e945]:
+                        - generic [ref=e946]: 项目名称
+                      - columnheader "客户/业务线" [ref=e947]:
+                        - generic [ref=e948]: 客户/业务线
+                      - columnheader "负责人" [ref=e949]:
+                        - generic [ref=e950]: 负责人
+                      - columnheader "状态" [ref=e951]:
+                        - generic [ref=e952]: 状态
+                      - columnheader "优先级" [ref=e953]:
+                        - generic [ref=e954]: 优先级
+                      - columnheader "预算/成本" [ref=e955]:
+                        - generic [ref=e956]: 预算/成本
+                      - columnheader "进度" [ref=e957]:
+                        - generic [ref=e958]: 进度
+                      - columnheader "截止日" [ref=e959]:
+                        - generic [ref=e960]: 截止日
+                      - columnheader "操作" [ref=e961]:
+                        - generic [ref=e962]: 操作
+                - table [ref=e967]:
+                  - rowgroup [ref=e978]:
+                    - row "企业官网重构 星环科技 林晨 交付中 高 ¥120,000.00 已花 ¥6,900.00 / 利润 ¥73,100.00 50% 50 2026-03-28 详情 编辑 删除" [ref=e979]:
+                      - cell "企业官网重构" [ref=e980]:
+                        - generic [ref=e981]: 企业官网重构
+                      - cell "星环科技" [ref=e982]:
+                        - generic [ref=e983]: 星环科技
+                      - cell "林晨" [ref=e984]:
+                        - generic [ref=e985]: 林晨
+                      - cell "交付中" [ref=e986]:
+                        - generic [ref=e989] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e991]
+                            - generic [ref=e992]: 交付中
+                          - img [ref=e995]
+                      - cell "高" [ref=e997]:
+                        - generic [ref=e998]: 高
+                      - cell "¥120,000.00 已花 ¥6,900.00 / 利润 ¥73,100.00" [ref=e999]:
+                        - generic [ref=e1001]:
+                          - strong [ref=e1002]: ¥120,000.00
+                          - generic [ref=e1003]: 已花 ¥6,900.00 / 利润 ¥73,100.00
+                      - cell "50% 50" [ref=e1004]:
+                        - generic [ref=e1006]:
+                          - generic [ref=e1007]: 50%
+                          - progressbar [ref=e1008]:
+                            - generic [ref=e1012]: 50%
+                      - cell "2026-03-28" [ref=e1013]:
+                        - generic [ref=e1014]: 2026-03-28
+                      - cell "详情 编辑 删除" [ref=e1015]:
+                        - generic [ref=e1018]:
+                          - button "详情" [ref=e1020] [cursor=pointer]:
+                            - generic [ref=e1021]: 详情
+                          - button "编辑" [ref=e1023] [cursor=pointer]:
+                            - generic [ref=e1024]: 编辑
+                          - button "删除" [ref=e1026] [cursor=pointer]:
+                            - generic [ref=e1027]: 删除
+                    - row "客服工单 SaaS 北辰数据 张敏 进行中 高 ¥180,000.00 已花 ¥12,000.00 / 利润 ¥48,000.00 50% 50 2026-04-30 详情 编辑 删除" [ref=e1028]:
+                      - cell "客服工单 SaaS" [ref=e1029]:
+                        - generic [ref=e1030]: 客服工单 SaaS
+                      - cell "北辰数据" [ref=e1031]:
+                        - generic [ref=e1032]: 北辰数据
+                      - cell "张敏" [ref=e1033]:
+                        - generic [ref=e1034]: 张敏
+                      - cell "进行中" [ref=e1035]:
+                        - generic [ref=e1038] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e1040]
+                            - generic [ref=e1041]: 进行中
+                          - img [ref=e1044]
+                      - cell "高" [ref=e1046]:
+                        - generic [ref=e1047]: 高
+                      - cell "¥180,000.00 已花 ¥12,000.00 / 利润 ¥48,000.00" [ref=e1048]:
+                        - generic [ref=e1050]:
+                          - strong [ref=e1051]: ¥180,000.00
+                          - generic [ref=e1052]: 已花 ¥12,000.00 / 利润 ¥48,000.00
+                      - cell "50% 50" [ref=e1053]:
+                        - generic [ref=e1055]:
+                          - generic [ref=e1056]: 50%
+                          - progressbar [ref=e1057]:
+                            - generic [ref=e1061]: 50%
+                      - cell "2026-04-30" [ref=e1062]:
+                        - generic [ref=e1063]: 2026-04-30
+                      - cell "详情 编辑 删除" [ref=e1064]:
+                        - generic [ref=e1067]:
+                          - button "详情" [ref=e1069] [cursor=pointer]:
+                            - generic [ref=e1070]: 详情
+                          - button "编辑" [ref=e1072] [cursor=pointer]:
+                            - generic [ref=e1073]: 编辑
+                          - button "删除" [ref=e1075] [cursor=pointer]:
+                            - generic [ref=e1076]: 删除
+                    - row "财务 BI 看板 内部产品线 王越 规划中 中 ¥90,000.00 已花 ¥100.00 / 利润 ¥16,700.00 0% 0 2026-05-20 详情 编辑 删除" [ref=e1077]:
+                      - cell "财务 BI 看板" [ref=e1078]:
+                        - generic [ref=e1079]: 财务 BI 看板
+                      - cell "内部产品线" [ref=e1080]:
+                        - generic [ref=e1081]: 内部产品线
+                      - cell "王越" [ref=e1082]:
+                        - generic [ref=e1083]: 王越
+                      - cell "规划中" [ref=e1084]:
+                        - generic [ref=e1087] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e1089]
+                            - generic [ref=e1090]: 规划中
+                          - img [ref=e1093]
+                      - cell "中" [ref=e1095]:
+                        - generic [ref=e1096]: 中
+                      - cell "¥90,000.00 已花 ¥100.00 / 利润 ¥16,700.00" [ref=e1097]:
+                        - generic [ref=e1099]:
+                          - strong [ref=e1100]: ¥90,000.00
+                          - generic [ref=e1101]: 已花 ¥100.00 / 利润 ¥16,700.00
+                      - cell "0% 0" [ref=e1102]:
+                        - generic [ref=e1104]:
+                          - generic [ref=e1105]: 0%
+                          - progressbar [ref=e1106]:
+                            - generic [ref=e1109]: 0%
+                      - cell "2026-05-20" [ref=e1110]:
+                        - generic [ref=e1111]: 2026-05-20
+                      - cell "详情 编辑 删除" [ref=e1112]:
+                        - generic [ref=e1115]:
+                          - button "详情" [ref=e1117] [cursor=pointer]:
+                            - generic [ref=e1118]: 详情
+                          - button "编辑" [ref=e1120] [cursor=pointer]:
+                            - generic [ref=e1121]: 编辑
+                          - button "删除" [ref=e1123] [cursor=pointer]:
+                            - generic [ref=e1124]: 删除

@@ -1,0 +1,113 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="alert alert-info" style="margin-bottom:20px;">
+        保存后可以回到列表页点“测试连接”，确认接口可用，再去 AI 工作台直接使用。
+    </div>
+
+    <div class="alert alert-warning" style="margin-bottom:20px;">
+        如果你填的是阿里云地址，请确认它是百炼兼容模式地址，而不是 Coding Plan / Coding Agent 专用地址。
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">供应商预设</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="btn-group" data-role="provider-presets">
+                <button type="button" class="btn btn-default" data-provider-preset="aliyun">阿里云百炼</button>
+                <button type="button" class="btn btn-default" data-provider-preset="openai">OpenAI</button>
+                <button type="button" class="btn btn-default" data-provider-preset="deepseek">DeepSeek</button>
+                <button type="button" class="btn btn-default" data-provider-preset="gateway">通用网关</button>
+            </div>
+            <p class="help-block">点一下会自动填充供应商名称、Base URL 和推荐模型示例。</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Provider_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-provider_name" data-rule="required" class="form-control" name="row[provider_name]" type="text" value="{$row.provider_name|htmlentities}" placeholder="例如：OpenAI / 阿里云百炼 / 通用兼容网关">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Base_url')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-base_url" data-rule="required" class="form-control" name="row[base_url]" type="text" value="{$row.base_url|htmlentities}" placeholder="例如：https://api.openai.com/v1">
+            <p class="help-block" id="ai-base-url-warning">常见写法：https://api.openai.com/v1、https://dashscope.aliyuncs.com/compatible-mode/v1、https://api.deepseek.com/v1</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Api_key')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-api_key" data-rule="required" class="form-control" name="row[api_key]" type="password" value="{$row.api_key|htmlentities}" autocomplete="new-password">
+            <p class="help-block">如果更换了供应商、网关或模型，建议一起更新 API Key 和模型名称。</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">模型探测</label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="button" class="btn btn-info" data-action="discover-models">识别协议并加载模型</button>
+            <p class="help-block">填写 Base URL 和 API Key 后，可以自动探测协议，并拉取可用模型列表。</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Model')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-model" data-rule="required" class="form-control" name="row[model]" type="text" value="{$row.model|htmlentities}" placeholder="例如：gpt-5.4 / qwen-plus / deepseek-chat / gpt-4o">
+            <p class="help-block" id="ai-model-hint">阿里云百炼常见模型：qwen-plus、qwen-max、qwen-turbo。</p>
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none;">
+        <label class="control-label col-xs-12 col-sm-2">已发现模型</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-detected-models" class="form-control">
+                <option value="">从检测结果中选择模型</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none;">
+        <label class="control-label col-xs-12 col-sm-2">检测结果</label>
+        <div class="col-xs-12 col-sm-8">
+            <div id="ai-discovery-result" class="alert" style="margin-bottom:0;"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Temperature')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-temperature" data-rule="required" class="form-control" step="0.01" name="row[temperature]" type="number" value="{$row.temperature|htmlentities}">
+            <p class="help-block">经营分析建议保持在 <code>0.1 - 0.4</code>，结果会更稳定。</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">连接选项</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="checkbox" style="margin-top:0;">
+                <label>
+                    <input type="checkbox" id="c-skip_ssl_verify"> 跳过 SSL 证书校验（仅测试环境）
+                </label>
+            </div>
+            <p class="help-block">如果当前机器报 SSL 证书错误，可以临时开启。正式环境建议补齐 CA 证书后关闭。</p>
+            <input id="c-workspace_json" name="row[workspace_json]" type="hidden" value="{$row.workspace_json|htmlentities}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('System_prompt')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-system_prompt" class="form-control" rows="6" name="row[system_prompt]" cols="50" placeholder="可选。例如：回答尽量简短，优先给今天能执行的动作。">{$row.system_prompt|htmlentities}</textarea>
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

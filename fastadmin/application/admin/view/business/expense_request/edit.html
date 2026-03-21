@@ -1,0 +1,110 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">申请编号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" type="text" value="{$row.request_no|htmlentities}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">当前状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" type="text" value="{$statusList[$row.status]|default=$row.status} / {$row.approval_status|default='none'}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">申请标题:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">关联供应商:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-supplier_id" class="form-control selectpicker" data-live-search="true" name="row[supplier_id]">
+                <option value="">请选择供应商</option>
+                {foreach name="supplierList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.supplier_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">关联合同:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-contract_id" class="form-control selectpicker" data-live-search="true" name="row[contract_id]">
+                <option value="">请选择合同</option>
+                {foreach name="contractList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.contract_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">所属客户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-customer_id" class="form-control selectpicker" data-live-search="true" name="row[customer_id]">
+                <option value="">请选择客户</option>
+                {foreach name="customerList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.customer_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">费用类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-expense_type" data-rule="required" class="form-control selectpicker" name="row[expense_type]">
+                {foreach name="expenseTypeList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.expense_type" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">申请金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-request_amount" data-rule="required" class="form-control" step="0.01" name="row[request_amount]" type="number" value="{$row.request_amount|default='0.00'}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">申请时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-requested_at" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="false" name="row[requested_at]" type="text" value="{$row.requested_at|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">计划付款日期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-expected_pay_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="false" name="row[expected_pay_date]" type="text" value="{$row.expected_pay_date|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">负责人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-owner_admin_id" data-rule="required" class="form-control selectpicker" data-live-search="true" name="row[owner_admin_id]">
+                <option value="">请选择</option>
+                {foreach name="ownerList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.owner_admin_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">申请说明:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-reason" data-rule="required" class="form-control" rows="4" name="row[reason]">{$row.reason|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]">{$row.notes|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,300 @@
+<style>
+    .wb-page {
+        padding: 18px;
+        background: #f5f7fa;
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel {
+        background: #fff;
+        border: 1px solid #e8eef5;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(31, 45, 61, 0.05);
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel {
+        padding: 18px;
+    }
+
+    .wb-toolbar {
+        margin-bottom: 16px;
+    }
+
+    .wb-toolbar h2,
+    .wb-panel h3 {
+        margin: 0 0 8px;
+        color: #1f2d3d;
+    }
+
+    .wb-toolbar p,
+    .wb-user-tip,
+    .wb-card p {
+        margin: 0;
+        color: #6b7b8d;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .wb-toolbar-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .wb-user-card {
+        min-width: 260px;
+        padding: 14px 16px;
+        border-radius: 10px;
+        background: #f8fbff;
+        border: 1px solid #dfeaf5;
+    }
+
+    .wb-user-name {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #1f2d3d;
+    }
+
+    .wb-user-meta {
+        margin-top: 6px;
+        color: #52616b;
+        font-size: 13px;
+    }
+
+    .wb-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .wb-card-grid,
+    .wb-panel-grid {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .wb-card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .wb-panel-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .wb-card-value {
+        font-size: 30px;
+        font-weight: 700;
+        color: #3c8dbc;
+        margin-bottom: 8px;
+    }
+
+    .wb-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .wb-table th,
+    .wb-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #edf2f7;
+        font-size: 12px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .wb-table th {
+        color: #7b8794;
+        font-weight: 600;
+    }
+
+    .wb-table tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .wb-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #f0f6ff;
+        color: #3c8dbc;
+        font-size: 12px;
+    }
+
+    @media (max-width: 960px) {
+        .wb-page {
+            padding: 12px;
+        }
+
+        .wb-toolbar,
+        .wb-card,
+        .wb-panel {
+            padding: 16px;
+        }
+    }
+</style>
+
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        <div class="panel-lead"><em>客户与采购工作台</em> 先跟进我的客户，再推进采购、审批和付款申请。</div>
+    </div>
+    <div class="panel-body">
+        <div class="wb-page">
+            <div class="wb-toolbar">
+                <div class="wb-toolbar-header">
+                    <div>
+                        <h2>客户与采购工作台</h2>
+                        <p>把客户、合同、采购、审批和付款申请收在一个入口里，先处理当前登录人最该推进的事项。</p>
+                    </div>
+                    <div class="wb-user-card">
+                        <div class="wb-user-name">{$currentUser.name}</div>
+                        <div class="wb-user-meta">{$currentUser.title} · {$currentUser.department}</div>
+                        <div class="wb-user-tip">{$currentUser.guide}</div>
+                    </div>
+                </div>
+                <div class="wb-actions">
+                    {foreach name="quickActions" item="action"}
+                    <a href="{$action.url}" class="btn btn-primary addtabsit"><i class="{$action.icon}"></i> {$action.title}</a>
+                    {/foreach}
+                </div>
+            </div>
+
+            <div class="wb-card-grid">
+                {foreach name="summaryCards" item="card"}
+                <div class="wb-card">
+                    <div class="wb-card-value">{$card.value}</div>
+                    <h3>{$card.title}</h3>
+                    <p>{$card.hint}</p>
+                    <a href="{$card.url}" class="btn btn-default addtabsit">立即进入</a>
+                </div>
+                {/foreach}
+            </div>
+
+            <div class="wb-panel-grid">
+                <div class="wb-panel">
+                    <h3>我的客户</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>客户</th>
+                            <th>行业</th>
+                            <th>阶段</th>
+                            <th>负责人</th>
+                            <th>最近跟进</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myCustomers" id="row"}
+                        <tr>
+                            <td><a href="{:url('business/customer/edit', ['ids' => $row.id])}" class="addtabsit">{$row.company_name}</a></td>
+                            <td>{$row.industry|default='-'}</td>
+                            <td><span class="wb-tag">{$row.stage_text}</span></td>
+                            <td>{$row.owner|default='-'}</td>
+                            <td>{$row.last_follow_up_at|default='未跟进'}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($myCustomers)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有需要跟进的客户</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="wb-panel">
+                    <h3>我的采购单</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>采购单</th>
+                            <th>供应商</th>
+                            <th>金额</th>
+                            <th>状态</th>
+                            <th>下单时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myPurchaseOrders" id="row"}
+                        <tr>
+                            <td><a href="{:url('business/purchase_order/edit', ['ids' => $row.id])}" class="addtabsit">{$row.title}</a></td>
+                            <td>{$row.supplier_name|default='-'}</td>
+                            <td>{$row.amount_text}</td>
+                            <td><span class="wb-tag">{$row.status_text}</span></td>
+                            <td>{$row.ordered_at|default=''}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($myPurchaseOrders)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有需要推进的采购单</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="wb-panel-grid">
+                <div class="wb-panel">
+                    <h3>待我审批</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>审批单</th>
+                            <th>业务类型</th>
+                            <th>当前节点</th>
+                            <th>发起人</th>
+                            <th>提交时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myApprovals" id="row"}
+                        <tr>
+                            <td><a href="{:url('business/approval/index')}" class="addtabsit">{$row.object_title}</a></td>
+                            <td>{$row.type_text}</td>
+                            <td>{$row.current_step_name|default='-'}</td>
+                            <td>{$row.applicant_name|default='-'}</td>
+                            <td>{$row.applied_at|default=''}</td>
+                        </tr>
+                        {/volist}
+                        {if empty($myApprovals)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有待我审批的事项</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="wb-panel">
+                    <h3>我的付款申请</h3>
+                    <table class="wb-table">
+                        <thead>
+                        <tr>
+                            <th>申请单</th>
+                            <th>结算标题</th>
+                            <th>金额</th>
+                            <th>负责人</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="myPaymentRequests" id="row"}
+                        <tr>
+                            <td><a href="{:url('business/payment_request/index')}" class="addtabsit">{$row.request_no}</a></td>
+                            <td>{$row.settlement_title|default='未关联结算'}</td>
+                            <td>{$row.amount_text}</td>
+                            <td>{$row.owner|default='-'}</td>
+                            <td><span class="wb-tag">{$row.status_text}</span></td>
+                        </tr>
+                        {/volist}
+                        {if empty($myPaymentRequests)}
+                        <tr><td colspan="5" class="text-center text-muted">当前没有付款申请待办</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

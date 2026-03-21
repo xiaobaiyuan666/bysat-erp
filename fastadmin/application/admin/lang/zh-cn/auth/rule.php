@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'Toggle all' => '显示全部',
+    'Condition' => '规则条件',
+    'Remark' => '备注',
+    'Icon' => '图标',
+    'Alert' => '提示',
+    'Name' => '规则名称',
+    'Controller/Action' => '控制器/方法',
+    'Ismenu' => '是否菜单',
+    'Menutype' => '菜单类型',
+    'Addtabs' => '选项卡打开',
+    'Dialog' => '弹窗打开',
+    'Ajax' => 'Ajax 请求',
+    'Blank' => '新窗口打开',
+    'Extend' => '扩展属性',
+    'Search icon' => '搜索图标',
+    'Toggle menu visible' => '点击切换菜单显示',
+    'Toggle sub menu' => '点击切换子菜单',
+    'Menu tips' => '父级菜单可以不填写控制器和方法，子级菜单请填写实际访问地址',
+    'Node tips' => '控制器/方法格式示例：目录名/控制器名/方法名',
+    'Url tips' => '通常留空即可，如需填写外部链接或相对链接可在这里输入',
+    'The non-menu rule must have parent' => '非菜单规则必须设置父级节点',
+    'Can not change the parent to child' => '父级节点不能设置为自己的子级',
+    'Can not change the parent to self' => '父级节点不能设置为自己',
+    'Name only supports letters, numbers, underscore and slash' => '规则地址只能包含小写字母、数字、下划线和斜杠',
+];

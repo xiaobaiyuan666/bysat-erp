@@ -1,0 +1,113 @@
+*   Trying 127.0.0.1:8091...
+* Established connection to 127.0.0.1 (127.0.0.1 port 8091) from 127.0.0.1 port 58955 
+* using HTTP/1.x
+=> Send header, 226 bytes (0xe2)
+0000: POST /MWDObBuRlr.php/index/login HTTP/1.1
+002b: Host: 127.0.0.1:8091
+0041: User-Agent: curl/8.18.0
+005a: Accept: */*
+0067: Cookie: PHPSESSID=3c009f9c579cfaa24e7d2940f759f576
+009b: Content-Length: 58
+00af: Content-Type: application/x-www-form-urlencoded
+00e0: 
+=> Send data, 58 bytes (0x3a)
+0000: username=admin&password=Admin%40123&keeplogin=1&__token__=
+* upload completely sent off: 58 bytes
+<= Recv header, 17 bytes (0x11)
+0000: HTTP/1.1 200 OK
+<= Recv header, 22 bytes (0x16)
+0000: Host: 127.0.0.1:8091
+<= Recv header, 37 bytes (0x25)
+0000: Date: Fri, 20 Mar 2026 13:26:42 GMT
+<= Recv header, 19 bytes (0x13)
+0000: Connection: close
+<= Recv header, 26 bytes (0x1a)
+0000: X-Powered-By: PHP/8.4.16
+<= Recv header, 40 bytes (0x28)
+0000: Expires: Thu, 19 Nov 1981 08:52:00 GMT
+<= Recv header, 52 bytes (0x34)
+0000: Cache-Control: no-store, no-cache, must-revalidate
+<= Recv header, 18 bytes (0x12)
+0000: Pragma: no-cache
+<= Recv header, 39 bytes (0x27)
+0000: Content-Type:text/html; charset=utf-8
+<= Recv header, 2 bytes (0x2)
+0000: 
+<= Recv data, 3037 bytes (0xbdd)
+0000: <!DOCTYPE html>
+0011: <html>
+0019: <head>
+0021:     <meta http-equiv="Content-Type" content="text/html; charset=
+0061: utf-8" />
+006c:     <title>............</title>
+008d:     <meta name="viewport" content="width=device-width, initial-s
+00cd: cale=1.0">
+00d9:     <link rel="shortcut icon" href="/assets/img/favicon.ico" />
+011a:     <style type="text/css">
+0137:         *{box-sizing:border-box;margin:0;padding:0;font-family:L
+0177: antinghei SC,Open Sans,Arial,Hiragino Sans GB,Microsoft YaHei,".
+01b7: ...........",STHeiti,WenQuanYi Micro Hei,SimSun,sans-serif;-webk
+01f7: it-font-smoothing:antialiased}
+0217:         body{padding:70px 50px;background:#f4f6f8;font-weight:40
+0257: 0;font-size:1pc;-webkit-text-size-adjust:none;color:#333}
+0292:         a{outline:0;color:#3498db;text-decoration:none;cursor:po
+02d2: inter}
+02da:         .system-message{margin:20px auto;padding:50px 0px;backgr
+031a: ound:#fff;box-shadow:0 0 30px hsla(0,0%,39%,.06);text-align:cent
+035a: er;width:100%;border-radius:2px;}
+037d:         .system-message h1{margin:0;margin-bottom:9pt;color:#444
+03bd: ;font-weight:400;font-size:30px}
+03df:         .system-message .jump,.system-message .image{margin:20px
+041f:  0;padding:0;padding:10px 0;font-weight:400}
+044d:         .system-message .jump{font-size:14px}
+047c:         .system-message .jump a{color:#333}
+04a9:         .system-message p{font-size:9pt;line-height:20px}
+04e4:         .system-message .btn{display:inline-block;margin-right:1
+0524: 0px;width:138px;height:2pc;border:1px solid #44a0e8;border-radiu
+0564: s:30px;color:#44a0e8;text-align:center;font-size:1pc;line-height
+05a4: :2pc;margin-bottom:5px;}
+05be:         .success .btn{border-color:#69bf4e;color:#69bf4e}
+05f9:         .error .btn{border-color:#ff8992;color:#ff8992}
+0632:         .info .btn{border-color:#3498db;color:#3498db}
+066a:         .copyright p{width:100%;color:#919191;text-align:center;
+06aa: font-size:10px}
+06bb:         .system-message .btn-grey{border-color:#bbb;color:#bbb}
+06fc:         .clearfix:after{clear:both;display:block;visibility:hidd
+073c: en;height:0;content:"."}
+0756:         @media (max-width:768px){body {padding:20px;}}
+078e:         @media (max-width:480px){.system-message h1{font-size:30
+07ce: px;}}
+07d5:     </style>
+07e3: </head>
+07ec: <body>
+07f4: <div class="system-message error">
+0818:     <div class="image">
+0831:         <img src="/assets/img/error.svg" alt="" width="120" />
+0871:     </div>
+087d:     <h1>__token__............</h1>
+08a1:             <p class="jump">
+08bf:             ............ <span id="wait">3</span> ..............
+08ff: ....        </p>
+0911:         <p class="clearfix">
+092f:         <a href="/" class="btn btn-grey">............</a>
+096a:                     <a id="href" href="/MWDObBuRlr.php/index/ind
+09aa: ex" class="btn btn-primary">............</a>
+09d8:             </p>
+09ea: </div>
+09f2:     <script type="text/javascript">
+0a17:         (function () {
+0a2f:             var wait = document.getElementById('wait'),
+0a68:                 href = document.getElementById('href').href;
+0aa6:             var interval = setInterval(function () {
+0adc:                 var time = --wait.innerHTML;
+0b0a:                 if (time <= 0) {
+0b2c:                     location.href = href;
+0b57:                     clearInterval(interval);
+0b85:                 }
+0b98:             }, 1000);
+0baf:         })();
+0bbe:     </script>
+0bcd: </body>
+0bd6: </html>
+<= Recv data, 0 bytes (0x0)
+* shutting down connection #0

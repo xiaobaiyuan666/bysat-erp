@@ -1,0 +1,5 @@
+storage/app-data.json
+storage/*.tmp
+storage/*.log
+public/uploads/*
+!public/uploads/.gitkeep

@@ -1,0 +1,84 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="alert alert-info-light">
+        可以从 AI 工作台先带一版任务草稿过来，再补所属项目、执行人和工时安排。
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">所属项目:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-project_id" data-rule="required" class="form-control selectpicker" name="row[project_id]" data-live-search="true">
+                <option value="">请选择项目</option>
+                {foreach name="projectList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.project_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">任务标题:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$defaultRow.title|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">执行人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-assignee_admin_id" data-rule="required" class="form-control selectpicker" name="row[assignee_admin_id]" data-live-search="true">
+                <option value="">请选择执行人</option>
+                {foreach name="assigneeList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.assignee_admin_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">任务状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="radio">
+            {foreach name="statusList" item="vo" key="key"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {eq name="defaultRow.status" value="$key"}checked{/eq} /> {$vo}</label>
+            {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">优先级:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-priority" data-rule="required" class="form-control selectpicker" name="row[priority]">
+                {foreach name="priorityList" item="vo" key="key"}
+                <option value="{$key}" {eq name="defaultRow.priority" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">截止日期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-due_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[due_date]" type="text" value="{$defaultRow.due_date|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">预估工时:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-estimate_hours" data-rule="required" class="form-control" step="0.01" name="row[estimate_hours]" type="number" value="{$defaultRow.estimate_hours|default='0.00'}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">实际工时:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-actual_hours" data-rule="required" class="form-control" step="0.01" name="row[actual_hours]" type="number" value="{$defaultRow.actual_hours|default='0.00'}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">任务说明:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="6" name="row[notes]" cols="50">{$defaultRow.notes|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

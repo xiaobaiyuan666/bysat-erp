@@ -1,0 +1,385 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - link "My Website" [ref=e4] [cursor=pointer]:
+      - /url: javascript:;
+      - generic [ref=e5]: My Website
+    - navigation [ref=e6]:
+      - generic [ref=e7]:
+        - button " Toggle navigation" [ref=e8] [cursor=pointer]:
+          - text: 
+          - generic [ref=e9]: Toggle navigation
+        - tablist [ref=e10]:
+          - tab " 控制台" [ref=e11] [cursor=pointer]:
+            - generic [ref=e12]: 
+            - text: 控制台
+          - tab " 财务流水" [ref=e13]:
+            - generic [ref=e14]: 
+            - text: 财务流水
+          - text: 
+        - list [ref=e16]:
+          - listitem [ref=e17]:
+            - link " 主页" [ref=e18] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e19]: 
+              - text: 主页
+          - listitem [ref=e20]:
+            - link " 清除缓存" [ref=e21] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e22]: 
+              - text: 清除缓存
+            - text:      
+          - listitem [ref=e23]:
+            - link "" [ref=e24] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e25]: 
+          - listitem [ref=e26]:
+            - link "陈总" [ref=e27] [cursor=pointer]:
+              - /url: "#"
+            - text:    
+          - listitem [ref=e28]:
+            - link "" [ref=e29] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e30]: 
+  - complementary [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - link [ref=e35] [cursor=pointer]:
+          - /url: general/profile
+          - img [ref=e36]
+        - generic [ref=e37]:
+          - paragraph [ref=e38]: 陈总
+          - generic [ref=e39]: 
+          - text: 在线
+      - generic [ref=e41]:
+        - textbox "搜索菜单" [ref=e42]
+        - button "" [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]: 
+      - list [ref=e46]:
+        - listitem [ref=e47]:
+          - link " 控制台 hot" [ref=e48] [cursor=pointer]:
+            - /url: /MWDObBuRlr.php/dashboard?ref=addtabs
+            - generic [ref=e49]: 
+            - text: 控制台
+            - generic [ref=e51]: hot
+        - listitem [ref=e52]:
+          - link " 常规管理 " [ref=e53] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e54]: 
+            - text: 常规管理
+            - generic [ref=e56]: 
+          - text:   
+        - listitem [ref=e57]:
+          - link " 插件管理 new" [ref=e58] [cursor=pointer]:
+            - /url: /MWDObBuRlr.php/addon?ref=addtabs
+            - generic [ref=e59]: 
+            - text: 插件管理
+            - generic [ref=e61]: new
+        - listitem [ref=e62]:
+          - link " 会员管理 " [ref=e63] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e64]: 
+            - text: 会员管理
+            - generic [ref=e66]: 
+          - text:   
+        - listitem [ref=e67]:
+          - link " 财务中心 " [ref=e68] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e69]: 
+            - text: 财务中心
+            - generic [ref=e71]: 
+          - text:  
+        - listitem [ref=e72]:
+          - link " 项目交付 " [ref=e73] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e74]: 
+            - text: 项目交付
+            - generic [ref=e76]: 
+          - text:  
+        - listitem [ref=e77]:
+          - link " APP运营 " [ref=e78] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e79]: 
+            - text: APP运营
+            - generic [ref=e81]: 
+          - text:        
+        - listitem [ref=e82]:
+          - link " 人员与权限 " [ref=e83] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e84]: 
+            - text: 人员与权限
+            - generic [ref=e86]: 
+          - text:      
+        - listitem [ref=e87]:
+          - link " AI助手 " [ref=e88] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e89]: 
+            - text: AI助手
+            - generic [ref=e91]: 
+          - text:  
+  - tabpanel [ref=e93]:
+    - iframe [ref=e94]:
+      - main [ref=f5e2]:
+        - generic [ref=f5e13]:
+          - text: "-"
+          - generic [ref=f5e14]:
+            - generic [ref=f5e16]:
+              - link "" [ref=f5e17] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=f5e18]: 
+              - link " 添加" [ref=f5e19] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=f5e20]: 
+                - text: 添加
+              - link " 编辑":
+                - /url: javascript:;
+                - generic: 
+                - text: 编辑
+              - link " 删除":
+                - /url: javascript:;
+                - generic: 
+                - text: 删除
+              - text: 
+            - button "" [ref=f5e22] [cursor=pointer]:
+              - generic [ref=f5e23]: 
+            - generic [ref=f5e24]:
+              - button "toggle" [ref=f5e25] [cursor=pointer]:
+                - generic [ref=f5e26]: 
+              - generic "列" [ref=f5e27]:
+                - button "columns" [ref=f5e28] [cursor=pointer]:
+                  - generic [ref=f5e29]: 
+              - button "export type" [ref=f5e32] [cursor=pointer]:
+                - generic [ref=f5e33]: 
+            - textbox "搜索" [ref=f5e36]
+          - generic [ref=f5e37]:
+            - generic [ref=f5e38]:
+              - generic [ref=f5e39]: 正在努力地加载数据中，请稍候……
+              - table [ref=f5e40]:
+                - rowgroup [ref=f5e41]:
+                  - row "Id 旧系统ID 记账日期 收支类型 科目分类 往来对象 金额 支付方式 项目旧ID 关联项目 业务创建时间 业务更新时间 创建人旧ID 创建人后台账号 创建人 更新人旧ID 更新人后台账号 更新人 创建时间 更新时间 操作" [ref=f5e42]:
+                    - columnheader [ref=f5e43]:
+                      - checkbox [ref=f5e45]
+                    - columnheader "Id" [ref=f5e46]:
+                      - generic [ref=f5e47]: Id
+                    - columnheader "旧系统ID" [ref=f5e48]:
+                      - generic [ref=f5e49]: 旧系统ID
+                    - columnheader "记账日期" [ref=f5e50]:
+                      - generic [ref=f5e51]: 记账日期
+                    - columnheader "收支类型" [ref=f5e52]:
+                      - generic [ref=f5e53]: 收支类型
+                    - columnheader "科目分类" [ref=f5e54]:
+                      - generic [ref=f5e55]: 科目分类
+                    - columnheader "往来对象" [ref=f5e56]:
+                      - generic [ref=f5e57]: 往来对象
+                    - columnheader "金额" [ref=f5e58]:
+                      - generic [ref=f5e59]: 金额
+                    - columnheader "支付方式" [ref=f5e60]:
+                      - generic [ref=f5e61]: 支付方式
+                    - columnheader "项目旧ID" [ref=f5e62]:
+                      - generic [ref=f5e63]: 项目旧ID
+                    - columnheader "关联项目" [ref=f5e64]:
+                      - generic [ref=f5e65]: 关联项目
+                    - columnheader "业务创建时间" [ref=f5e66]:
+                      - generic [ref=f5e67]: 业务创建时间
+                    - columnheader "业务更新时间" [ref=f5e68]:
+                      - generic [ref=f5e69]: 业务更新时间
+                    - columnheader "创建人旧ID" [ref=f5e70]:
+                      - generic [ref=f5e71]: 创建人旧ID
+                    - columnheader "创建人后台账号" [ref=f5e72]:
+                      - generic [ref=f5e73]: 创建人后台账号
+                    - columnheader "创建人" [ref=f5e74]:
+                      - generic [ref=f5e75]: 创建人
+                    - columnheader "更新人旧ID" [ref=f5e76]:
+                      - generic [ref=f5e77]: 更新人旧ID
+                    - columnheader "更新人后台账号" [ref=f5e78]:
+                      - generic [ref=f5e79]: 更新人后台账号
+                    - columnheader "更新人" [ref=f5e80]:
+                      - generic [ref=f5e81]: 更新人
+                    - columnheader "创建时间" [ref=f5e82]:
+                      - generic [ref=f5e83]: 创建时间
+                    - columnheader "更新时间" [ref=f5e84]:
+                      - generic [ref=f5e85]: 更新时间
+                    - columnheader "操作" [ref=f5e86]:
+                      - generic [ref=f5e87]: 操作
+                - rowgroup [ref=f5e88]:
+                  - row "没有找到匹配的记录" [ref=f5e89]:
+                    - cell "没有找到匹配的记录" [ref=f5e90]
+            - table [ref=f5e93]:
+              - rowgroup [ref=f5e94]:
+                - row "Id 旧系统ID 记账日期 收支类型 科目分类 往来对象 金额 支付方式 项目旧ID 关联项目 业务创建时间 业务更新时间 创建人旧ID 创建人后台账号 创建人 更新人旧ID 更新人后台账号 更新人 创建时间 更新时间 操作" [ref=f5e95]:
+                  - columnheader [ref=f5e96]:
+                    - checkbox [ref=f5e98]
+                  - columnheader "Id" [ref=f5e99]:
+                    - generic [ref=f5e100]: Id
+                  - columnheader "旧系统ID" [ref=f5e101]:
+                    - generic [ref=f5e102]: 旧系统ID
+                  - columnheader "记账日期" [ref=f5e103]:
+                    - generic [ref=f5e104]: 记账日期
+                  - columnheader "收支类型" [ref=f5e105]:
+                    - generic [ref=f5e106]: 收支类型
+                  - columnheader "科目分类" [ref=f5e107]:
+                    - generic [ref=f5e108]: 科目分类
+                  - columnheader "往来对象" [ref=f5e109]:
+                    - generic [ref=f5e110]: 往来对象
+                  - columnheader "金额" [ref=f5e111]:
+                    - generic [ref=f5e112]: 金额
+                  - columnheader "支付方式" [ref=f5e113]:
+                    - generic [ref=f5e114]: 支付方式
+                  - columnheader "项目旧ID" [ref=f5e115]:
+                    - generic [ref=f5e116]: 项目旧ID
+                  - columnheader "关联项目" [ref=f5e117]:
+                    - generic [ref=f5e118]: 关联项目
+                  - columnheader "业务创建时间" [ref=f5e119]:
+                    - generic [ref=f5e120]: 业务创建时间
+                  - columnheader "业务更新时间" [ref=f5e121]:
+                    - generic [ref=f5e122]: 业务更新时间
+                  - columnheader "创建人旧ID" [ref=f5e123]:
+                    - generic [ref=f5e124]: 创建人旧ID
+                  - columnheader "创建人后台账号" [ref=f5e125]:
+                    - generic [ref=f5e126]: 创建人后台账号
+                  - columnheader "创建人" [ref=f5e127]:
+                    - generic [ref=f5e128]: 创建人
+                  - columnheader "更新人旧ID" [ref=f5e129]:
+                    - generic [ref=f5e130]: 更新人旧ID
+                  - columnheader "更新人后台账号" [ref=f5e131]:
+                    - generic [ref=f5e132]: 更新人后台账号
+                  - columnheader "更新人" [ref=f5e133]:
+                    - generic [ref=f5e134]: 更新人
+                  - columnheader "创建时间" [ref=f5e135]:
+                    - generic [ref=f5e136]: 创建时间
+                  - columnheader "更新时间" [ref=f5e137]:
+                    - generic [ref=f5e138]: 更新时间
+                  - columnheader "操作" [ref=f5e139]:
+                    - generic [ref=f5e140]: 操作
+              - rowgroup [ref=f5e141]:
+                - row "没有找到匹配的记录" [ref=f5e142]:
+                  - cell "没有找到匹配的记录" [ref=f5e143]
+  - complementary [ref=e96]:
+    - list [ref=e97]:
+      - listitem [ref=e98]:
+        - link "" [expanded] [ref=e99]:
+          - /url: "#control-sidebar-setting-tab"
+          - generic [ref=e100]: 
+      - listitem [ref=e101]:
+        - link "" [ref=e102] [cursor=pointer]:
+          - /url: "#control-sidebar-home-tab"
+          - generic [ref=e103]: 
+      - listitem [ref=e104]:
+        - link "" [ref=e105] [cursor=pointer]:
+          - /url: "#control-sidebar-settings-tab"
+          - generic [ref=e106]: 
+    - generic [ref=e108]:
+      - heading "布局设定" [level=4] [ref=e109]
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - checkbox "简洁导航模式" [ref=e112]
+          - text: 简洁导航模式
+        - paragraph [ref=e113]: 启用后顶部导航将不再显示，同时每次点击菜单都会刷新右侧内容
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - checkbox "多级菜单导航" [ref=e116]
+          - text: 多级菜单导航
+        - paragraph [ref=e117]: 切换顶部菜单为多级菜单导航模式
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - checkbox "多选项卡" [checked] [disabled] [ref=e120]
+          - text: 多选项卡
+        - paragraph [ref=e121]: 当配置为多级菜单导航时是否启用多选项卡
+      - generic [ref=e122]:
+        - generic [ref=e123]:
+          - checkbox "收起菜单栏" [ref=e124]
+          - text: 收起菜单栏
+        - paragraph [ref=e125]: 切换菜单栏的展开或收起
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - checkbox "菜单栏自动展开" [ref=e128]
+          - text: 菜单栏自动展开
+        - paragraph [ref=e129]: 鼠标移到菜单栏自动展开
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - checkbox "显示菜单栏子菜单" [ref=e132]
+          - text: 显示菜单栏子菜单
+        - paragraph [ref=e133]: 菜单栏子菜单将始终显示
+      - generic [ref=e134]:
+        - generic [ref=e135]:
+          - checkbox "切换右侧操作栏" [ref=e136]
+          - text: 切换右侧操作栏
+        - paragraph [ref=e137]: 切换右侧操作栏覆盖或独占
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - checkbox "切换右侧操作栏背景" [ref=e140]
+          - text: 切换右侧操作栏背景
+        - paragraph [ref=e141]: 将右侧操作栏背景亮色或深色切换
+      - heading "皮肤" [level=4] [ref=e142]
+      - list [ref=e143]:
+        - listitem [ref=e144]:
+          - link [ref=e145] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e148]: Blue
+        - listitem [ref=e149]:
+          - link [ref=e150] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e153]: Black
+        - listitem [ref=e154]:
+          - link [ref=e155] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e158]: Purple
+        - listitem [ref=e159]:
+          - link [ref=e160] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e165]: Green
+        - listitem [ref=e166]:
+          - link [ref=e167] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e172]: Red
+        - listitem [ref=e173]:
+          - link [ref=e174] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e179]: Yellow
+        - listitem [ref=e180]:
+          - link [ref=e181] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e184]: Blue Light
+        - listitem [ref=e185]:
+          - link [ref=e186] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e189]: Black Light
+        - listitem [ref=e190]:
+          - link [ref=e191] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e194]: Purple Light
+        - listitem [ref=e195]:
+          - link [ref=e196] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e199]: Green Light
+        - listitem [ref=e200]:
+          - link [ref=e201] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e204]: Red Light
+        - listitem [ref=e205]:
+          - link [ref=e206] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e209]: Yellow Light
+        - listitem [ref=e210]:
+          - link [ref=e211] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e215]: Black Blue
+        - listitem [ref=e216]:
+          - link [ref=e217] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e221]: Black Purple
+        - listitem [ref=e222]:
+          - link [ref=e223] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e227]: Black Green
+        - listitem [ref=e228]:
+          - link [ref=e229] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e233]: Black Red
+        - listitem [ref=e234]:
+          - link [ref=e235] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e239]: Black Yellow
+        - listitem [ref=e240]:
+          - link [ref=e241] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e245]: Black Pink

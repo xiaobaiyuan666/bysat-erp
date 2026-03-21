@@ -1,0 +1,81 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">所属项目:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-project_id" data-rule="required" class="form-control selectpicker" name="row[project_id]" data-live-search="true">
+                <option value="">请选择项目</option>
+                {foreach name="projectList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.project_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">执行人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-assignee_admin_id" data-rule="required" class="form-control selectpicker" name="row[assignee_admin_id]" data-live-search="true">
+                <option value="">请选择执行人</option>
+                {foreach name="assigneeList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.assignee_admin_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="radio">
+            {foreach name="statusList" item="vo"}
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="$row.status"}checked{/in} /> {$vo}</label>
+            {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Priority')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-priority" data-rule="required" class="form-control selectpicker" name="row[priority]">
+                {foreach name="priorityList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.priority"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Due_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-due_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[due_date]" type="text" value="{$row.due_date}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Estimate_hours')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-estimate_hours" data-rule="required" class="form-control" step="0.01" name="row[estimate_hours]" type="number" value="{$row.estimate_hours|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Actual_hours')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-actual_hours" data-rule="required" class="form-control" step="0.01" name="row[actual_hours]" type="number" value="{$row.actual_hours|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Notes')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="5" name="row[notes]" cols="50">{$row.notes|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

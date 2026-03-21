@@ -1,0 +1,613 @@
+- main [ref=e2]:
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - emphasis [ref=e11]: AI 工作台
+      - text: 结合财务、项目和 APP 运营数据快速追问。
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - strong [ref=e17]: 当前模型更偏完整推理
+          - generic [ref=e18]: 这条配置可以用，但如果你更在意 AI 工作台响应速度，建议先切到“openai/gpt-4.1-mini”。列表页已经支持一键切换推荐模型。
+          - button "去 AI 配置" [ref=e20] [cursor=pointer]
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - generic [ref=e25]: OpenAI Compatible / openai/gpt-5.2
+              - generic [ref=e26]: http://101.132.65.180/v1/chat/completions · 温度 0.2
+            - generic [ref=e27]: 默认模型
+          - generic [ref=e28]:
+            - generic [ref=e29]: 当前模型
+            - combobox [ref=e30]:
+              - option "默认模型"
+              - option "OpenAI Compatible / openai/gpt-5.2（默认）" [selected]
+          - generic [ref=e31]:
+            - link " AI 配置" [ref=e32] [cursor=pointer]:
+              - /url: /MWDObBuRlr.php/ai/setting/index
+              - generic [ref=e33]: 
+              - text: AI 配置
+            - link " 新增模型" [ref=e34] [cursor=pointer]:
+              - /url: /MWDObBuRlr.php/ai/setting/add
+              - generic [ref=e35]: 
+              - text: 新增模型
+          - list [ref=e36]:
+            - listitem [ref=e37]:
+              - strong [ref=e38]: FINANCE
+              - text: ：财务流水、应收应付、近期收支和逾期单据。
+            - listitem [ref=e39]:
+              - strong [ref=e40]: PROJECT
+              - text: ：项目台账、任务清单、逾期任务和负责人负荷。
+            - listitem [ref=e41]:
+              - strong [ref=e42]: APP
+              - text: ：APP 台账、问题记录、研发联动、版本发布和资料。
+            - listitem [ref=e43]:
+              - strong [ref=e44]: BUSINESS
+              - text: ：客户档案、合同、回款计划、付款计划、费用申请和审批中心。
+        - generic [ref=e46]:
+          - heading "分析视角" [level=4] [ref=e47]
+          - generic [ref=e48]: 把财务、项目、APP 运营和客户合同一起纳入分析。
+          - generic [ref=e49]:
+            - button "综合经营" [ref=e50] [cursor=pointer]
+            - button "财务" [ref=e51] [cursor=pointer]
+            - button "项目交付" [ref=e52] [cursor=pointer]
+            - button "APP 运营" [ref=e53] [cursor=pointer]
+            - button "客户与合同" [ref=e54] [cursor=pointer]
+        - generic [ref=e56]:
+          - heading "业务入口" [level=4] [ref=e57]
+          - generic [ref=e58]: 问完以后，可以直接回对应工作台继续处理。
+          - generic [ref=e59]:
+            - button " 财务工作台 看回款、付款、单据和智能记账。" [ref=e60] [cursor=pointer]:
+              - generic [ref=e61]: 
+              - text: 财务工作台
+              - generic [ref=e62]: 看回款、付款、单据和智能记账。
+            - button " 项目工作台 看交付风险、逾期任务和负责人负荷。" [ref=e63] [cursor=pointer]:
+              - generic [ref=e64]: 
+              - text: 项目工作台
+              - generic [ref=e65]: 看交付风险、逾期任务和负责人负荷。
+            - button " APP 运营工作台 看问题、研发联动、发版和资料。" [ref=e66] [cursor=pointer]:
+              - generic [ref=e67]: 
+              - text: APP 运营工作台
+              - generic [ref=e68]: 看问题、研发联动、发版和资料。
+            - button " 合同台账 看合同推进、金额和状态。" [ref=e69] [cursor=pointer]:
+              - generic [ref=e70]: 
+              - text: 合同台账
+              - generic [ref=e71]: 看合同推进、金额和状态。
+            - button " 审批中心 看合同审批、付款审批和费用审批。" [ref=e72] [cursor=pointer]:
+              - generic [ref=e73]: 
+              - text: 审批中心
+              - generic [ref=e74]: 看合同审批、付款审批和费用审批。
+            - button " AI 配置 补模型配置、测试连接、切换默认模型。" [ref=e75] [cursor=pointer]:
+              - generic [ref=e76]: 
+              - text: AI 配置
+              - generic [ref=e77]: 补模型配置、测试连接、切换默认模型。
+        - generic [ref=e79]:
+          - heading "常用分析" [level=4] [ref=e80]
+          - generic [ref=e81]: 这些预设会自动带上经营上下文，适合直接开问。
+          - generic [ref=e82]:
+            - button "经营日报" [ref=e83] [cursor=pointer]
+            - button "现金流风险" [ref=e84] [cursor=pointer]
+            - button "回款建议" [ref=e85] [cursor=pointer]
+            - button "项目复盘" [ref=e86] [cursor=pointer]
+            - button "APP 问题分析" [ref=e87] [cursor=pointer]
+            - button "合同与回款" [ref=e88] [cursor=pointer]
+            - button "付款安排" [ref=e89] [cursor=pointer]
+      - generic [ref=e90]:
+        - generic [ref=e92]:
+          - heading "经营助手工作台" [level=3] [ref=e93]
+          - generic [ref=e94]: 直接问经营、财务、项目、APP 运营、合同审批问题，系统会把当前台账数据一起送给模型。
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]: 本月收入
+              - strong [ref=e98]: ¥60,000.00
+              - generic [ref=e99]: 本月财务流水收入合计
+            - generic [ref=e100]:
+              - generic [ref=e101]: 待回款
+              - strong [ref=e102]: ¥70,000.00
+              - generic [ref=e103]: 未完成应收金额
+            - generic [ref=e104]:
+              - generic [ref=e105]: 待付款
+              - strong [ref=e106]: ¥47,345.67
+              - generic [ref=e107]: 付款计划里还未完成的金额
+            - generic [ref=e108]:
+              - generic [ref=e109]: 待审批
+              - strong [ref=e110]: "0"
+              - generic [ref=e111]: 审批中心待处理记录数
+            - generic [ref=e112]:
+              - generic [ref=e113]: 交付中项目
+              - strong [ref=e114]: "2"
+              - generic [ref=e115]: 执行中和交付中的项目
+            - generic [ref=e116]:
+              - generic [ref=e117]: APP 问题
+              - strong [ref=e118]: "3"
+              - generic [ref=e119]: 未关闭的问题记录
+        - generic [ref=e120]:
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - generic [ref=e123]: 会话区
+              - generic [ref=e124]: 可以直接问经营、财务、项目、APP 运营或合同审批问题，AI 会自动带上相关业务数据。
+            - button " 清空会话" [ref=e125] [cursor=pointer]:
+              - generic [ref=e126]: 
+              - text: 清空会话
+          - generic [ref=e127]:
+            - generic [ref=e129]:
+              - generic [ref=e130]:
+                - generic [ref=e131]: 
+                - text: 我
+              - paragraph [ref=e133]: 请根据当前客户、合同、回款和付款情况，给我一个今天优先处理的执行清单
+              - generic [ref=e134]: 2026-03-21 17:20:33
+            - generic [ref=e136]:
+              - generic [ref=e137]:
+                - generic [ref=e138]: 
+                - text: AI 助手
+              - generic [ref=e139]:
+                - heading "1. 结论" [level=4] [ref=e140]
+                - paragraph [ref=e141]:
+                  - text: 今日核心目标是
+                  - strong [ref=e142]: 催收 ¥70,000.00 待回款
+                  - text: 。 当前本月收入（6万）不足以覆盖即将到来的支出总额（待付款4.7万 + 报销支出3.56万 = 8.29万），存在
+                  - strong [ref=e143]: ¥22,945.67 的资金缺口
+                  - text: 。必须立即跟进回款以确保现金流安全。
+                - paragraph [ref=e144]: "---"
+                - heading "2. 关键依据" [level=4] [ref=e145]
+                - list [ref=e146]:
+                  - listitem [ref=e147]:
+                    - strong [ref=e148]: 资金缺口：
+                    - text: 本月已入账收入（¥60,000.00） < 待支付总额（¥82,945.67）。
+                  - listitem [ref=e149]:
+                    - strong [ref=e150]: 回款压力：
+                    - text: 待回款金额（¥70,000.00）占目前活跃合同未回款计划总额（¥204,000.00）的 34%，是解决短期资金流的关键。
+                  - listitem [ref=e151]:
+                    - strong [ref=e152]: 经营现状：
+                    - text: 目前仅有 3 家活跃客户，客户集中度高，任何一家回款延迟都会直接影响公司支付能力。
+                - paragraph [ref=e153]: "---"
+                - heading "3. 建议动作" [level=4] [ref=e154]
+                - heading "今天（立即执行）" [level=4] [ref=e155]:
+                  - strong [ref=e156]: 今天（立即执行）
+                - list [ref=e157]:
+                  - listitem [ref=e158]:
+                    - strong [ref=e159]: 销售负责人/财务：
+                    - text: 针对 3 家活跃客户中涉及 ¥70,000.00 待回款的项目，核实款项所处的审批阶段，确认今天能否出款。
+                  - listitem [ref=e160]:
+                    - strong [ref=e161]: 财务负责人：
+                    - text: 核对 ¥47,345.67 待付款的具体截止日期，优先支付对业务连续性有直接影响的供应商款项。
+                - heading "本周（进度跟进）" [level=4] [ref=e162]:
+                  - strong [ref=e163]: 本周（进度跟进）
+                - list [ref=e164]:
+                  - listitem [ref=e165]:
+                    - strong [ref=e166]: 项目经理：
+                    - text: 盘点活跃合同中剩余 ¥134,000.00（204,000 - 70,000）回款计划对应的交付里程碑，确保本月没有新的延期风险。
+                  - listitem [ref=e167]:
+                    - strong [ref=e168]: 财务：
+                    - text: 处理 ¥35,600.00 的待报销支出，确认其中是否有可延迟到下月支付的非紧急类目。
+                - heading "本月（经营优化）" [level=4] [ref=e169]:
+                  - strong [ref=e170]: 本月（经营优化）
+                - list [ref=e171]:
+                  - listitem [ref=e172]:
+                    - strong [ref=e173]: 老板/销售负责人：
+                    - text: 鉴于活跃客户仅为 3 家，需加速储备合同的转化，以分散客户过于集中带来的现金流风险。
+                - paragraph [ref=e174]: "---"
+                - heading "4. 缺失数据说明" [level=4] [ref=e175]
+                - list [ref=e176]:
+                  - listitem [ref=e177]:
+                    - strong [ref=e178]: 回款明细：
+                    - text: 缺少这 ¥70,000.00 对应的具体客户名称及逾期天数（账龄）。
+                  - listitem [ref=e179]:
+                    - strong [ref=e180]: 付款时效：
+                    - text: 待付款 ¥47,345.67 的具体支付截止日期。
+                  - listitem [ref=e181]:
+                    - strong [ref=e182]: 账上余额：
+                    - text: 当前公司银行账户的实际可用现金余额（用于判断即便回款不到位，公司能支撑多久）。
+              - button "复制" [ref=e184] [cursor=pointer]
+              - generic [ref=e185]: 2026-03-21 17:21:19
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - generic [ref=e189]: 
+                - text: 我
+              - paragraph [ref=e191]: 请根据当前客户、合同、回款和付款情况，给我一个今天优先处理的执行清单
+              - generic [ref=e192]: 2026-03-21 17:21:33
+            - generic [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]: 
+                - text: AI 助手
+              - generic [ref=e197]:
+                - heading "1. 结论" [level=4] [ref=e198]
+                - paragraph [ref=e199]:
+                  - text: 当前公司财务状况处于“紧平衡”状态。虽然本月已实现收入6万元且待回款（7万）大于待付款（4.7万），但若算上待处理报销（3.56万），总支出需求（约8.3万）已超过即时待回款。
+                  - strong [ref=e200]: 今日首要任务是催收这7万元回款，以确保覆盖本月全部支出。
+                - heading "2. 关键依据" [level=4] [ref=e201]
+                - list [ref=e202]:
+                  - listitem [ref=e203]:
+                    - strong [ref=e204]: 资金缺口风险：
+                    - text: 待付款（47,345.67）+ 待摊报销（35,600）= 82,945.67元。当前待回款仅70,000元，缺口为
+                    - strong [ref=e205]: 12,945.67元
+                    - text: 。
+                  - listitem [ref=e206]:
+                    - strong [ref=e207]: 合同转化潜力：
+                    - text: 活跃合同总额41.6万，其中未收计划款（Open Receivable）高达20.4万，占合同总额近50%，说明大量项目处于执行关键期或验收回款期。
+                  - listitem [ref=e208]:
+                    - strong [ref=e209]: 客户集中度：
+                    - text: 仅3家活跃客户支撑了41.6万的合同额，客户单价高，任何一家回款延迟都会直接冲击现金流。
+                - heading "3. 执行清单" [level=4] [ref=e210]
+                - heading "【今天优先处理】" [level=4] [ref=e211]:
+                  - strong [ref=e212]: 【今天优先处理】
+                - paragraph [ref=e213]:
+                  - text: "1."
+                  - strong [ref=e214]: 催办回款：
+                  - text: 销售负责人立即联系3家活跃客户中涉及那“7万元待回款”的对应方，确认款项支付节点，务必在今日确认确切的打款时间。 2.
+                  - strong [ref=e215]: 报销初审：
+                  - text: 财务负责人核对35,600元的待处理报销，确认哪些是项目必须支出，哪些可延后至下月支付，以缓解即时现金流压力。
+                - heading "【本周内完成】" [level=4] [ref=e216]:
+                  - strong [ref=e217]: 【本周内完成】
+                - paragraph [ref=e218]:
+                  - text: "1."
+                  - strong [ref=e219]: 回款计划对账：
+                  - text: 项目经理核实“20.4万待收款计划”中的里程碑进度，确认本月内是否还有达到验收条件、可转化为“待回款”的项目。 2.
+                  - strong [ref=e220]: 供应商支付排期：
+                  - text: 财务核定47,345.67元待付款的最后期限，优先支付影响项目进度的供应商款项。
+                - heading "【本月持续关注】" [level=4] [ref=e221]:
+                  - strong [ref=e222]: 【本月持续关注】
+                - paragraph [ref=e223]:
+                  - text: "1."
+                  - strong [ref=e224]: 合同推进：
+                  - text: 针对3家活跃客户，确保活跃合同额（41.6万）中的剩余款项按计划进入回款流程。 2.
+                  - strong [ref=e225]: 预算控制：
+                  - text: 鉴于本月收入（6万）低于即时支出需求，需严控后续非必要开支。
+                - heading "4. 缺失数据说明" [level=4] [ref=e226]
+                - list [ref=e227]:
+                  - listitem [ref=e228]:
+                    - strong [ref=e229]: 时间维度缺项：
+                    - text: 缺少7万元待回款的具体逾期天数或预定到账日。
+                  - listitem [ref=e230]:
+                    - strong [ref=e231]: 项目关联缺项：
+                    - text: 缺少20.4万待收款计划对应的具体项目名称和阶段（如：预付款、验收款、尾款）。
+                  - listitem [ref=e232]:
+                    - strong [ref=e233]: 客户明细缺项：
+                    - text: 缺少3家客户的信用记录或往期支付习惯数据。
+              - button "复制" [ref=e235] [cursor=pointer]
+              - generic [ref=e236]: 2026-03-21 17:22:21
+            - generic [ref=e238]:
+              - generic [ref=e239]:
+                - generic [ref=e240]: 
+                - text: 我
+              - paragraph [ref=e242]: 请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。
+              - generic [ref=e243]: 2026-03-21 17:49:15
+            - generic [ref=e245]:
+              - generic [ref=e246]:
+                - generic [ref=e247]: 
+                - text: AI 助手
+              - generic [ref=e248]:
+                - paragraph [ref=e249]: 你好，我是云帆软件的经营与财务助理。针对当前财务数据，以下是未来 30 天的现金流风险评估及执行建议：
+                - heading "1. 结论" [level=4] [ref=e250]
+                - paragraph [ref=e251]:
+                  - strong [ref=e252]: 未来 30 天现金流处于“紧平衡”状态，风险等级为中等。
+                  - text: 虽然目前结余足以覆盖待付款项，但公司对 7 万元待回款的依赖度极高。一旦回款进度延迟，现金流将立即面临断裂风险。
+                - heading "2. 关键依据" [level=4] [ref=e253]
+                - list [ref=e254]:
+                  - listitem [ref=e255]:
+                    - strong [ref=e256]: 收支比：
+                    - text: 本月已入账收入（¥60,000）减去已支出费用（¥16,400），目前结余为 ¥43,600。
+                  - listitem [ref=e257]:
+                    - strong [ref=e258]: 支付缺口：
+                    - text: 现有结余（¥43,600）不足以支付待付款项（¥47,345.67），存在
+                    - strong [ref=e259]: ¥3,745.67 的直接资金缺口
+                    - text: 。
+                  - listitem [ref=e260]:
+                    - strong [ref=e261]: 回款依赖：
+                    - text: 必须确保 7 万元待回款中至少有 10% 以上在本月内到账，才能填补上述缺口并维持日常运营。
+                - heading "3. 最关键的 3 个风险点" [level=4] [ref=e262]
+                - paragraph [ref=e263]:
+                  - text: "1."
+                  - strong [ref=e264]: 回款逾期风险：
+                  - text: 待回款金额（7万）大于已入账收入（6万），若客户账期推迟，公司将无力支付已计入的 4.7 万待付款。 2.
+                  - strong [ref=e265]: 净现金流压迫：
+                  - text: 待付款项占本月收入的 79%，在不考虑待回款的情况下，本月经营现金流为负。 3.
+                  - strong [ref=e266]: 短期刚性兑付风险：
+                  - text: 若待付款（¥47,345.67）涉及供应商货款或急需结算的劳务费，而回款周期较长，本月将出现流动性危机。
+                - heading "4. 建议动作" [level=4] [ref=e267]
+                - paragraph [ref=e268]:
+                  - strong [ref=e269]: 今天（立即执行）：
+                - list [ref=e270]:
+                  - listitem [ref=e271]:
+                    - strong [ref=e272]: 核对到账期：
+                    - text: 财务负责人立即列出 7 万元待回款的具体到账预估日期，确认是否有在本周内到账的项目。
+                  - listitem [ref=e273]:
+                    - strong [ref=e274]: 分类待付款：
+                    - text: 明确 4.7 万元待付款的截止日期，区分“必须付”和“可缓付”项目。
+                - paragraph [ref=e275]:
+                  - strong [ref=e276]: 本周（具体落实）：
+                - list [ref=e277]:
+                  - listitem [ref=e278]:
+                    - strong [ref=e279]: 催收介入：
+                    - text: 销售负责人对本周到期的回款进行 1 对 1 确认，确保资金准时入账。
+                  - listitem [ref=e280]:
+                    - strong [ref=e281]: 支付排期：
+                    - text: 财务根据回款实际到账情况，重新编排支付计划，优先保障核心业务支出。
+                - paragraph [ref=e282]:
+                  - strong [ref=e283]: 本月：
+                - list [ref=e284]:
+                  - listitem [ref=e285]:
+                    - strong [ref=e286]: 风控预警：
+                    - text: 建立回款预警机制，若待回款到账率低于 50%，需立即收缩非必要开支。
+                - heading "5. 缺失数据说明" [level=4] [ref=e287]
+                - list [ref=e288]:
+                  - listitem [ref=e289]:
+                    - strong [ref=e290]: 当前银行账户余额：
+                    - text: 缺初始资金数据，无法判断公司总体的抗风险厚度。
+                  - listitem [ref=e291]:
+                    - strong [ref=e292]: 款项时间表：
+                    - text: 缺待回款与待付款的精确截止日期，无法进行更精准的差额分析。
+                  - listitem [ref=e293]:
+                    - strong [ref=e294]: 人员工资/房租信息：
+                    - text: 暂不确定待付款中是否已包含下月即将发生的固定刚性支出。
+              - button "复制" [ref=e296] [cursor=pointer]
+              - generic [ref=e297]: 2026-03-21 17:50:03
+            - generic [ref=e299]:
+              - generic [ref=e300]:
+                - generic [ref=e301]: 
+                - text: 我
+              - paragraph [ref=e303]: 请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。
+              - generic [ref=e304]: 2026-03-21 17:58:01
+            - generic [ref=e306]:
+              - generic [ref=e307]:
+                - generic [ref=e308]: 
+                - text: AI 助手
+              - generic [ref=e309]:
+                - heading "1. 结论" [level=4] [ref=e310]
+                - paragraph [ref=e311]:
+                  - text: 未来 30 天现金流处于
+                  - strong [ref=e312]: 紧平衡状态
+                  - text: 。虽然待回款（70,000元）覆盖了待付款（47,345.67元），但剩余安全垫仅为 22,654.33 元。若待回款项发生逾期，公司将面临约 3,745.67 元的短期资金缺口（假设仅靠本月已入账收入支付）。
+                - heading "2. 关键依据" [level=4] [ref=e313]
+                - list [ref=e314]:
+                  - listitem [ref=e315]:
+                    - strong [ref=e316]: 资金覆盖率：
+                    - text: 待回款 ¥70,000 / 待付款 ¥47,345.67 = 1.48。这意味着每 1 元的支出仅有 1.48 元的潜在收入保障，容错率较低。
+                  - listitem [ref=e317]:
+                    - strong [ref=e318]: 支出压力：
+                    - text: 待付款项（47,345.67元）占本月收入（60,000元）的 78.9%，支出比例偏高。
+                  - listitem [ref=e319]:
+                    - strong [ref=e320]: 净结余预估：
+                    - text: 若回款全部到位且支付全部完成，本月净现金流入预计为 ¥12,654.33（本月结余 43,600 + 待回 70,000 - 待付 47,345.67，注：此处假设 month_expense 已支付）。
+                - heading "3. 核心风险点" [level=4] [ref=e321]
+                - paragraph [ref=e322]:
+                  - text: "1."
+                  - strong [ref=e323]: 回款逾期风险（最致命）：
+                  - text: 只要 70,000 元回款中有超过 32%（约 2.2 万元）延期，公司现有收入将不足以支付所有待付款项。 2.
+                  - strong [ref=e324]: 刚性支出挤占风险：
+                  - text: 待付款中若包含工资、房租或云服务等刚性支出，在回款未到位前，财务拨付压力极大。 3.
+                  - strong [ref=e325]: 现金缓冲缺乏：
+                  - text: 现有数据未显示可用银行余额，若无存量资金，公司抗风险能力极差。
+                - heading "4. 建议动作" [level=4] [ref=e326]
+                - paragraph [ref=e327]:
+                  - strong [ref=e328]: 今天执行：
+                - list [ref=e329]:
+                  - listitem [ref=e330]:
+                    - strong [ref=e331]: 销售负责人/财务：
+                    - text: 逐笔确认 ¥70,000 待回款的预计到账日期。对于本周到期的款项，立即催收。
+                  - listitem [ref=e332]:
+                    - strong [ref=e333]: 财务：
+                    - text: 拆解 ¥47,345.67 待付款，标注出“必须支付”与“可延后支付”的单据。
+                - paragraph [ref=e334]:
+                  - strong [ref=e335]: 本周执行：
+                - list [ref=e336]:
+                  - listitem [ref=e337]:
+                    - strong [ref=e338]: 项目经理：
+                    - text: 针对尚未达到收款节点的项目，梳理交付进度，确保下月初能准时发出新的账单。
+                  - listitem [ref=e339]:
+                    - strong [ref=e340]: 财务：
+                    - text: 预演“回款仅到位 50%”的极端情况，制定付款优先级清单。
+                - paragraph [ref=e341]:
+                  - strong [ref=e342]: 本月执行：
+                - list [ref=e343]:
+                  - listitem [ref=e344]:
+                    - strong [ref=e345]: 运营负责人：
+                    - text: 审查费用开支，考虑到 79% 的高收入占比支出，需压缩非必要行政或营销预算。
+                - heading "5. 缺失数据" [level=4] [ref=e346]
+                - list [ref=e347]:
+                  - listitem [ref=e348]:
+                    - strong [ref=e349]: 当前账户可用余额：
+                    - text: 无法判断现有资金池能否支撑回款真空期。
+                  - listitem [ref=e350]:
+                    - strong [ref=e351]: 各项款项的截止日期：
+                    - text: 缺少待回/待付款的具体 Due Date，无法做精准的周度头寸匹配。
+                  - listitem [ref=e352]:
+                    - strong [ref=e353]: 待付款构成：
+                    - text: 需确认 4.7 万中是否有不可逾期的工资或法定税费。
+              - button "复制" [ref=e355] [cursor=pointer]
+              - generic [ref=e356]: 2026-03-21 17:58:49
+            - generic [ref=e358]:
+              - generic [ref=e359]:
+                - generic [ref=e360]: 
+                - text: 我
+              - paragraph [ref=e362]: 请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。
+              - generic [ref=e363]: 2026-03-21 18:01:49
+            - generic [ref=e365]:
+              - generic [ref=e366]:
+                - generic [ref=e367]: 
+                - text: AI 助手
+              - generic [ref=e368]:
+                - paragraph [ref=e369]: 结论： 当前财务最该先盯回款、付款和逾期单据，先保证现金流稳定。
+                - paragraph [ref=e370]: 关键依据：
+                - list [ref=e371]:
+                  - listitem [ref=e372]: 本月收入：¥60,000.00
+                  - listitem [ref=e373]: 本月支出：¥16,400.00
+                  - listitem [ref=e374]: 待回款：¥70,000.00
+                  - listitem [ref=e375]: 待付款：¥0.00
+                  - listitem [ref=e376]: 逾期应收：¥0.00
+                  - listitem [ref=e377]: 逾期应付：¥0.00
+                - paragraph [ref=e378]: 建议动作：
+                - list [ref=e379]:
+                  - listitem [ref=e380]: 今天：优先处理逾期回款和金额最大的未收款单据。
+                  - listitem [ref=e381]: 本周：把待付款按到期日排好顺序，避免新的逾期。
+                  - listitem [ref=e382]: 本月：结合智能记账和附件补齐，减少账实不一致。
+                - paragraph [ref=e383]: 补充说明：
+                - list [ref=e384]:
+                  - listitem [ref=e385]: 本次已按“请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。”这个问题给出系统兜底分析。
+              - button "复制" [ref=e387] [cursor=pointer]
+              - generic [ref=e388]: 2026-03-21 18:02:23
+            - generic [ref=e390]:
+              - generic [ref=e391]:
+                - generic [ref=e392]: 
+                - text: 我
+              - paragraph [ref=e394]: 请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。
+              - generic [ref=e395]: 2026-03-21 18:02:51
+            - generic [ref=e397]:
+              - generic [ref=e398]:
+                - generic [ref=e399]: 
+                - text: AI 助手
+              - generic [ref=e400]:
+                - paragraph [ref=e401]: 结论： 当前财务最该先盯回款、付款和逾期单据，先保证现金流稳定。
+                - paragraph [ref=e402]: 关键依据：
+                - list [ref=e403]:
+                  - listitem [ref=e404]: 本月收入：¥60,000.00
+                  - listitem [ref=e405]: 本月支出：¥16,400.00
+                  - listitem [ref=e406]: 待回款：¥70,000.00
+                  - listitem [ref=e407]: 待付款：¥0.00
+                  - listitem [ref=e408]: 逾期应收：¥0.00
+                  - listitem [ref=e409]: 逾期应付：¥0.00
+                - paragraph [ref=e410]: 建议动作：
+                - list [ref=e411]:
+                  - listitem [ref=e412]: 今天：优先处理逾期回款和金额最大的未收款单据。
+                  - listitem [ref=e413]: 本周：把待付款按到期日排好顺序，避免新的逾期。
+                  - listitem [ref=e414]: 本月：结合智能记账和附件补齐，减少账实不一致。
+                - paragraph [ref=e415]: 补充说明：
+                - list [ref=e416]:
+                  - listitem [ref=e417]: 本次已按“请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。”这个问题给出系统兜底分析。
+              - button "复制" [ref=e419] [cursor=pointer]
+              - generic [ref=e420]: 2026-03-21 18:02:57
+            - generic [ref=e422]:
+              - generic [ref=e423]:
+                - generic [ref=e424]: 
+                - text: 我
+              - paragraph [ref=e426]: 请基于当前数据输出一份经营日报，按“结论 / 关键依据 / 今天要做什么 / 本周要盯什么”回答。
+              - generic [ref=e427]: 2026-03-21 18:03:32
+            - generic [ref=e429]:
+              - generic [ref=e430]:
+                - generic [ref=e431]: 
+                - text: AI 助手
+              - generic [ref=e432]:
+                - paragraph [ref=e433]: 结论： 当前最该先盯财务、审批和交付风险三条线，先处理最影响现金流和交付节奏的事项。
+                - paragraph [ref=e434]: 关键依据：
+                - list [ref=e435]:
+                  - listitem [ref=e436]: 本月收入：¥60,000.00
+                  - listitem [ref=e437]: 待回款：¥70,000.00
+                  - listitem [ref=e438]: 待付款：¥47,345.67
+                  - listitem [ref=e439]: 待审批：0
+                  - listitem [ref=e440]: 交付中项目：2
+                  - listitem [ref=e441]: APP 问题：3
+                - paragraph [ref=e442]: 建议动作：
+                - list [ref=e443]:
+                  - listitem [ref=e444]: 今天：先处理待审批、待回款和高风险项目。
+                  - listitem [ref=e445]: 本周：跟进 APP 问题闭环和付款安排。
+                  - listitem [ref=e446]: 本月：补齐台账、附件和跟进记录。
+                - paragraph [ref=e447]: 补充说明：
+                - list [ref=e448]:
+                  - listitem [ref=e449]: 本次已按“请基于当前数据输出一份经营日报，按“结论 / 关键依据 / 今天要做什么 / 本周要盯什么”回答。”这个问题给出系统兜底分析。
+              - button "复制" [ref=e451] [cursor=pointer]
+              - generic [ref=e452]: 2026-03-21 18:03:38
+            - generic [ref=e454]:
+              - generic [ref=e455]:
+                - generic [ref=e456]: 
+                - text: 我
+              - paragraph [ref=e458]: 请基于当前数据输出一份经营日报，按“结论 / 关键依据 / 今天要做什么 / 本周要盯什么”回答。
+              - generic [ref=e459]: 2026-03-21 18:29:31
+            - generic [ref=e461]:
+              - generic [ref=e462]:
+                - generic [ref=e463]: 
+                - text: AI 助手
+              - generic [ref=e464]:
+                - paragraph [ref=e465]: 结论： 当前最该先盯财务、审批和交付风险三条线，先处理最影响现金流和交付节奏的事项。
+                - paragraph [ref=e466]: 关键依据：
+                - list [ref=e467]:
+                  - listitem [ref=e468]: 本月收入：¥60,000.00
+                  - listitem [ref=e469]: 待回款：¥70,000.00
+                  - listitem [ref=e470]: 待付款：¥47,345.67
+                  - listitem [ref=e471]: 待审批：0
+                  - listitem [ref=e472]: 交付中项目：2
+                  - listitem [ref=e473]: APP 问题：3
+                - paragraph [ref=e474]: 建议动作：
+                - list [ref=e475]:
+                  - listitem [ref=e476]: 今天：先处理待审批、待回款和高风险项目。
+                  - listitem [ref=e477]: 本周：跟进 APP 问题闭环和付款安排。
+                  - listitem [ref=e478]: 本月：补齐台账、附件和跟进记录。
+                - paragraph [ref=e479]: 补充说明：
+                - list [ref=e480]:
+                  - listitem [ref=e481]: 本次已按“请基于当前数据输出一份经营日报，按“结论 / 关键依据 / 今天要做什么 / 本周要盯什么”回答。”这个问题给出系统兜底分析。
+              - button "复制" [ref=e483] [cursor=pointer]
+              - generic [ref=e484]: 2026-03-21 18:29:37
+            - generic [ref=e486]:
+              - generic [ref=e487]:
+                - generic [ref=e488]: 
+                - text: 我
+              - paragraph [ref=e490]: "1"
+              - generic [ref=e491]: 2026-03-21 19:13:03
+            - generic [ref=e493]:
+              - generic [ref=e494]:
+                - generic [ref=e495]: 
+                - text: AI 助手
+              - generic [ref=e496]:
+                - paragraph [ref=e497]: 你好，我是云帆软件的经营与财务助理。针对当前业务数据，为您提供综合经营分析报告：
+                - heading "1. 结论" [level=4] [ref=e498]
+                - paragraph [ref=e499]:
+                  - text: 公司本月财务状况稳健，净现金流为正（+43,600元），且待回款（70,000元）足以覆盖待付款（47,345.67元）。但
+                  - strong [ref=e500]: 交付与回款效率
+                  - text: 存在风险：活跃项目虽少（2个），但已出现逾期任务，且有3个版本待发布，直接影响后续20.4万回款计划的激活。
+                - heading "2. 关键依据" [level=4] [ref=e501]
+                - list [ref=e502]:
+                  - listitem [ref=e503]:
+                    - strong [ref=e504]: 资金面：
+                    - text: 本月收入 60,000.00元，支出 16,400.00元。当前待回款 70,000.00元，待付款 47,345.67元。
+                  - listitem [ref=e505]:
+                    - strong [ref=e506]: 交付面：
+                    - text: 2个活跃项目中有1个逾期任务；APP端存在3个待发布版本、3个故障工单及4个技术工单。
+                  - listitem [ref=e507]:
+                    - strong [ref=e508]: 经营面：
+                    - text: 活跃合同总额 416,345.67元，其中待执行的收款计划达 204,000.00元，收入转化依赖于后续交付。
+                - heading "3. 建议动作" [level=4] [ref=e509]
+                - list [ref=e510]:
+                  - listitem [ref=e511]:
+                    - strong [ref=e512]: 今天：
+                  - listitem [ref=e513]:
+                    - text: 【项目】由项目经理核实那
+                    - strong [ref=e514]: 1个逾期任务
+                    - text: 的阻塞原因，确认为何在仅有2个项目的情况下仍出现延期。
+                  - listitem [ref=e515]:
+                    - text: 【财务】确认
+                    - strong [ref=e516]: 待付款 47,345.67元
+                    - text: 的截止日期，优先处理即将逾期的单据。
+                  - listitem [ref=e517]:
+                    - strong [ref=e518]: 本周：
+                  - listitem [ref=e519]:
+                    - text: 【运营/销售】跟进
+                    - strong [ref=e520]: 70,000.00元待回款
+                    - text: 的结算确认，确保资金落袋。
+                  - listitem [ref=e521]:
+                    - text: 【技术】处理
+                    - strong [ref=e522]: 3个待发布版本
+                    - text: ，发布是触发收款计划（20.4万）的关键前提。
+                  - listitem [ref=e523]:
+                    - strong [ref=e524]: 本月：
+                  - listitem [ref=e525]: 【综合】针对3个故障和4个技术工单进行复盘，避免因质量问题影响3名活跃客户的续约或尾款支付。
+                - heading "4. 缺少的关键数据" [level=4] [ref=e526]
+                - list [ref=e527]:
+                  - listitem [ref=e528]: 逾期任务所属的具体项目名称。
+                  - listitem [ref=e529]: 70,000元待回款的逾期天数。
+                  - listitem [ref=e530]: 待发布版本的预定上线截止时间。
+              - button "复制" [ref=e532] [cursor=pointer]
+              - generic [ref=e533]: 2026-03-21 19:13:49
+          - generic [ref=e534]:
+            - textbox "例如：请结合审批、回款、项目和 APP 问题，告诉我今天必须先处理的 5 件事。" [ref=e535]
+            - generic [ref=e536]:
+              - generic [ref=e537]:
+                - button "今天最该先催哪几笔回款？" [ref=e538] [cursor=pointer]
+                - button "审批中心里哪些单子今天必须先批？" [ref=e539] [cursor=pointer]
+                - button "哪个交付项目最危险，负责人应该先做什么？" [ref=e540] [cursor=pointer]
+                - button "APP 最近的问题主要集中在哪个模块？" [ref=e541] [cursor=pointer]
+                - button "未来 30 天现金流有没有明显压力？" [ref=e542] [cursor=pointer]
+                - button "本周最该处理的付款和费用申请有哪些？" [ref=e543] [cursor=pointer]
+              - button " 发送给 AI" [ref=e544] [cursor=pointer]:
+                - generic [ref=e545]: 
+                - text: 发送给 AI
+            - generic [ref=e546]:
+              - text: 支持连续追问，使用
+              - code [ref=e547]: Ctrl + Enter
+              - text: 快速发送。

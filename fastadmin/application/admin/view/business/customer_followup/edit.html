@@ -1,0 +1,97 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进标题:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">所属客户:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-customer_id" data-rule="required" class="form-control selectpicker" name="row[customer_id]">
+                <option value="">请选择</option>
+                {foreach name="customerList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.customer_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">关联合同:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-contract_id" class="form-control selectpicker" name="row[contract_id]">
+                <option value="">未关联合同</option>
+                {foreach name="contractList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.contract_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-followup_type" data-rule="required" class="form-control selectpicker" name="row[followup_type]">
+                {foreach name="followupTypeList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.followup_type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-follow_up_at" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="false" name="row[follow_up_at]" type="text" value="{$row.follow_up_at|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">下次跟进时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-next_follow_up_at" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="false" name="row[next_follow_up_at]" type="text" value="{$row.next_follow_up_at|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">当前状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-status" data-rule="required" class="form-control selectpicker" name="row[status]">
+                {foreach name="statusList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.status"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进负责人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-owner_admin_id" data-rule="required" class="form-control selectpicker" name="row[owner_admin_id]">
+                <option value="">请选择</option>
+                {foreach name="ownerList" item="vo"}
+                <option value="{$key}" {in name="key" value="$row.owner_admin_id"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">对接人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-contact_name" class="form-control" name="row[contact_name]" type="text" value="{$row.contact_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进结果:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-result_summary" class="form-control" rows="3" name="row[result_summary]">{$row.result_summary|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]">{$row.notes|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

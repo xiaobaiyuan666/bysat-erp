@@ -1,0 +1,399 @@
+- generic [ref=e86]:
+  - complementary [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]: SC
+      - generic [ref=e90]:
+        - generic [ref=e91]: Smart Console
+        - heading "云帆软件" [level=1] [ref=e92]
+        - paragraph [ref=e93]: PHP API + Vue Console
+    - generic [ref=e94]:
+      - button "BI 经营驾驶舱" [ref=e95] [cursor=pointer]:
+        - generic [ref=e96]: BI
+        - generic [ref=e97]: 经营驾驶舱
+      - button "FI 财务中心" [ref=e98] [cursor=pointer]:
+        - generic [ref=e99]: FI
+        - generic [ref=e100]: 财务中心
+      - button "PM 项目交付" [ref=e101] [cursor=pointer]:
+        - generic [ref=e102]: PM
+        - generic [ref=e103]: 项目交付
+      - button "OP APP 运营" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: OP
+        - generic [ref=e106]: APP 运营
+      - button "HR 人员权限" [ref=e107] [cursor=pointer]:
+        - generic [ref=e108]: HR
+        - generic [ref=e109]: 人员权限
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: 部署方式
+        - strong [ref=e113]: PHP + JSON + Vue
+      - generic [ref=e114]:
+        - generic [ref=e115]: 模型状态
+        - strong [ref=e116]: 待配置模型
+      - generic [ref=e117]:
+        - generic [ref=e118]: 数据版本
+        - strong [ref=e119]: v1.5.0
+  - generic [ref=e120]:
+    - banner [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 软件企业运营后台
+        - heading "APP 运营" [level=2] [ref=e227]
+        - paragraph [ref=e125]: APP 的运营、问题、资料和 Bug/升级联动都在这里。
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: 登录账号
+          - strong [ref=e129]: 陈总
+          - generic [ref=e130]: admin / 系统管理员
+        - generic [ref=e131]:
+          - generic [ref=e132]: 当前工作身份
+          - generic [ref=e134] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e136]
+              - generic [ref=e137]: 陈总 / 系统管理员
+            - img [ref=e140]
+          - generic [ref=e142]: 系统管理员
+        - generic [ref=e143]: 最近同步 2026-03-20 07:28:58
+        - button "刷新" [ref=e144] [cursor=pointer]:
+          - img [ref=e146]
+          - generic [ref=e148]: 刷新
+        - button "使用说明" [ref=e149] [cursor=pointer]:
+          - img [ref=e151]
+          - generic [ref=e153]: 使用说明
+        - button "AI 助手" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: AI 助手
+        - button "退出" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+          - generic [ref=e161]: 退出
+    - main [ref=e162]:
+      - generic [ref=e228]:
+        - generic [ref=e229]:
+          - generic [ref=e231]:
+            - heading "先处理 APP 问题和联动" [level=3] [ref=e232]
+            - paragraph [ref=e233]: 默认先保留问题、资料、版本和研发联动入口。其他统计和周报概览放到下方折叠区。
+          - generic [ref=e235]:
+            - generic [ref=e236]:
+              - generic [ref=e237]: 今天优先
+              - generic [ref=e238]:
+                - article [ref=e239]:
+                  - generic [ref=e240]: 待客户回告
+                  - strong [ref=e241]: "0"
+                - article [ref=e242]:
+                  - generic [ref=e243]: 研发待办
+                  - strong [ref=e244]: "4"
+                - article [ref=e245]:
+                  - generic [ref=e246]: 待发布版本
+                  - strong [ref=e247]: "3"
+                - article [ref=e248]:
+                  - generic [ref=e249]: 开放风险
+                  - strong [ref=e250]: "3"
+            - generic [ref=e251]:
+              - generic [ref=e252]: 常用入口
+              - generic [ref=e253]:
+                - button "问题记录 先收反馈，再决定是否要挂研发联动。" [ref=e254]:
+                  - generic [ref=e255]:
+                    - strong [ref=e256]: 问题记录
+                    - generic [ref=e257]: 先收反馈，再决定是否要挂研发联动。
+                - button "研发联动 集中看 Bug、升级和待发版事项。" [ref=e258]:
+                  - generic [ref=e259]:
+                    - strong [ref=e260]: 研发联动
+                    - generic [ref=e261]: 集中看 Bug、升级和待发版事项。
+                - button "版本发布 统一看发版、验证、回告和回滚风险。" [ref=e262]:
+                  - generic [ref=e263]:
+                    - strong [ref=e264]: 版本发布
+                    - generic [ref=e265]: 统一看发版、验证、回告和回滚风险。
+                - button "内部资料 资料、话术和版本说明都去这里找。" [ref=e266]:
+                  - generic [ref=e267]:
+                    - strong [ref=e268]: 内部资料
+                    - generic [ref=e269]: 资料、话术和版本说明都去这里找。
+            - generic [ref=e270]:
+              - generic [ref=e271]: 优先提醒
+              - list [ref=e272]:
+                - listitem [ref=e273]: 项目 "春季增长投放" 存在 1 条高等级风险。
+                - listitem [ref=e274]: 高等级问题 "搜索广告落地页交付延后" 仍未关闭。
+                - listitem [ref=e275]: APP "工单助手" 版本 v3.2.2 已待上线，请确认发布时间窗口。
+        - button "更多运营概览和周报" [ref=e278] [cursor=pointer]:
+          - generic [ref=e279]: 更多运营概览和周报
+          - img [ref=e281]
+        - generic [ref=e283]:
+          - generic [ref=e285]:
+            - heading "运营项目工作台" [level=3] [ref=e286]
+            - paragraph [ref=e287]: 围绕 APP 项目、问题记录、内部资料、版本发布和研发联动统一管理整个生命周期。
+          - generic [ref=e289]:
+            - tablist [ref=e293]:
+              - tab "运营项目台账" [ref=e295]
+              - tab "问题记录" [selected] [ref=e296]
+              - tab "内部资料" [ref=e297]
+              - tab "里程碑" [ref=e298]
+              - tab "运营周报" [ref=e299]
+              - tab "版本发布" [ref=e300]
+              - tab "风险问题" [ref=e301]
+              - tab "研发联动" [ref=e302]
+            - tabpanel "问题记录" [ref=e304]:
+              - generic [ref=e305]:
+                - generic [ref=e306]:
+                  - article [ref=e307]:
+                    - generic [ref=e308]: 未结问题
+                    - generic [ref=e309]: "3"
+                    - generic [ref=e311]: 当前仍在处理或待回告的问题总数。
+                  - article [ref=e312]:
+                    - generic [ref=e313]: 领导反馈
+                    - generic [ref=e314]: "0"
+                    - generic [ref=e316]: 需要优先同步给领导的记录。
+                  - article [ref=e317]:
+                    - generic [ref=e318]: 待回告客户
+                    - generic [ref=e319]: "1"
+                    - generic [ref=e321]: 已经受理但还没有明确回告结果的问题。
+                  - article [ref=e322]:
+                    - generic [ref=e323]: 客户已确认
+                    - generic [ref=e324]: "1"
+                    - generic [ref=e326]: 已经回告且客户确认处理安排的问题。
+                - generic [ref=e327]:
+                  - article [ref=e328]:
+                    - generic [ref=e330]:
+                      - heading "优先处理" [level=3] [ref=e331]
+                      - paragraph [ref=e332]: 领导反馈、超期问题和版本风险集中在这里，方便客服和运营先盯住。
+                    - button "注册试用后短信通知没有收到 已升级技术 客户反馈 / 星环科技 等待研发修复后回访客户确认" [ref=e335] [cursor=pointer]:
+                      - generic [ref=e336]:
+                        - strong [ref=e337]: 注册试用后短信通知没有收到
+                        - generic:
+                          - generic: 已升级技术
+                      - paragraph [ref=e338]: 客户反馈 / 星环科技
+                      - generic [ref=e339]: 等待研发修复后回访客户确认
+                  - article [ref=e340]:
+                    - generic [ref=e342]:
+                      - heading "回告视角" [level=3] [ref=e343]
+                      - paragraph [ref=e344]: 优先查看哪些问题还没回告客户、哪些已经获得确认，以及最近的回告结果。
+                    - generic [ref=e346]:
+                      - button "星环科技 待回告 王琳 等待研发修复后回访客户确认" [ref=e347] [cursor=pointer]:
+                        - generic [ref=e348]:
+                          - strong [ref=e349]: 星环科技
+                          - generic:
+                            - generic: 待回告
+                        - paragraph [ref=e350]: 王琳
+                        - generic [ref=e351]: 等待研发修复后回访客户确认
+                      - button "北京数据 已确认 赵敏 客户确认按明天下午远程演示推进。" [ref=e352] [cursor=pointer]:
+                        - generic [ref=e353]:
+                          - strong [ref=e354]: 北京数据
+                          - generic:
+                            - generic: 已确认
+                        - paragraph [ref=e355]: 赵敏
+                        - generic [ref=e356]: 客户确认按明天下午远程演示推进。
+                - generic [ref=e357]:
+                  - generic [ref=e359]:
+                    - heading "问题记录台账" [level=3] [ref=e360]
+                    - paragraph [ref=e361]: 客服、运营、销售和领导反馈统一记在这里，再按 APP 项目联动研发和版本。
+                  - generic [ref=e362]:
+                    - generic [ref=e363]:
+                      - button "全部记录" [ref=e364]
+                      - button "领导反馈" [ref=e365]
+                      - button "待响应" [ref=e366]
+                      - button "已转研发" [ref=e367]
+                      - button "待版本发布" [ref=e368]
+                      - button "待回告客户" [ref=e369]
+                      - button "客户已确认" [ref=e370]
+                      - button "已超期" [ref=e371]
+                    - group [ref=e372]:
+                      - generic [ref=e373]:
+                        - generic [ref=e375]:
+                          - img [ref=e378]
+                          - textbox "搜编号 / 来源 / 标题 / APP / 回告对象 / 回告结果" [ref=e380]
+                        - generic [ref=e382] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e384]
+                            - generic [ref=e385]: 全部来源
+                          - img [ref=e388]
+                        - generic [ref=e391] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e393]
+                            - generic [ref=e394]: 全部状态
+                          - img [ref=e397]
+                        - generic [ref=e400] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e402]
+                            - generic [ref=e403]: 全部分类
+                          - img [ref=e406]
+                        - generic [ref=e409] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e411]
+                            - generic: 全部优先级
+                          - img [ref=e414]
+                        - generic [ref=e417] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e419]
+                            - generic: 全部 APP 项目
+                          - img [ref=e422]
+                        - textbox "处理人筛选" [ref=e426]
+                        - button "重置" [ref=e427] [cursor=pointer]:
+                          - img [ref=e429]
+                          - generic [ref=e431]: 重置
+                        - button "新增记录" [ref=e432] [cursor=pointer]:
+                          - img [ref=e434]
+                          - generic [ref=e438]: 新增记录
+                    - generic [ref=e439]:
+                      - generic [ref=e440]: 当前结果 3 条
+                      - generic [ref=e441]: 双击表格可直接查看详情、处理轨迹和客户确认状态。
+                    - generic [ref=e444]:
+                      - table [ref=e446]:
+                        - rowgroup [ref=e459]:
+                          - row "编号 来源 / 主体 问题标题 APP 项目 处理人 客户回告 客户确认 状态 评论 / 回复 版本进度 操作" [ref=e460]:
+                            - columnheader "编号" [ref=e461]:
+                              - generic [ref=e462]: 编号
+                            - columnheader "来源 / 主体" [ref=e463]:
+                              - generic [ref=e464]: 来源 / 主体
+                            - columnheader "问题标题" [ref=e465]:
+                              - generic [ref=e466]: 问题标题
+                            - columnheader "APP 项目" [ref=e467]:
+                              - generic [ref=e468]: APP 项目
+                            - columnheader "处理人" [ref=e469]:
+                              - generic [ref=e470]: 处理人
+                            - columnheader "客户回告" [ref=e471]:
+                              - generic [ref=e472]: 客户回告
+                            - columnheader "客户确认" [ref=e473]:
+                              - generic [ref=e474]: 客户确认
+                            - columnheader "状态" [ref=e475]:
+                              - generic [ref=e476]: 状态
+                            - columnheader "评论 / 回复" [ref=e477]:
+                              - generic [ref=e478]: 评论 / 回复
+                            - columnheader "版本进度" [ref=e479]:
+                              - generic [ref=e480]: 版本进度
+                            - columnheader "操作" [ref=e481]:
+                              - generic [ref=e482]: 操作
+                      - table [ref=e487]:
+                        - rowgroup [ref=e500]:
+                          - row "CS20260318001 客户反馈 星环科技 注册试用后短信通知没有收到 春季增长投放 刘悦 王琳 企业微信 待客户确认 尚未确认 已升级技术 2 条 客户 0 / 内部 1 v2.8.1 / 拉新落地页埋点与线索回传 测试中 详情 跟进 编辑 删除" [ref=e501]:
+                            - cell "CS20260318001" [ref=e502]:
+                              - generic [ref=e503]: CS20260318001
+                            - cell "客户反馈 星环科技" [ref=e504]:
+                              - generic [ref=e506]:
+                                - strong [ref=e507]: 客户反馈
+                                - generic [ref=e508]: 星环科技
+                            - cell "注册试用后短信通知没有收到" [ref=e509]:
+                              - generic [ref=e510]: 注册试用后短信通知没有收到
+                            - cell "春季增长投放" [ref=e511]:
+                              - generic [ref=e512]: 春季增长投放
+                            - cell "刘悦" [ref=e513]:
+                              - generic [ref=e514]: 刘悦
+                            - cell "王琳 企业微信" [ref=e515]:
+                              - generic [ref=e517]:
+                                - strong [ref=e518]: 王琳
+                                - generic [ref=e519]: 企业微信
+                            - cell "待客户确认 尚未确认" [ref=e520]:
+                              - generic [ref=e522]:
+                                - generic:
+                                  - generic: 待客户确认
+                                - generic [ref=e523]: 尚未确认
+                            - cell "已升级技术" [ref=e524]:
+                              - generic [ref=e527] [cursor=pointer]:
+                                - generic:
+                                  - combobox [ref=e529]
+                                  - generic [ref=e530]: 已升级技术
+                                - img [ref=e533]
+                            - cell "2 条 客户 0 / 内部 1" [ref=e535]:
+                              - generic [ref=e537]:
+                                - strong [ref=e538]: 2 条
+                                - generic [ref=e539]: 客户 0 / 内部 1
+                            - cell "v2.8.1 / 拉新落地页埋点与线索回传 测试中" [ref=e540]:
+                              - generic [ref=e542]:
+                                - strong [ref=e543]: v2.8.1 / 拉新落地页埋点与线索回传
+                                - generic [ref=e544]: 测试中
+                            - cell "详情 跟进 编辑 删除" [ref=e545]:
+                              - generic [ref=e548]:
+                                - button "详情" [ref=e550] [cursor=pointer]:
+                                  - generic [ref=e551]: 详情
+                                - button "跟进" [ref=e553] [cursor=pointer]:
+                                  - generic [ref=e554]: 跟进
+                                - button "编辑" [ref=e556] [cursor=pointer]:
+                                  - generic [ref=e557]: 编辑
+                                - button "删除" [ref=e559] [cursor=pointer]:
+                                  - generic [ref=e560]: 删除
+                          - row "CS20260318002 培训收集 北京数据 续费提醒配置不会设置 SaaS 客户续费推进 刘悦 赵敏 电话 客户已确认 2026-03-19 09:00:00 处理中 2 条 客户 1 / 内部 0 v3.2.2 / 续费提醒分批策略上线 待上线 详情 跟进 编辑 删除" [ref=e561]:
+                            - cell "CS20260318002" [ref=e562]:
+                              - generic [ref=e563]: CS20260318002
+                            - cell "培训收集 北京数据" [ref=e564]:
+                              - generic [ref=e566]:
+                                - strong [ref=e567]: 培训收集
+                                - generic [ref=e568]: 北京数据
+                            - cell "续费提醒配置不会设置" [ref=e569]:
+                              - generic [ref=e570]: 续费提醒配置不会设置
+                            - cell "SaaS 客户续费推进" [ref=e571]:
+                              - generic [ref=e572]: SaaS 客户续费推进
+                            - cell "刘悦" [ref=e573]:
+                              - generic [ref=e574]: 刘悦
+                            - cell "赵敏 电话" [ref=e575]:
+                              - generic [ref=e577]:
+                                - strong [ref=e578]: 赵敏
+                                - generic [ref=e579]: 电话
+                            - cell "客户已确认 2026-03-19 09:00:00" [ref=e580]:
+                              - generic [ref=e582]:
+                                - generic:
+                                  - generic: 客户已确认
+                                - generic [ref=e583]: 2026-03-19 09:00:00
+                            - cell "处理中" [ref=e584]:
+                              - generic [ref=e587] [cursor=pointer]:
+                                - generic:
+                                  - combobox [ref=e589]
+                                  - generic [ref=e590]: 处理中
+                                - img [ref=e593]
+                            - cell "2 条 客户 1 / 内部 0" [ref=e595]:
+                              - generic [ref=e597]:
+                                - strong [ref=e598]: 2 条
+                                - generic [ref=e599]: 客户 1 / 内部 0
+                            - cell "v3.2.2 / 续费提醒分批策略上线 待上线" [ref=e600]:
+                              - generic [ref=e602]:
+                                - strong [ref=e603]: v3.2.2 / 续费提醒分批策略上线
+                                - generic [ref=e604]: 待上线
+                            - cell "详情 跟进 编辑 删除" [ref=e605]:
+                              - generic [ref=e608]:
+                                - button "详情" [ref=e610] [cursor=pointer]:
+                                  - generic [ref=e611]: 详情
+                                - button "跟进" [ref=e613] [cursor=pointer]:
+                                  - generic [ref=e614]: 跟进
+                                - button "编辑" [ref=e616] [cursor=pointer]:
+                                  - generic [ref=e617]: 编辑
+                                - button "删除" [ref=e619] [cursor=pointer]:
+                                  - generic [ref=e620]: 删除
+                          - row "CS20260319002 销售反馈 教育 SaaS 客户 续费账单明细需要补发 SaaS 客户续费推进 刘悦 林峰 邮件 待客户确认 尚未确认 待反馈回告 2 条 客户 0 / 内部 1 -- 未挂接版本 详情 跟进 编辑 删除" [ref=e621]:
+                            - cell "CS20260319002" [ref=e622]:
+                              - generic [ref=e623]: CS20260319002
+                            - cell "销售反馈 教育 SaaS 客户" [ref=e624]:
+                              - generic [ref=e626]:
+                                - strong [ref=e627]: 销售反馈
+                                - generic [ref=e628]: 教育 SaaS 客户
+                            - cell "续费账单明细需要补发" [ref=e629]:
+                              - generic [ref=e630]: 续费账单明细需要补发
+                            - cell "SaaS 客户续费推进" [ref=e631]:
+                              - generic [ref=e632]: SaaS 客户续费推进
+                            - cell "刘悦" [ref=e633]:
+                              - generic [ref=e634]: 刘悦
+                            - cell "林峰 邮件" [ref=e635]:
+                              - generic [ref=e637]:
+                                - strong [ref=e638]: 林峰
+                                - generic [ref=e639]: 邮件
+                            - cell "待客户确认 尚未确认" [ref=e640]:
+                              - generic [ref=e642]:
+                                - generic:
+                                  - generic: 待客户确认
+                                - generic [ref=e643]: 尚未确认
+                            - cell "待反馈回告" [ref=e644]:
+                              - generic [ref=e647] [cursor=pointer]:
+                                - generic:
+                                  - combobox [ref=e649]
+                                  - generic [ref=e650]: 待反馈回告
+                                - img [ref=e653]
+                            - cell "2 条 客户 0 / 内部 1" [ref=e655]:
+                              - generic [ref=e657]:
+                                - strong [ref=e658]: 2 条
+                                - generic [ref=e659]: 客户 0 / 内部 1
+                            - cell "-- 未挂接版本" [ref=e660]:
+                              - generic [ref=e662]:
+                                - strong [ref=e663]: "--"
+                                - generic [ref=e664]: 未挂接版本
+                            - cell "详情 跟进 编辑 删除" [ref=e665]:
+                              - generic [ref=e668]:
+                                - button "详情" [ref=e670] [cursor=pointer]:
+                                  - generic [ref=e671]: 详情
+                                - button "跟进" [ref=e673] [cursor=pointer]:
+                                  - generic [ref=e674]: 跟进
+                                - button "编辑" [ref=e676] [cursor=pointer]:
+                                  - generic [ref=e677]: 编辑
+                                - button "删除" [ref=e679] [cursor=pointer]:
+                                  - generic [ref=e680]: 删除

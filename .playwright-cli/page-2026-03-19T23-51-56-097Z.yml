@@ -1,0 +1,139 @@
+- generic [ref=e86]:
+  - complementary [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]: SC
+      - generic [ref=e90]:
+        - generic [ref=e91]: Smart Console
+        - heading "云帆软件" [level=1] [ref=e92]
+        - paragraph [ref=e93]: PHP API + Vue Console
+    - generic [ref=e94]:
+      - button "BI 经营驾驶舱" [ref=e95] [cursor=pointer]:
+        - generic [ref=e96]: BI
+        - generic [ref=e97]: 经营驾驶舱
+      - button "FI 财务中心" [ref=e98] [cursor=pointer]:
+        - generic [ref=e99]: FI
+        - generic [ref=e100]: 财务中心
+      - button "PM 项目交付" [ref=e101] [cursor=pointer]:
+        - generic [ref=e102]: PM
+        - generic [ref=e103]: 项目交付
+      - button "OP APP 运营" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: OP
+        - generic [ref=e106]: APP 运营
+      - button "HR 人员权限" [ref=e107] [cursor=pointer]:
+        - generic [ref=e108]: HR
+        - generic [ref=e109]: 人员权限
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: 部署方式
+        - strong [ref=e113]: PHP + JSON + Vue
+      - generic [ref=e114]:
+        - generic [ref=e115]: 模型状态
+        - strong [ref=e116]: 待配置模型
+      - generic [ref=e117]:
+        - generic [ref=e118]: 数据版本
+        - strong [ref=e119]: v1.5.0
+  - generic [ref=e120]:
+    - banner [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 软件企业运营后台
+        - heading "经营驾驶舱" [level=2] [ref=e124]
+        - paragraph [ref=e125]: 只看全局数据和今日提醒，不在这里录入业务。
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: 登录账号
+          - strong [ref=e129]: 陈总
+          - generic [ref=e130]: admin / 系统管理员
+        - generic [ref=e131]:
+          - generic [ref=e132]: 当前工作身份
+          - generic [ref=e134] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e136]
+              - generic [ref=e137]: 陈总 / 系统管理员
+            - img [ref=e140]
+          - generic [ref=e142]: 系统管理员
+        - generic [ref=e143]: 最近同步 2026-03-20 07:51:55
+        - button "刷新" [ref=e144] [cursor=pointer]:
+          - img [ref=e146]
+          - generic [ref=e148]: 刷新
+        - button "使用说明" [ref=e149] [cursor=pointer]:
+          - img [ref=e151]
+          - generic [ref=e153]: 使用说明
+        - button "AI 助手" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: AI 助手
+        - button "退出" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+          - generic [ref=e161]: 退出
+    - main [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e164]:
+          - generic [ref=e166]:
+            - heading "今天先做什么" [level=3] [ref=e167]
+            - paragraph [ref=e168]: 首页只负责告诉你先去哪做事，不在这里录业务。先看岗位推荐，再看今天最急的事。
+          - generic [ref=e169]:
+            - generic [ref=e170]:
+              - button "1 当前岗位先去 管人员 / 权限 系统管理员 默认入口是 人员权限。" [ref=e171]:
+                - generic [ref=e172]: "1"
+                - generic [ref=e173]:
+                  - strong [ref=e174]: 当前岗位先去 管人员 / 权限
+                  - generic [ref=e175]: 系统管理员 默认入口是 人员权限。
+              - button "2 先把最急提醒看完 项目 \"企业官网重构\" 风险较高，预算使用率 5.8%。" [ref=e176]:
+                - generic [ref=e177]: "2"
+                - generic [ref=e178]:
+                  - strong [ref=e179]: 先把最急提醒看完
+                  - generic [ref=e180]: 项目 "企业官网重构" 风险较高，预算使用率 5.8%。
+              - button "3 再看近期回款付款 最近单据先处理到财务中心，不在首页停留。" [ref=e181]:
+                - generic [ref=e182]: "3"
+                - generic [ref=e183]:
+                  - strong [ref=e184]: 再看近期回款付款
+                  - generic [ref=e185]: 最近单据先处理到财务中心，不在首页停留。
+            - generic [ref=e186]:
+              - generic [ref=e187]:
+                - generic [ref=e188]: 常用入口
+                - list [ref=e189]:
+                  - listitem [ref=e190]: 先看提醒和回款付款节点，确认今天最急的事。
+                  - listitem [ref=e191]: 和钱有关去财务中心，和交付有关去项目交付，和 APP 问题有关去 APP 运营。
+                  - listitem [ref=e192]: 需要增人、改权限、查谁操作过，再去人员权限。
+                - generic [ref=e193]:
+                  - button "记收支 / 单据 收款、付款、应收应付和附件都去财务中心。" [ref=e194]:
+                    - generic [ref=e195]:
+                      - strong [ref=e196]: 记收支 / 单据
+                      - generic [ref=e197]: 收款、付款、应收应付和附件都去财务中心。
+                  - button "看项目 / 任务 进度、逾期任务和交付风险都在项目交付。" [ref=e198]:
+                    - generic [ref=e199]:
+                      - strong [ref=e200]: 看项目 / 任务
+                      - generic [ref=e201]: 进度、逾期任务和交付风险都在项目交付。
+                  - button "记 APP 问题 问题、资料、版本和 Bug 联动都在 APP 运营。" [ref=e202]:
+                    - generic [ref=e203]:
+                      - strong [ref=e204]: 记 APP 问题
+                      - generic [ref=e205]: 问题、资料、版本和 Bug 联动都在 APP 运营。
+                  - button "管人员 / 权限 只有新增员工、改权限、查日志时才进入。" [ref=e206]:
+                    - generic [ref=e207]:
+                      - strong [ref=e208]: 管人员 / 权限
+                      - generic [ref=e209]: 只有新增员工、改权限、查日志时才进入。
+              - generic [ref=e210]:
+                - generic [ref=e211]: 优先提醒
+                - list [ref=e212]:
+                  - listitem [ref=e213]: 项目 "企业官网重构" 风险较高，预算使用率 5.8%。
+                  - listitem [ref=e214]: 未来 10 天内有 1 笔应收节点，请提前安排催收。
+              - generic [ref=e215]:
+                - generic [ref=e216]: 最近要盯的单据
+                - generic [ref=e217]:
+                  - article [ref=e218]:
+                    - generic [ref=e219]:
+                      - strong [ref=e220]: 企业官网重构一期尾款
+                      - generic [ref=e222]: 应收
+                    - generic [ref=e223]:
+                      - generic [ref=e224]: 星环科技
+                      - generic [ref=e225]: 2026-03-25
+                      - generic [ref=e226]: ¥50,000.00
+                  - article [ref=e227]:
+                    - generic [ref=e228]:
+                      - strong [ref=e229]: 财务 BI 看板续约
+                      - generic [ref=e231]: 应收
+                    - generic [ref=e232]:
+                      - generic [ref=e233]: 教培 SaaS 客户
+                      - generic [ref=e234]: 2026-04-01
+                      - generic [ref=e235]: ¥20,000.00
+        - button "更多经营概览和图表" [ref=e238] [cursor=pointer]:
+          - generic [ref=e239]: 更多经营概览和图表
+          - img [ref=e241]

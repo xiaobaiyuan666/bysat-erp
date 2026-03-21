@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'Legacy_id' => '旧系统ID',
+    'App_project_legacy_id' => 'APP项目旧ID',
+    'App_project_id' => '所属APP项目',
+    'Title' => '里程碑',
+    'Owner' => '负责人',
+    'Owner_admin_id' => '负责人后台账号',
+    'Due_date' => '节点日期',
+    'Status' => '状态',
+    'Status pending' => '待开始',
+    'Set status to pending' => '设为待开始',
+    'Status doing' => '进行中',
+    'Set status to doing' => '设为进行中',
+    'Status review' => '待确认',
+    'Set status to review' => '设为待确认',
+    'Status done' => '已完成',
+    'Set status to done' => '设为已完成',
+    'Status blocked' => '阻塞',
+    'Set status to blocked' => '设为阻塞',
+    'Progress' => '进度%',
+    'Deliverable' => '交付物',
+    'Notes' => '备注',
+];

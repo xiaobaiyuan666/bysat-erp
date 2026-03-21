@@ -1,0 +1,16 @@
+- generic [ref=e5]:
+  - img [ref=e7]
+  - generic [ref=e8]:
+    - img [ref=e9]
+    - paragraph
+    - generic [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e13]: 
+        - textbox "用户名" [ref=e14]
+      - generic [ref=e15]:
+        - generic [ref=e17]: 
+        - textbox "密码" [ref=e18]
+      - generic "当前会话有效时长为 24 小时" [ref=e20] [cursor=pointer]:
+        - checkbox "保持会话" [ref=e21]
+        - text: 保持会话
+      - button "登 录" [ref=e23] [cursor=pointer]

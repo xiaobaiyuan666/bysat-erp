@@ -1,0 +1,466 @@
+- generic [ref=e86]:
+  - complementary [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]: SC
+      - generic [ref=e90]:
+        - generic [ref=e91]: Smart Console
+        - heading "云帆软件" [level=1] [ref=e92]
+        - paragraph [ref=e93]: PHP API + Vue Console
+    - generic [ref=e94]:
+      - button "BI 经营驾驶舱" [ref=e95] [cursor=pointer]:
+        - generic [ref=e96]: BI
+        - generic [ref=e97]: 经营驾驶舱
+      - button "FI 财务中心" [ref=e98] [cursor=pointer]:
+        - generic [ref=e99]: FI
+        - generic [ref=e100]: 财务中心
+      - button "PM 项目交付" [ref=e101] [cursor=pointer]:
+        - generic [ref=e102]: PM
+        - generic [ref=e103]: 项目交付
+      - button "OP APP 运营" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: OP
+        - generic [ref=e106]: APP 运营
+      - button "HR 人员权限" [active] [ref=e107] [cursor=pointer]:
+        - generic [ref=e108]: HR
+        - generic [ref=e109]: 人员权限
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: 部署方式
+        - strong [ref=e113]: PHP + JSON + Vue
+      - generic [ref=e114]:
+        - generic [ref=e115]: 模型状态
+        - strong [ref=e116]: 待配置模型
+      - generic [ref=e117]:
+        - generic [ref=e118]: 数据版本
+        - strong [ref=e119]: v1.5.0
+  - generic [ref=e120]:
+    - banner [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 软件企业运营后台
+        - heading "人员权限" [level=2] [ref=e227]
+        - paragraph [ref=e125]: 管理员工、账号、角色权限和操作留痕。
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: 登录账号
+          - strong [ref=e129]: 陈总
+          - generic [ref=e130]: admin / 系统管理员
+        - generic [ref=e131]:
+          - generic [ref=e132]: 当前工作身份
+          - generic [ref=e134] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e136]
+              - generic [ref=e137]: 陈总 / 系统管理员
+            - img [ref=e140]
+          - generic [ref=e142]: 系统管理员
+        - generic [ref=e143]: 最近同步 2026-03-20 07:42:20
+        - button "刷新" [ref=e144] [cursor=pointer]:
+          - img [ref=e146]
+          - generic [ref=e148]: 刷新
+        - button "使用说明" [ref=e149] [cursor=pointer]:
+          - img [ref=e151]
+          - generic [ref=e153]: 使用说明
+        - button "AI 助手" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: AI 助手
+        - button "退出" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+          - generic [ref=e161]: 退出
+    - main [ref=e162]:
+      - generic [ref=e228]:
+        - generic [ref=e230]:
+          - article [ref=e231]:
+            - generic [ref=e232]:
+              - heading "人员权限先做什么" [level=3] [ref=e233]
+              - paragraph [ref=e234]: 先管员工，再看角色；统计和角色摘要默认收起，不一上来把整页铺满。
+            - generic [ref=e235]:
+              - article [ref=e236]:
+                - generic [ref=e237]: 在岗人员
+                - strong [ref=e238]: "8"
+              - article [ref=e239]:
+                - generic [ref=e240]: 管理员账号
+                - strong [ref=e241]: "1"
+              - article [ref=e242]:
+                - generic [ref=e243]: 运营协同岗
+                - strong [ref=e244]: "4"
+              - article [ref=e245]:
+                - generic [ref=e246]: 今日日志
+                - strong [ref=e247]: "83"
+          - article [ref=e248]:
+            - generic [ref=e249]:
+              - heading "常用动作" [level=3] [ref=e250]
+              - paragraph [ref=e251]: 保留最常点的入口，低频配置放到下面的标签里。
+            - generic [ref=e252]:
+              - button "新增员工 先建账号、岗位和默认角色" [ref=e253] [cursor=pointer]:
+                - generic [ref=e254]:
+                  - strong [ref=e255]: 新增员工
+                  - generic [ref=e256]: 先建账号、岗位和默认角色
+              - button "员工台账 先找人，再决定是否要改权限" [ref=e257] [cursor=pointer]:
+                - generic [ref=e258]:
+                  - strong [ref=e259]: 员工台账
+                  - generic [ref=e260]: 先找人，再决定是否要改权限
+              - button "角色组 按权限组分配，不先拆细粒度权限" [ref=e261] [cursor=pointer]:
+                - generic [ref=e262]:
+                  - strong [ref=e263]: 角色组
+                  - generic [ref=e264]: 按权限组分配，不先拆细粒度权限
+          - article [ref=e265]:
+            - generic [ref=e266]:
+              - heading "先记住这三条" [level=3] [ref=e267]
+              - paragraph [ref=e268]: FastAdmin 那种权限思路，核心是先给角色组，再补少量个性权限。
+            - generic [ref=e269]:
+              - article [ref=e270]:
+                - generic [ref=e271]:
+                  - strong [ref=e272]: 系统管理员
+                  - generic [ref=e273]: 系统管理组
+                - generic [ref=e274]:
+                  - generic [ref=e275]: 1 人
+                  - generic [ref=e276]: 默认入口：人员权限
+              - article [ref=e277]:
+                - generic [ref=e278]:
+                  - strong [ref=e279]: 财务人员
+                  - generic [ref=e280]: 财务权限组
+                - generic [ref=e281]:
+                  - generic [ref=e282]: 1 人
+                  - generic [ref=e283]: 默认入口：财务中心
+              - article [ref=e284]:
+                - generic [ref=e285]:
+                  - strong [ref=e286]: 项目经理
+                  - generic [ref=e287]: 项目交付组
+                - generic [ref=e288]:
+                  - generic [ref=e289]: 1 人
+                  - generic [ref=e290]: 默认入口：项目交付
+        - button "更多人员概览和角色摘要" [ref=e293] [cursor=pointer]:
+          - generic [ref=e294]: 更多人员概览和角色摘要
+          - img [ref=e296]
+        - generic [ref=e298]:
+          - generic [ref=e300]:
+            - heading "人员与权限工作台" [level=3] [ref=e301]
+            - paragraph [ref=e302]: 先选角色组，再补额外权限；员工看到的说明会按当前岗位展示默认入口和使用顺序。
+          - generic [ref=e304]:
+            - tablist [ref=e308]:
+              - tab "工作人员" [selected] [ref=e310]
+              - tab "瑙掕壊鏉冮檺" [ref=e311]
+              - tab "鎿嶄綔鏃ュ織" [ref=e312]
+            - tabpanel "工作人员" [ref=e314]:
+              - group [ref=e315]:
+                - generic [ref=e316]:
+                  - generic [ref=e318]:
+                    - img [ref=e321]
+                    - textbox "搜姓名 / 账号 / 工号 / 岗位 / 部门" [ref=e323]
+                  - generic [ref=e325] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e327]
+                      - generic [ref=e328]: 全部角色
+                    - img [ref=e331]
+                  - generic [ref=e334] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e336]
+                      - generic [ref=e337]: 全部状态
+                    - img [ref=e340]
+                  - button "閲嶇疆" [ref=e342] [cursor=pointer]:
+                    - img [ref=e344]
+                    - generic [ref=e346]: 閲嶇疆
+                  - button "鏂板宸ヤ綔浜哄憳" [ref=e347] [cursor=pointer]:
+                    - img [ref=e349]
+                    - generic [ref=e353]: 鏂板宸ヤ綔浜哄憳
+              - generic [ref=e354]:
+                - generic [ref=e355]: 当前结果 8 条
+                - generic [ref=e356]: 管理员可以切换工作身份，模拟不同岗位看到的页面和说明。
+              - generic [ref=e359]:
+                - table [ref=e361]:
+                  - rowgroup [ref=e373]:
+                    - row "浜哄憳 璐﹀彿淇℃伅 閮ㄩ棬 角色 / 权限组 鐩村睘涓婄骇 鑱旂郴鏂瑰紡 鍏ヨ亴鏃ユ湡 状态 最近登录 鎿嶄綔" [ref=e374]:
+                      - columnheader "浜哄憳" [ref=e375]:
+                        - generic [ref=e376]: 浜哄憳
+                      - columnheader "璐﹀彿淇℃伅" [ref=e377]:
+                        - generic [ref=e378]: 璐﹀彿淇℃伅
+                      - columnheader "閮ㄩ棬" [ref=e379]:
+                        - generic [ref=e380]: 閮ㄩ棬
+                      - columnheader "角色 / 权限组" [ref=e381]:
+                        - generic [ref=e382]: 角色 / 权限组
+                      - columnheader "鐩村睘涓婄骇" [ref=e383]:
+                        - generic [ref=e384]: 鐩村睘涓婄骇
+                      - columnheader "鑱旂郴鏂瑰紡" [ref=e385]:
+                        - generic [ref=e386]: 鑱旂郴鏂瑰紡
+                      - columnheader "鍏ヨ亴鏃ユ湡" [ref=e387]:
+                        - generic [ref=e388]: 鍏ヨ亴鏃ユ湡
+                      - columnheader "状态" [ref=e389]:
+                        - generic [ref=e390]: 状态
+                      - columnheader "最近登录" [ref=e391]:
+                        - generic [ref=e392]: 最近登录
+                      - columnheader "鎿嶄綔" [ref=e393]:
+                        - generic [ref=e394]: 鎿嶄綔
+                - table [ref=e399]:
+                  - rowgroup [ref=e411]:
+                    - row "陈总 系统管理员 admin A0001 管理层 系统管理员 系统管理组 13800000001 admin@yfsoft.local 2024-01-03 在岗 2026-03-20 07:42:20 褰撳墠宸ヤ綔韬唤 缂栬緫 鍒犻櫎" [ref=e412]:
+                      - cell "陈总 系统管理员" [ref=e413]:
+                        - generic [ref=e415]:
+                          - strong [ref=e416]: 陈总
+                          - generic [ref=e417]: 系统管理员
+                      - cell "admin A0001" [ref=e418]:
+                        - generic [ref=e420]:
+                          - strong [ref=e421]: admin
+                          - generic [ref=e422]: A0001
+                      - cell "管理层" [ref=e423]:
+                        - generic [ref=e424]: 管理层
+                      - cell "系统管理员 系统管理组" [ref=e425]:
+                        - generic [ref=e427]:
+                          - strong [ref=e428]: 系统管理员
+                          - generic [ref=e429]: 系统管理组
+                      - cell [ref=e430]
+                      - cell "13800000001 admin@yfsoft.local" [ref=e431]:
+                        - generic [ref=e433]:
+                          - strong [ref=e434]: "13800000001"
+                          - generic [ref=e435]: admin@yfsoft.local
+                      - cell "2024-01-03" [ref=e436]:
+                        - generic [ref=e437]: 2024-01-03
+                      - cell "在岗" [ref=e438]:
+                        - generic [ref=e441]: 在岗
+                      - cell "2026-03-20 07:42:20" [ref=e442]:
+                        - generic [ref=e443]: 2026-03-20 07:42:20
+                      - cell "褰撳墠宸ヤ綔韬唤 缂栬緫 鍒犻櫎" [ref=e444]:
+                        - generic [ref=e447]:
+                          - button "褰撳墠宸ヤ綔韬唤" [disabled] [ref=e449]:
+                            - generic [ref=e450]: 褰撳墠宸ヤ綔韬唤
+                          - button "缂栬緫" [ref=e452] [cursor=pointer]:
+                            - generic [ref=e453]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e455] [cursor=pointer]:
+                            - generic [ref=e456]: 鍒犻櫎
+                    - row "李娜 财务主管 finance.li F1001 财务部 财务人员 财务权限组 陈总 13800000002 finance.li@yfsoft.local 2024-04-15 在岗 2026-03-20 05:32:05 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e457]:
+                      - cell "李娜 财务主管" [ref=e458]:
+                        - generic [ref=e460]:
+                          - strong [ref=e461]: 李娜
+                          - generic [ref=e462]: 财务主管
+                      - cell "finance.li F1001" [ref=e463]:
+                        - generic [ref=e465]:
+                          - strong [ref=e466]: finance.li
+                          - generic [ref=e467]: F1001
+                      - cell "财务部" [ref=e468]:
+                        - generic [ref=e469]: 财务部
+                      - cell "财务人员 财务权限组" [ref=e470]:
+                        - generic [ref=e472]:
+                          - strong [ref=e473]: 财务人员
+                          - generic [ref=e474]: 财务权限组
+                      - cell "陈总" [ref=e475]:
+                        - generic [ref=e476]: 陈总
+                      - cell "13800000002 finance.li@yfsoft.local" [ref=e477]:
+                        - generic [ref=e479]:
+                          - strong [ref=e480]: "13800000002"
+                          - generic [ref=e481]: finance.li@yfsoft.local
+                      - cell "2024-04-15" [ref=e482]:
+                        - generic [ref=e483]: 2024-04-15
+                      - cell "在岗" [ref=e484]:
+                        - generic [ref=e487]: 在岗
+                      - cell "2026-03-20 05:32:05" [ref=e488]:
+                        - generic [ref=e489]: 2026-03-20 05:32:05
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e490]:
+                        - generic [ref=e493]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e495] [cursor=pointer]:
+                            - generic [ref=e496]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e498] [cursor=pointer]:
+                            - generic [ref=e499]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e501] [cursor=pointer]:
+                            - generic [ref=e502]: 鍒犻櫎
+                    - row "何浩 经营负责人 leader.he M1001 经营管理部 运营负责人 APP 运营组 陈总 13800000008 leader.he@yfsoft.local 2024-03-08 在岗 2026-03-19 19:26:27 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e503]:
+                      - cell "何浩 经营负责人" [ref=e504]:
+                        - generic [ref=e506]:
+                          - strong [ref=e507]: 何浩
+                          - generic [ref=e508]: 经营负责人
+                      - cell "leader.he M1001" [ref=e509]:
+                        - generic [ref=e511]:
+                          - strong [ref=e512]: leader.he
+                          - generic [ref=e513]: M1001
+                      - cell "经营管理部" [ref=e514]:
+                        - generic [ref=e515]: 经营管理部
+                      - cell "运营负责人 APP 运营组" [ref=e516]:
+                        - generic [ref=e518]:
+                          - strong [ref=e519]: 运营负责人
+                          - generic [ref=e520]: APP 运营组
+                      - cell "陈总" [ref=e521]:
+                        - generic [ref=e522]: 陈总
+                      - cell "13800000008 leader.he@yfsoft.local" [ref=e523]:
+                        - generic [ref=e525]:
+                          - strong [ref=e526]: "13800000008"
+                          - generic [ref=e527]: leader.he@yfsoft.local
+                      - cell "2024-03-08" [ref=e528]:
+                        - generic [ref=e529]: 2024-03-08
+                      - cell "在岗" [ref=e530]:
+                        - generic [ref=e533]: 在岗
+                      - cell "2026-03-19 19:26:27" [ref=e534]:
+                        - generic [ref=e535]: 2026-03-19 19:26:27
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e536]:
+                        - generic [ref=e539]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e541] [cursor=pointer]:
+                            - generic [ref=e542]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e544] [cursor=pointer]:
+                            - generic [ref=e545]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e547] [cursor=pointer]:
+                            - generic [ref=e548]: 鍒犻櫎
+                    - row "顾宁 运营负责人 ops.gu O1001 运营部 运营负责人 APP 运营组 陈总 13800000004 ops.gu@yfsoft.local 2024-08-12 在岗 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e549]:
+                      - cell "顾宁 运营负责人" [ref=e550]:
+                        - generic [ref=e552]:
+                          - strong [ref=e553]: 顾宁
+                          - generic [ref=e554]: 运营负责人
+                      - cell "ops.gu O1001" [ref=e555]:
+                        - generic [ref=e557]:
+                          - strong [ref=e558]: ops.gu
+                          - generic [ref=e559]: O1001
+                      - cell "运营部" [ref=e560]:
+                        - generic [ref=e561]: 运营部
+                      - cell "运营负责人 APP 运营组" [ref=e562]:
+                        - generic [ref=e564]:
+                          - strong [ref=e565]: 运营负责人
+                          - generic [ref=e566]: APP 运营组
+                      - cell "陈总" [ref=e567]:
+                        - generic [ref=e568]: 陈总
+                      - cell "13800000004 ops.gu@yfsoft.local" [ref=e569]:
+                        - generic [ref=e571]:
+                          - strong [ref=e572]: "13800000004"
+                          - generic [ref=e573]: ops.gu@yfsoft.local
+                      - cell "2024-08-12" [ref=e574]:
+                        - generic [ref=e575]: 2024-08-12
+                      - cell "在岗" [ref=e576]:
+                        - generic [ref=e579]: 在岗
+                      - cell [ref=e580]
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e581]:
+                        - generic [ref=e584]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e586] [cursor=pointer]:
+                            - generic [ref=e587]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e589] [cursor=pointer]:
+                            - generic [ref=e590]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e592] [cursor=pointer]:
+                            - generic [ref=e593]: 鍒犻櫎
+                    - row "张敏 项目经理 pm.zhang P1001 交付部 项目经理 项目交付组 陈总 13800000003 pm.zhang@yfsoft.local 2024-06-18 在岗 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e594]:
+                      - cell "张敏 项目经理" [ref=e595]:
+                        - generic [ref=e597]:
+                          - strong [ref=e598]: 张敏
+                          - generic [ref=e599]: 项目经理
+                      - cell "pm.zhang P1001" [ref=e600]:
+                        - generic [ref=e602]:
+                          - strong [ref=e603]: pm.zhang
+                          - generic [ref=e604]: P1001
+                      - cell "交付部" [ref=e605]:
+                        - generic [ref=e606]: 交付部
+                      - cell "项目经理 项目交付组" [ref=e607]:
+                        - generic [ref=e609]:
+                          - strong [ref=e610]: 项目经理
+                          - generic [ref=e611]: 项目交付组
+                      - cell "陈总" [ref=e612]:
+                        - generic [ref=e613]: 陈总
+                      - cell "13800000003 pm.zhang@yfsoft.local" [ref=e614]:
+                        - generic [ref=e616]:
+                          - strong [ref=e617]: "13800000003"
+                          - generic [ref=e618]: pm.zhang@yfsoft.local
+                      - cell "2024-06-18" [ref=e619]:
+                        - generic [ref=e620]: 2024-06-18
+                      - cell "在岗" [ref=e621]:
+                        - generic [ref=e624]: 在岗
+                      - cell [ref=e625]
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e626]:
+                        - generic [ref=e629]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e631] [cursor=pointer]:
+                            - generic [ref=e632]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e634] [cursor=pointer]:
+                            - generic [ref=e635]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e637] [cursor=pointer]:
+                            - generic [ref=e638]: 鍒犻櫎
+                    - row "王越 业务分析 product.wang PD1001 产品部 只读人员 只读查看组 陈总 13800000005 product.wang@yfsoft.local 2024-09-01 在岗 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e639]:
+                      - cell "王越 业务分析" [ref=e640]:
+                        - generic [ref=e642]:
+                          - strong [ref=e643]: 王越
+                          - generic [ref=e644]: 业务分析
+                      - cell "product.wang PD1001" [ref=e645]:
+                        - generic [ref=e647]:
+                          - strong [ref=e648]: product.wang
+                          - generic [ref=e649]: PD1001
+                      - cell "产品部" [ref=e650]:
+                        - generic [ref=e651]: 产品部
+                      - cell "只读人员 只读查看组" [ref=e652]:
+                        - generic [ref=e654]:
+                          - strong [ref=e655]: 只读人员
+                          - generic [ref=e656]: 只读查看组
+                      - cell "陈总" [ref=e657]:
+                        - generic [ref=e658]: 陈总
+                      - cell "13800000005 product.wang@yfsoft.local" [ref=e659]:
+                        - generic [ref=e661]:
+                          - strong [ref=e662]: "13800000005"
+                          - generic [ref=e663]: product.wang@yfsoft.local
+                      - cell "2024-09-01" [ref=e664]:
+                        - generic [ref=e665]: 2024-09-01
+                      - cell "在岗" [ref=e666]:
+                        - generic [ref=e669]: 在岗
+                      - cell [ref=e670]
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e671]:
+                        - generic [ref=e674]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e676] [cursor=pointer]:
+                            - generic [ref=e677]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e679] [cursor=pointer]:
+                            - generic [ref=e680]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e682] [cursor=pointer]:
+                            - generic [ref=e683]: 鍒犻櫎
+                    - row "刘悦 客服主管 service.liu S1001 客服部 客服负责人 客服反馈组 陈总 13800000007 service.liu@yfsoft.local 2024-11-05 在岗 2026-03-20 05:34:28 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e684]:
+                      - cell "刘悦 客服主管" [ref=e685]:
+                        - generic [ref=e687]:
+                          - strong [ref=e688]: 刘悦
+                          - generic [ref=e689]: 客服主管
+                      - cell "service.liu S1001" [ref=e690]:
+                        - generic [ref=e692]:
+                          - strong [ref=e693]: service.liu
+                          - generic [ref=e694]: S1001
+                      - cell "客服部" [ref=e695]:
+                        - generic [ref=e696]: 客服部
+                      - cell "客服负责人 客服反馈组" [ref=e697]:
+                        - generic [ref=e699]:
+                          - strong [ref=e700]: 客服负责人
+                          - generic [ref=e701]: 客服反馈组
+                      - cell "陈总" [ref=e702]:
+                        - generic [ref=e703]: 陈总
+                      - cell "13800000007 service.liu@yfsoft.local" [ref=e704]:
+                        - generic [ref=e706]:
+                          - strong [ref=e707]: "13800000007"
+                          - generic [ref=e708]: service.liu@yfsoft.local
+                      - cell "2024-11-05" [ref=e709]:
+                        - generic [ref=e710]: 2024-11-05
+                      - cell "在岗" [ref=e711]:
+                        - generic [ref=e714]: 在岗
+                      - cell "2026-03-20 05:34:28" [ref=e715]:
+                        - generic [ref=e716]: 2026-03-20 05:34:28
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e717]:
+                        - generic [ref=e720]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e722] [cursor=pointer]:
+                            - generic [ref=e723]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e725] [cursor=pointer]:
+                            - generic [ref=e726]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e728] [cursor=pointer]:
+                            - generic [ref=e729]: 鍒犻櫎
+                    - row "周柯 技术负责人 tech.zhou T1001 技术部 技术负责人 研发协同组 陈总 13800000006 tech.zhou@yfsoft.local 2024-05-09 在岗 鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e730]:
+                      - cell "周柯 技术负责人" [ref=e731]:
+                        - generic [ref=e733]:
+                          - strong [ref=e734]: 周柯
+                          - generic [ref=e735]: 技术负责人
+                      - cell "tech.zhou T1001" [ref=e736]:
+                        - generic [ref=e738]:
+                          - strong [ref=e739]: tech.zhou
+                          - generic [ref=e740]: T1001
+                      - cell "技术部" [ref=e741]:
+                        - generic [ref=e742]: 技术部
+                      - cell "技术负责人 研发协同组" [ref=e743]:
+                        - generic [ref=e745]:
+                          - strong [ref=e746]: 技术负责人
+                          - generic [ref=e747]: 研发协同组
+                      - cell "陈总" [ref=e748]:
+                        - generic [ref=e749]: 陈总
+                      - cell "13800000006 tech.zhou@yfsoft.local" [ref=e750]:
+                        - generic [ref=e752]:
+                          - strong [ref=e753]: "13800000006"
+                          - generic [ref=e754]: tech.zhou@yfsoft.local
+                      - cell "2024-05-09" [ref=e755]:
+                        - generic [ref=e756]: 2024-05-09
+                      - cell "在岗" [ref=e757]:
+                        - generic [ref=e760]: 在岗
+                      - cell [ref=e761]
+                      - cell "鍒囨崲鍒版韬唤 缂栬緫 鍒犻櫎" [ref=e762]:
+                        - generic [ref=e765]:
+                          - button "鍒囨崲鍒版韬唤" [ref=e767] [cursor=pointer]:
+                            - generic [ref=e768]: 鍒囨崲鍒版韬唤
+                          - button "缂栬緫" [ref=e770] [cursor=pointer]:
+                            - generic [ref=e771]: 缂栬緫
+                          - button "鍒犻櫎" [ref=e773] [cursor=pointer]:
+                            - generic [ref=e774]: 鍒犻櫎

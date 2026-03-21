@@ -1,0 +1,73 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]: vue-pure-admin 风格
+    - heading "云帆软件" [level=1] [ref=e6]
+    - paragraph [ref=e7]: 后台统一采用左侧菜单、顶部标签、轻量卡片和清晰工作流，不再做成一屏堆满信息的样子。
+    - generic [ref=e8]:
+      - article [ref=e9]:
+        - strong [ref=e10]: 默认管理员
+        - generic [ref=e11]: "账号 `admin`"
+        - generic [ref=e12]: "密码 `Admin@123`"
+      - article [ref=e13]:
+        - strong [ref=e14]: 推荐使用顺序
+        - generic [ref=e15]: 财务先记账，项目先看任务，APP 运营先收问题。
+        - generic [ref=e16]: "其他员工默认密码是 `Start@123`。"
+  - generic [ref=e17]:
+    - generic [ref=e19]:
+      - heading "登录工作台" [level=2] [ref=e20]
+      - paragraph [ref=e21]: 支持账号、工号或邮箱登录
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e24]: "*账号"
+        - generic [ref=e27]:
+          - img [ref=e30]
+          - textbox "*账号" [ref=e32]:
+            - /placeholder: 请输入账号 / 工号 / 邮箱
+            - text: admin
+      - generic [ref=e33]:
+        - generic [ref=e34]: "*密码"
+        - generic [ref=e37]:
+          - img [ref=e40]
+          - textbox "*密码" [ref=e43]:
+            - /placeholder: 请输入密码
+            - text: Admin@123
+          - img [ref=e46] [cursor=pointer]
+      - button "登录进入工作台" [disabled]:
+        - generic:
+          - img
+        - generic: 登录进入工作台
+    - generic [ref=e51]:
+      - generic [ref=e52]: 演示账号
+      - generic [ref=e53]:
+        - button "陈总 管理层 / 系统管理员 admin / A0001" [ref=e54] [cursor=pointer]:
+          - strong [ref=e55]: 陈总
+          - generic [ref=e56]: 管理层 / 系统管理员
+          - generic [ref=e57]: admin / A0001
+        - button "李娜 财务部 / 财务人员 finance.li / F1001" [ref=e58] [cursor=pointer]:
+          - strong [ref=e59]: 李娜
+          - generic [ref=e60]: 财务部 / 财务人员
+          - generic [ref=e61]: finance.li / F1001
+        - button "何浩 经营管理部 / 运营负责人 leader.he / M1001" [ref=e62] [cursor=pointer]:
+          - strong [ref=e63]: 何浩
+          - generic [ref=e64]: 经营管理部 / 运营负责人
+          - generic [ref=e65]: leader.he / M1001
+        - button "顾宁 运营部 / 运营负责人 ops.gu / O1001" [ref=e66] [cursor=pointer]:
+          - strong [ref=e67]: 顾宁
+          - generic [ref=e68]: 运营部 / 运营负责人
+          - generic [ref=e69]: ops.gu / O1001
+        - button "张敏 交付部 / 项目经理 pm.zhang / P1001" [ref=e70] [cursor=pointer]:
+          - strong [ref=e71]: 张敏
+          - generic [ref=e72]: 交付部 / 项目经理
+          - generic [ref=e73]: pm.zhang / P1001
+        - button "王越 产品部 / 只读人员 product.wang / PD1001" [ref=e74] [cursor=pointer]:
+          - strong [ref=e75]: 王越
+          - generic [ref=e76]: 产品部 / 只读人员
+          - generic [ref=e77]: product.wang / PD1001
+        - button "刘悦 客服部 / 客服负责人 service.liu / S1001" [ref=e78] [cursor=pointer]:
+          - strong [ref=e79]: 刘悦
+          - generic [ref=e80]: 客服部 / 客服负责人
+          - generic [ref=e81]: service.liu / S1001
+        - button "周柯 技术部 / 技术负责人 tech.zhou / T1001" [ref=e82] [cursor=pointer]:
+          - strong [ref=e83]: 周柯
+          - generic [ref=e84]: 技术部 / 技术负责人
+          - generic [ref=e85]: tech.zhou / T1001

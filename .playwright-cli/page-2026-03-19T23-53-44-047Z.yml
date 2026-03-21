@@ -1,0 +1,217 @@
+- generic [ref=e86]:
+  - complementary [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]: SC
+      - generic [ref=e90]:
+        - generic [ref=e91]: Smart Console
+        - heading "云帆软件" [level=1] [ref=e92]
+        - paragraph [ref=e93]: PHP API + Vue Console
+    - generic [ref=e94]:
+      - button "BI 经营驾驶舱" [ref=e95] [cursor=pointer]:
+        - generic [ref=e96]: BI
+        - generic [ref=e97]: 经营驾驶舱
+      - button "FI 财务中心" [ref=e98] [cursor=pointer]:
+        - generic [ref=e99]: FI
+        - generic [ref=e100]: 财务中心
+      - button "PM 项目交付" [ref=e101] [cursor=pointer]:
+        - generic [ref=e102]: PM
+        - generic [ref=e103]: 项目交付
+      - button "OP APP 运营" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: OP
+        - generic [ref=e106]: APP 运营
+      - button "HR 人员权限" [ref=e107] [cursor=pointer]:
+        - generic [ref=e108]: HR
+        - generic [ref=e109]: 人员权限
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: 部署方式
+        - strong [ref=e113]: PHP + JSON + Vue
+      - generic [ref=e114]:
+        - generic [ref=e115]: 模型状态
+        - strong [ref=e116]: 待配置模型
+      - generic [ref=e117]:
+        - generic [ref=e118]: 数据版本
+        - strong [ref=e119]: v1.5.0
+  - generic [ref=e120]:
+    - banner [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 软件企业运营后台
+        - heading "项目交付" [level=2] [ref=e940]
+        - paragraph [ref=e125]: 项目进度、任务、风险和负责人负荷统一在这里处理。
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: 登录账号
+          - strong [ref=e129]: 陈总
+          - generic [ref=e130]: admin / 系统管理员
+        - generic [ref=e131]:
+          - generic [ref=e132]: 当前工作身份
+          - generic [ref=e134] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e136]
+              - generic [ref=e137]: 陈总 / 系统管理员
+            - img [ref=e140]
+          - generic [ref=e142]: 系统管理员
+        - generic [ref=e143]: 最近同步 2026-03-20 07:51:55
+        - button "刷新" [ref=e144] [cursor=pointer]:
+          - img [ref=e146]
+          - generic [ref=e148]: 刷新
+        - button "使用说明" [ref=e149] [cursor=pointer]:
+          - img [ref=e151]
+          - generic [ref=e153]: 使用说明
+        - button "AI 助手" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: AI 助手
+        - button "退出" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+          - generic [ref=e161]: 退出
+    - main [ref=e162]:
+      - generic [ref=e941]:
+        - generic [ref=e942]:
+          - generic [ref=e944]:
+            - heading "先看项目和任务" [level=3] [ref=e945]
+            - paragraph [ref=e946]: 按交付顺序走：先处理任务，再看高风险项目，需要排期时再新建项目或任务。
+          - generic [ref=e947]:
+            - generic [ref=e948]:
+              - button "1 先处理逾期任务 日常推进先看任务，不先翻完整项目台账。" [active] [ref=e949]:
+                - generic [ref=e950]: "1"
+                - generic [ref=e951]:
+                  - strong [ref=e952]: 先处理逾期任务
+                  - generic [ref=e953]: 日常推进先看任务，不先翻完整项目台账。
+              - button "2 再看高风险项目 确认预算、进度和逾期任务有没有失控。" [ref=e954]:
+                - generic [ref=e955]: "2"
+                - generic [ref=e956]:
+                  - strong [ref=e957]: 再看高风险项目
+                  - generic [ref=e958]: 确认预算、进度和逾期任务有没有失控。
+              - button "3 需要排期就建项目 只有新交付单或新阶段启动时才建项目。" [ref=e959]:
+                - generic [ref=e960]: "3"
+                - generic [ref=e961]:
+                  - strong [ref=e962]: 需要排期就建项目
+                  - generic [ref=e963]: 只有新交付单或新阶段启动时才建项目。
+              - button "4 要落人落时间就拆任务 谁做、什么时候交、优先级是多少，统一放任务里。" [ref=e964]:
+                - generic [ref=e965]: "4"
+                - generic [ref=e966]:
+                  - strong [ref=e967]: 要落人落时间就拆任务
+                  - generic [ref=e968]: 谁做、什么时候交、优先级是多少，统一放任务里。
+            - generic [ref=e969]:
+              - generic [ref=e970]:
+                - generic [ref=e971]: 今天优先
+                - generic [ref=e972]:
+                  - article [ref=e973]:
+                    - generic [ref=e974]: 进行中项目
+                    - strong [ref=e975]: "3"
+                  - article [ref=e976]:
+                    - generic [ref=e977]: 逾期任务
+                    - strong [ref=e978]: "0"
+                  - article [ref=e979]:
+                    - generic [ref=e980]: 已完成任务
+                    - strong [ref=e981]: "2"
+                  - article [ref=e982]:
+                    - generic [ref=e983]: 项目净利润
+                    - strong [ref=e984]: ¥137,800.00
+              - generic [ref=e985]:
+                - generic [ref=e986]: 常用动作
+                - generic [ref=e987]:
+                  - button "新增项目 先建项目，再把状态、预算和负责人补齐。" [ref=e988]:
+                    - img [ref=e989]
+                    - generic [ref=e993]:
+                      - strong [ref=e994]: 新增项目
+                      - generic [ref=e995]: 先建项目，再把状态、预算和负责人补齐。
+                  - button "新增任务 把负责人、截止时间和优先级先挂进去。" [ref=e996]:
+                    - img [ref=e997]
+                    - generic [ref=e1001]:
+                      - strong [ref=e1002]: 新增任务
+                      - generic [ref=e1003]: 把负责人、截止时间和优先级先挂进去。
+              - generic [ref=e1004]:
+                - generic [ref=e1005]: 先盯住这些项目
+                - generic [ref=e1006]:
+                  - article [ref=e1007] [cursor=pointer]:
+                    - generic [ref=e1008]:
+                      - strong [ref=e1009]: 企业官网重构
+                      - generic [ref=e1011]: 风险 3
+                    - generic [ref=e1012]:
+                      - generic [ref=e1013]: 林晨
+                      - generic [ref=e1014]: 进度 50%
+                      - generic [ref=e1015]: 逾期任务 0
+                  - article [ref=e1016] [cursor=pointer]:
+                    - generic [ref=e1017]:
+                      - strong [ref=e1018]: 客服工单 SaaS
+                      - generic [ref=e1020]: 风险 0
+                    - generic [ref=e1021]:
+                      - generic [ref=e1022]: 张敏
+                      - generic [ref=e1023]: 进度 50%
+                      - generic [ref=e1024]: 逾期任务 0
+                  - article [ref=e1025] [cursor=pointer]:
+                    - generic [ref=e1026]:
+                      - strong [ref=e1027]: 财务 BI 看板
+                      - generic [ref=e1029]: 风险 0
+                    - generic [ref=e1030]:
+                      - generic [ref=e1031]: 王越
+                      - generic [ref=e1032]: 进度 0%
+                      - generic [ref=e1033]: 逾期任务 0
+        - button "更多项目概览" [ref=e1036] [cursor=pointer]:
+          - generic [ref=e1037]: 更多项目概览
+          - img [ref=e1039]
+        - generic [ref=e1041]:
+          - generic [ref=e1043]:
+            - heading "项目交付处理台" [level=3] [ref=e1044]
+            - paragraph [ref=e1045]: 任务是日常入口，项目是总览入口。筛选、详情和编辑都在这一块连续完成。
+          - generic [ref=e1047]:
+            - tablist [ref=e1051]:
+              - tab "项目" [ref=e1053]
+              - tab "任务" [selected] [ref=e1054]
+            - tabpanel "任务" [ref=e1296]:
+              - generic [ref=e1297]:
+                - button "全部任务" [ref=e1298]
+                - button "进行中" [ref=e1299]
+                - button "待开始" [ref=e1300]
+                - button "已逾期" [ref=e1301]
+                - button "高优先级" [ref=e1302]
+              - group [ref=e1303]:
+                - generic [ref=e1304]:
+                  - generic [ref=e1306]:
+                    - img [ref=e1309]
+                    - textbox "搜任务 / 负责人 / 项目" [ref=e1311]
+                  - generic [ref=e1313] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e1315]
+                      - generic [ref=e1316]: 全部状态
+                    - img [ref=e1319]
+                  - generic [ref=e1322] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e1324]
+                      - generic [ref=e1325]: 全部项目
+                    - img [ref=e1328]
+                  - button "重置" [ref=e1330] [cursor=pointer]:
+                    - img [ref=e1332]
+                    - generic [ref=e1334]: 重置
+                  - button "新增任务" [ref=e1335] [cursor=pointer]:
+                    - img [ref=e1337]
+                    - generic [ref=e1341]: 新增任务
+              - generic [ref=e1342]:
+                - generic [ref=e1343]: 当前结果 0 条
+                - generic [ref=e1344]: 双击行可打开详情
+              - generic [ref=e1347]:
+                - table [ref=e1349]:
+                  - rowgroup [ref=e1360]:
+                    - row "任务标题 所属项目 负责人 状态 优先级 工时 截止日 风险 操作" [ref=e1361]:
+                      - columnheader "任务标题" [ref=e1362]:
+                        - generic [ref=e1363]: 任务标题
+                      - columnheader "所属项目" [ref=e1364]:
+                        - generic [ref=e1365]: 所属项目
+                      - columnheader "负责人" [ref=e1366]:
+                        - generic [ref=e1367]: 负责人
+                      - columnheader "状态" [ref=e1368]:
+                        - generic [ref=e1369]: 状态
+                      - columnheader "优先级" [ref=e1370]:
+                        - generic [ref=e1371]: 优先级
+                      - columnheader "工时" [ref=e1372]:
+                        - generic [ref=e1373]: 工时
+                      - columnheader "截止日" [ref=e1374]:
+                        - generic [ref=e1375]: 截止日
+                      - columnheader "风险" [ref=e1376]:
+                        - generic [ref=e1377]: 风险
+                      - columnheader "操作" [ref=e1378]:
+                        - generic [ref=e1379]: 操作
+                - generic [ref=e1383]:
+                  - table:
+                    - rowgroup
+                  - generic [ref=e1385]: 暂无数据

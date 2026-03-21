@@ -1,0 +1,121 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: PA
+      - heading "云帆软件" [level=1] [ref=e8]
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - strong [ref=e12]: 工作台
+        - button "经营驾驶舱" [ref=e14]:
+          - img [ref=e16]
+          - generic [ref=e19]: 经营驾驶舱
+      - generic [ref=e20]:
+        - strong [ref=e22]: 业务协同
+        - generic [ref=e23]:
+          - button "财务中心" [ref=e24]:
+            - img [ref=e26]
+            - generic [ref=e30]: 财务中心
+          - button "项目交付" [ref=e31]:
+            - img [ref=e33]
+            - generic [ref=e36]: 项目交付
+          - button "APP 运营" [ref=e37]:
+            - img [ref=e39]
+            - generic [ref=e42]: APP 运营
+      - generic [ref=e43]:
+        - strong [ref=e45]: 系统管理
+        - button "人员权限" [ref=e47]:
+          - img [ref=e49]
+          - generic [ref=e52]: 人员权限
+  - generic [ref=e53]:
+    - banner [ref=e54]:
+      - generic [ref=e55]:
+        - generic [ref=e57]: 工作台
+        - generic [ref=e58]:
+          - heading "经营驾驶舱" [level=2] [ref=e59]
+          - paragraph [ref=e60]: 先看今天最急的事，再决定去财务、项目还是 APP 运营处理。
+      - generic [ref=e61]:
+        - generic [ref=e62]:
+          - generic [ref=e63]: 当前身份
+          - strong [ref=e64]: 陈总
+          - generic [ref=e65]: 系统管理员 / 管理层
+          - generic [ref=e66]: admin / 系统管理员
+          - generic [ref=e68] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e70]
+              - generic [ref=e71]: 陈总 / 系统管理员
+            - img [ref=e74]
+        - generic [ref=e76]: 最近同步 2026-03-20 16:53:13
+        - button "刷新" [ref=e77] [cursor=pointer]:
+          - img [ref=e79]
+          - generic [ref=e81]: 刷新
+        - button "使用说明" [ref=e82] [cursor=pointer]:
+          - img [ref=e84]
+          - generic [ref=e86]: 使用说明
+        - button "AI 助手" [ref=e87] [cursor=pointer]:
+          - generic [ref=e88]: AI 助手
+        - button "退出" [ref=e89] [cursor=pointer]:
+          - img [ref=e91]
+          - generic [ref=e94]: 退出
+    - main [ref=e95]:
+      - generic [ref=e97]:
+        - generic [ref=e99]:
+          - heading "工作入口" [level=3] [ref=e100]
+          - paragraph [ref=e101]: 先去对应模块办事。
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - button "默认入口 财务中心" [ref=e104] [cursor=pointer]:
+              - generic [ref=e105]: 默认入口
+              - strong [ref=e106]: 财务中心
+            - button "待回款 ¥70,000.00" [ref=e107] [cursor=pointer]:
+              - generic [ref=e108]: 待回款
+              - strong [ref=e109]: ¥70,000.00
+            - button "待付款 ¥0.00" [ref=e110] [cursor=pointer]:
+              - generic [ref=e111]: 待付款
+              - strong [ref=e112]: ¥0.00
+            - button "进行中项目 3" [ref=e113] [cursor=pointer]:
+              - generic [ref=e114]: 进行中项目
+              - strong [ref=e115]: "3"
+          - generic [ref=e116]:
+            - generic [ref=e117]:
+              - generic [ref=e118]: 常用入口
+              - generic [ref=e119]:
+                - button "财务中心 记账、附件、回款付款" [ref=e120]:
+                  - generic [ref=e121]:
+                    - strong [ref=e122]: 财务中心
+                    - generic [ref=e123]: 记账、附件、回款付款
+                - button "项目交付 项目、任务、逾期处理" [ref=e124]:
+                  - generic [ref=e125]:
+                    - strong [ref=e126]: 项目交付
+                    - generic [ref=e127]: 项目、任务、逾期处理
+                - button "APP 运营 问题、发版、资料" [ref=e128]:
+                  - generic [ref=e129]:
+                    - strong [ref=e130]: APP 运营
+                    - generic [ref=e131]: 问题、发版、资料
+                - button "人员权限 员工、角色、日志" [ref=e132]:
+                  - generic [ref=e133]:
+                    - strong [ref=e134]: 人员权限
+                    - generic [ref=e135]: 员工、角色、日志
+            - generic [ref=e136]:
+              - generic [ref=e137]: 今天提醒
+              - list [ref=e138]:
+                - listitem [ref=e139]: 项目 "企业官网重构" 风险较高，预算使用率 5.8%。
+                - listitem [ref=e140]: 未来 10 天内有 1 笔应收节点，请提前安排催收。
+            - generic [ref=e141]:
+              - generic [ref=e142]: 最近到期单据
+              - generic [ref=e143]:
+                - article [ref=e144]:
+                  - generic [ref=e145]:
+                    - strong [ref=e146]: 企业官网重构一期尾款
+                    - generic [ref=e148]: 应收
+                  - generic [ref=e149]:
+                    - generic [ref=e150]: 星环科技
+                    - generic [ref=e151]: 2026-03-25
+                    - generic [ref=e152]: ¥50,000.00
+                - article [ref=e153]:
+                  - generic [ref=e154]:
+                    - strong [ref=e155]: 财务 BI 看板续约
+                    - generic [ref=e157]: 应收
+                  - generic [ref=e158]:
+                    - generic [ref=e159]: 教培 SaaS 客户
+                    - generic [ref=e160]: 2026-04-01
+                    - generic [ref=e161]: ¥20,000.00

@@ -1,0 +1,100 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">登录账号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-account" data-rule="required" class="form-control" name="row[account]" type="text" placeholder="例如：finance.li">
+            <p class="help-block">账号会同步创建为 FastAdmin 后台登录账号。</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">登录密码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-password" class="form-control" name="password" type="text" value="Start@123" placeholder="留空则使用默认密码 Start@123">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">工号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-employee_no" data-rule="required" class="form-control" name="row[employee_no]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">姓名:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">部门:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-department" class="form-control" name="row[department]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">岗位:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[title]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">角色组:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-role_key" data-rule="required" class="form-control selectpicker" name="row[role_key]">
+                {foreach name="roleKeyList" item="vo"}
+                <option value="{$key}" {if $key=='viewer'}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+            <p class="help-block">保存后会自动同步到对应的后台权限组。</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直属上级:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-manager_admin_id" class="form-control selectpicker" name="row[manager_admin_id]">
+                {foreach name="managerAdminList" item="vo"}
+                <option value="{$key}" {if $key==0}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">手机号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control" name="row[phone]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">邮箱:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-email" class="form-control" name="row[email]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">入职日期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-hire_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[hire_date]" type="text" value="{:date('Y-m-d')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-status" data-rule="required" class="form-control selectpicker" name="row[status]">
+                {foreach name="statusList" item="vo"}
+                <option value="{$key}" {if $key=='active'}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]" placeholder="可补充分工、权限说明或交接信息"></textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

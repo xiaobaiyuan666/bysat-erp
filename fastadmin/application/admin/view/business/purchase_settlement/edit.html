@@ -1,0 +1,121 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">结算编号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input class="form-control" type="text" value="{$row.settlement_no|htmlentities}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">结算标题:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">采购单:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-purchase_order_id" data-rule="required" class="form-control selectpicker" data-live-search="true" name="row[purchase_order_id]">
+                <option value="">请选择采购单</option>
+                {foreach name="purchaseOrderList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.purchase_order_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">付款计划:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-payment_plan_id" class="form-control selectpicker" data-live-search="true" name="row[payment_plan_id]">
+                <option value="">未关联合同付款计划</option>
+                {foreach name="paymentPlanList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.payment_plan_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">结算金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-settlement_amount" data-rule="required" class="form-control" step="0.01" name="row[settlement_amount]" type="number" value="{$row.settlement_amount|default='0.00'}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">已付金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-paid_amount" class="form-control" step="0.01" name="row[paid_amount]" type="number" value="{$row.paid_amount|default='0.00'}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">已到票金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-invoiced_amount" class="form-control" step="0.01" name="row[invoiced_amount]" type="number" value="{$row.invoiced_amount|default='0.00'}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">未结金额:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-balance_amount" class="form-control" step="0.01" name="row[balance_amount]" type="number" value="{$row.balance_amount|default='0.00'}" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">发票状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-invoice_status" data-rule="required" class="form-control selectpicker" name="row[invoice_status]">
+                {foreach name="invoiceStatusList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.invoice_status" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">发票号码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-invoice_no" class="form-control" name="row[invoice_no]" type="text" value="{$row.invoice_no|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">到票日期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-invoiced_at" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="false" name="row[invoiced_at]" type="text" value="{$row.invoiced_at|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">结算状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-status" data-rule="required" class="form-control selectpicker" name="row[status]">
+                {foreach name="statusList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.status" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">跟进负责人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-owner_admin_id" data-rule="required" class="form-control selectpicker" data-live-search="true" name="row[owner_admin_id]">
+                <option value="">请选择</option>
+                {foreach name="ownerList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.owner_admin_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">结清时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-settled_at" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="false" name="row[settled_at]" type="text" value="{$row.settled_at|default=''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]">{$row.notes|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

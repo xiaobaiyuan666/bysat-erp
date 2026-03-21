@@ -1,0 +1,99 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">登录账号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-account" data-rule="required" class="form-control" name="row[account]" type="text" value="{$row.account|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">重置密码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-password" class="form-control" name="password" type="text" placeholder="留空则不修改密码">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">工号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-employee_no" data-rule="required" class="form-control" name="row[employee_no]" type="text" value="{$row.employee_no|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">姓名:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">部门:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-department" class="form-control" name="row[department]" type="text" value="{$row.department|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">岗位:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-title" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">角色组:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-role_key" data-rule="required" class="form-control selectpicker" name="row[role_key]">
+                {foreach name="roleKeyList" item="vo"}
+                <option value="{$key}" {if $key==$row.role_key}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+            <p class="help-block">修改角色组后会同步调整该员工的后台权限组。</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">直属上级:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-manager_admin_id" class="form-control selectpicker" name="row[manager_admin_id]">
+                {foreach name="managerAdminList" item="vo"}
+                <option value="{$key}" {if $key==$row.manager_admin_id}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">手机号:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-phone" class="form-control" name="row[phone]" type="text" value="{$row.phone|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">邮箱:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-email" class="form-control" name="row[email]" type="text" value="{$row.email|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">入职日期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-hire_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="false" name="row[hire_date]" type="text" value="{$row.hire_date}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">状态:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-status" data-rule="required" class="form-control selectpicker" name="row[status]">
+                {foreach name="statusList" item="vo"}
+                <option value="{$key}" {if $key==$row.status}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">备注:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]">{$row.notes|htmlentities}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

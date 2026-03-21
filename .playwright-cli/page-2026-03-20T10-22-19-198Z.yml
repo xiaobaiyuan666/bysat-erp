@@ -1,0 +1,368 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - link "My Website" [ref=e4] [cursor=pointer]:
+      - /url: javascript:;
+      - generic [ref=e5]: My Website
+    - navigation [ref=e6]:
+      - generic [ref=e7]:
+        - button " Toggle navigation" [ref=e8] [cursor=pointer]:
+          - text: 
+          - generic [ref=e9]: Toggle navigation
+        - tablist [ref=e10]:
+          - text: 
+          - tab " 控制台" [ref=e11]:
+            - generic [ref=e12]: 
+            - text: 控制台
+        - list [ref=e14]:
+          - listitem [ref=e15]:
+            - link " 主页" [ref=e16] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e17]: 
+              - text: 主页
+          - listitem [ref=e18]:
+            - link " 清除缓存" [ref=e19] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e20]: 
+              - text: 清除缓存
+            - text:      
+          - listitem [ref=e21]:
+            - link "" [ref=e22] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e23]: 
+          - listitem [ref=e24]:
+            - link "陈总" [ref=e25] [cursor=pointer]:
+              - /url: "#"
+            - text:    
+          - listitem [ref=e26]:
+            - link "" [ref=e27] [cursor=pointer]:
+              - /url: javascript:;
+              - generic [ref=e28]: 
+  - complementary [ref=e29]:
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - link [ref=e34] [cursor=pointer]:
+          - /url: general/profile
+          - img [ref=e35]
+        - generic [ref=e36]:
+          - paragraph [ref=e37]: 陈总
+          - generic [ref=e38]: 
+          - text: 在线
+      - generic [ref=e40]:
+        - textbox "搜索菜单" [ref=e41]
+        - button "" [ref=e43] [cursor=pointer]:
+          - generic [ref=e44]: 
+      - list [ref=e45]:
+        - listitem [ref=e46]:
+          - link " 控制台 hot" [ref=e47] [cursor=pointer]:
+            - /url: /MWDObBuRlr.php/dashboard?ref=addtabs
+            - generic [ref=e48]: 
+            - text: 控制台
+            - generic [ref=e50]: hot
+        - listitem [ref=e51]:
+          - link " 常规管理 " [ref=e52] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e53]: 
+            - text: 常规管理
+            - generic [ref=e55]: 
+          - text:   
+        - listitem [ref=e56]:
+          - link " 插件管理 new" [ref=e57] [cursor=pointer]:
+            - /url: /MWDObBuRlr.php/addon?ref=addtabs
+            - generic [ref=e58]: 
+            - text: 插件管理
+            - generic [ref=e60]: new
+        - listitem [ref=e61]:
+          - link " 会员管理 " [ref=e62] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e63]: 
+            - text: 会员管理
+            - generic [ref=e65]: 
+          - text:   
+        - listitem [ref=e66]:
+          - link " 财务中心 " [ref=e67] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e68]: 
+            - text: 财务中心
+            - generic [ref=e70]: 
+          - text:  
+        - listitem [ref=e71]:
+          - link " 项目交付 " [ref=e72] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e73]: 
+            - text: 项目交付
+            - generic [ref=e75]: 
+          - text:  
+        - listitem [ref=e76]:
+          - link " APP运营 " [ref=e77] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e78]: 
+            - text: APP运营
+            - generic [ref=e80]: 
+          - text:        
+        - listitem [ref=e81]:
+          - link " 人员与权限 " [ref=e82] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e83]: 
+            - text: 人员与权限
+            - generic [ref=e85]: 
+          - text:      
+        - listitem [ref=e86]:
+          - link " AI助手 " [ref=e87] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e88]: 
+            - text: AI助手
+            - generic [ref=e90]: 
+          - text:  
+  - tabpanel [ref=e92]:
+    - iframe [ref=e93]:
+      - main [ref=f1e2]:
+        - generic [ref=f1e8]:
+          - generic [ref=f1e9]:
+            - generic [ref=f1e10]:
+              - emphasis [ref=f1e11]: 控制台
+              - text: 用于展示当前系统中的统计数据、统计报表及重要实时数据
+            - list [ref=f1e12]:
+              - listitem [ref=f1e13]:
+                - link "控制台" [ref=f1e14]:
+                  - /url: "#one"
+              - listitem [ref=f1e15]:
+                - link "自定义" [ref=f1e16] [cursor=pointer]:
+                  - /url: "#two"
+          - generic [ref=f1e19]:
+            - generic [ref=f1e20]:
+              - generic [ref=f1e22]:
+                - generic [ref=f1e24]: 
+                - generic [ref=f1e25]:
+                  - generic [ref=f1e26]: "1"
+                  - text: 总会员数
+              - generic [ref=f1e28]:
+                - generic [ref=f1e30]: 
+                - generic [ref=f1e31]:
+                  - generic [ref=f1e32]: "0"
+                  - text: 总插件数
+              - generic [ref=f1e34]:
+                - generic [ref=f1e36]: 
+                - generic [ref=f1e37]:
+                  - generic [ref=f1e38]: "1"
+                  - text: 总附件数
+              - generic [ref=f1e40]:
+                - generic [ref=f1e42]: 
+                - generic [ref=f1e43]:
+                  - generic [ref=f1e44]: "8"
+                  - text: 总管理员数
+            - generic [ref=f1e53]:
+              - generic [ref=f1e54]:
+                - generic [ref=f1e56]: 
+                - generic [ref=f1e57]:
+                  - generic [ref=f1e58]: "0"
+                  - generic [ref=f1e59]: 今日注册
+              - generic [ref=f1e62]:
+                - generic [ref=f1e64]: 
+                - generic [ref=f1e65]:
+                  - generic [ref=f1e66]: "0"
+                  - generic [ref=f1e67]: 今日登录
+              - generic [ref=f1e70]:
+                - generic [ref=f1e72]: 
+                - generic [ref=f1e73]:
+                  - generic [ref=f1e74]: "0"
+                  - generic [ref=f1e75]: 三日新增
+              - generic [ref=f1e78]:
+                - generic [ref=f1e80]: 
+                - generic [ref=f1e81]:
+                  - generic [ref=f1e82]: "0"
+                  - generic [ref=f1e83]: 七日新增
+              - generic [ref=f1e86]:
+                - generic [ref=f1e88]: 
+                - generic [ref=f1e89]:
+                  - generic [ref=f1e90]: "0"
+                  - generic [ref=f1e91]: 七日活跃
+              - generic [ref=f1e94]:
+                - generic [ref=f1e96]: 
+                - generic [ref=f1e97]:
+                  - generic [ref=f1e98]: "0"
+                  - generic [ref=f1e99]: 月活跃
+            - generic [ref=f1e102]:
+              - generic [ref=f1e106]:
+                - generic [ref=f1e107]:
+                  - generic [ref=f1e108]: 实时
+                  - heading "运行中的插件" [level=5] [ref=f1e109]
+                - generic [ref=f1e112]:
+                  - heading "0" [level=1] [ref=f1e113]
+                  - generic [ref=f1e114]:
+                    - generic [ref=f1e115]: 
+                    - text: 当前运行中的插件数
+              - generic [ref=f1e118]:
+                - generic [ref=f1e119]:
+                  - generic [ref=f1e120]: 实时
+                  - heading "数据库统计" [level=5] [ref=f1e121]
+                - generic [ref=f1e123]:
+                  - generic [ref=f1e124]:
+                    - heading "36" [level=1] [ref=f1e125]
+                    - generic [ref=f1e126]:
+                      - generic [ref=f1e127]: 
+                      - text: 数据表数量
+                  - generic [ref=f1e128]:
+                    - heading "2MB" [level=1] [ref=f1e129]
+                    - generic [ref=f1e130]:
+                      - generic [ref=f1e131]: 
+                      - text: 占用空间
+              - generic [ref=f1e134]:
+                - generic [ref=f1e135]:
+                  - generic [ref=f1e136]: 实时
+                  - heading "附件统计" [level=5] [ref=f1e137]
+                - generic [ref=f1e139]:
+                  - generic [ref=f1e140]:
+                    - heading "1" [level=1] [ref=f1e141]
+                    - generic [ref=f1e142]:
+                      - generic [ref=f1e143]: 
+                      - text: 附件数量
+                  - generic [ref=f1e144]:
+                    - heading "21KB" [level=1] [ref=f1e145]
+                    - generic [ref=f1e146]:
+                      - generic [ref=f1e147]: 
+                      - text: 附件大小
+              - generic [ref=f1e150]:
+                - generic [ref=f1e151]:
+                  - generic [ref=f1e152]: 实时
+                  - heading "图片统计" [level=5] [ref=f1e153]
+                - generic [ref=f1e155]:
+                  - generic [ref=f1e156]:
+                    - heading "1" [level=1] [ref=f1e157]
+                    - generic [ref=f1e158]:
+                      - generic [ref=f1e159]: 
+                      - text: 图片数量
+                  - generic [ref=f1e160]:
+                    - heading "21KB" [level=1] [ref=f1e161]
+                    - generic [ref=f1e162]:
+                      - generic [ref=f1e163]: 
+                      - text: 图片大小
+  - complementary [ref=e95]:
+    - list [ref=e96]:
+      - listitem [ref=e97]:
+        - link "" [expanded] [ref=e98]:
+          - /url: "#control-sidebar-setting-tab"
+          - generic [ref=e99]: 
+      - listitem [ref=e100]:
+        - link "" [ref=e101] [cursor=pointer]:
+          - /url: "#control-sidebar-home-tab"
+          - generic [ref=e102]: 
+      - listitem [ref=e103]:
+        - link "" [ref=e104] [cursor=pointer]:
+          - /url: "#control-sidebar-settings-tab"
+          - generic [ref=e105]: 
+    - generic [ref=e107]:
+      - heading "布局设定" [level=4] [ref=e108]
+      - generic [ref=e109]:
+        - generic [ref=e110]:
+          - checkbox "简洁导航模式" [ref=e111]
+          - text: 简洁导航模式
+        - paragraph [ref=e112]: 启用后顶部导航将不再显示，同时每次点击菜单都会刷新右侧内容
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - checkbox "多级菜单导航" [ref=e115]
+          - text: 多级菜单导航
+        - paragraph [ref=e116]: 切换顶部菜单为多级菜单导航模式
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - checkbox "多选项卡" [checked] [disabled] [ref=e119]
+          - text: 多选项卡
+        - paragraph [ref=e120]: 当配置为多级菜单导航时是否启用多选项卡
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - checkbox "收起菜单栏" [ref=e123]
+          - text: 收起菜单栏
+        - paragraph [ref=e124]: 切换菜单栏的展开或收起
+      - generic [ref=e125]:
+        - generic [ref=e126]:
+          - checkbox "菜单栏自动展开" [ref=e127]
+          - text: 菜单栏自动展开
+        - paragraph [ref=e128]: 鼠标移到菜单栏自动展开
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - checkbox "显示菜单栏子菜单" [ref=e131]
+          - text: 显示菜单栏子菜单
+        - paragraph [ref=e132]: 菜单栏子菜单将始终显示
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - checkbox "切换右侧操作栏" [ref=e135]
+          - text: 切换右侧操作栏
+        - paragraph [ref=e136]: 切换右侧操作栏覆盖或独占
+      - generic [ref=e137]:
+        - generic [ref=e138]:
+          - checkbox "切换右侧操作栏背景" [ref=e139]
+          - text: 切换右侧操作栏背景
+        - paragraph [ref=e140]: 将右侧操作栏背景亮色或深色切换
+      - heading "皮肤" [level=4] [ref=e141]
+      - list [ref=e142]:
+        - listitem [ref=e143]:
+          - link [ref=e144] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e147]: Blue
+        - listitem [ref=e148]:
+          - link [ref=e149] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e152]: Black
+        - listitem [ref=e153]:
+          - link [ref=e154] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e157]: Purple
+        - listitem [ref=e158]:
+          - link [ref=e159] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e164]: Green
+        - listitem [ref=e165]:
+          - link [ref=e166] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e171]: Red
+        - listitem [ref=e172]:
+          - link [ref=e173] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e178]: Yellow
+        - listitem [ref=e179]:
+          - link [ref=e180] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e183]: Blue Light
+        - listitem [ref=e184]:
+          - link [ref=e185] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e188]: Black Light
+        - listitem [ref=e189]:
+          - link [ref=e190] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e193]: Purple Light
+        - listitem [ref=e194]:
+          - link [ref=e195] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e198]: Green Light
+        - listitem [ref=e199]:
+          - link [ref=e200] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e203]: Red Light
+        - listitem [ref=e204]:
+          - link [ref=e205] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e208]: Yellow Light
+        - listitem [ref=e209]:
+          - link [ref=e210] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e214]: Black Blue
+        - listitem [ref=e215]:
+          - link [ref=e216] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e220]: Black Purple
+        - listitem [ref=e221]:
+          - link [ref=e222] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e226]: Black Green
+        - listitem [ref=e227]:
+          - link [ref=e228] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e232]: Black Red
+        - listitem [ref=e233]:
+          - link [ref=e234] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e238]: Black Yellow
+        - listitem [ref=e239]:
+          - link [ref=e240] [cursor=pointer]:
+            - /url: javascript:;
+          - paragraph [ref=e244]: Black Pink

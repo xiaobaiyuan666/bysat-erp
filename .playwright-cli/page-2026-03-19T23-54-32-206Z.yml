@@ -1,0 +1,301 @@
+- generic [ref=e86]:
+  - complementary [ref=e87]:
+    - generic [ref=e88]:
+      - generic [ref=e89]: SC
+      - generic [ref=e90]:
+        - generic [ref=e91]: Smart Console
+        - heading "云帆软件" [level=1] [ref=e92]
+        - paragraph [ref=e93]: PHP API + Vue Console
+    - generic [ref=e94]:
+      - button "BI 经营驾驶舱" [ref=e95] [cursor=pointer]:
+        - generic [ref=e96]: BI
+        - generic [ref=e97]: 经营驾驶舱
+      - button "FI 财务中心" [ref=e98] [cursor=pointer]:
+        - generic [ref=e99]: FI
+        - generic [ref=e100]: 财务中心
+      - button "PM 项目交付" [ref=e101] [cursor=pointer]:
+        - generic [ref=e102]: PM
+        - generic [ref=e103]: 项目交付
+      - button "OP APP 运营" [ref=e104] [cursor=pointer]:
+        - generic [ref=e105]: OP
+        - generic [ref=e106]: APP 运营
+      - button "HR 人员权限" [ref=e107] [cursor=pointer]:
+        - generic [ref=e108]: HR
+        - generic [ref=e109]: 人员权限
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]: 部署方式
+        - strong [ref=e113]: PHP + JSON + Vue
+      - generic [ref=e114]:
+        - generic [ref=e115]: 模型状态
+        - strong [ref=e116]: 待配置模型
+      - generic [ref=e117]:
+        - generic [ref=e118]: 数据版本
+        - strong [ref=e119]: v1.5.0
+  - generic [ref=e120]:
+    - banner [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 软件企业运营后台
+        - heading "APP 运营" [level=2] [ref=e1386]
+        - paragraph [ref=e125]: APP 的运营、问题、资料和 Bug/升级联动都在这里。
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: 登录账号
+          - strong [ref=e129]: 陈总
+          - generic [ref=e130]: admin / 系统管理员
+        - generic [ref=e131]:
+          - generic [ref=e132]: 当前工作身份
+          - generic [ref=e134] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e136]
+              - generic [ref=e137]: 陈总 / 系统管理员
+            - img [ref=e140]
+          - generic [ref=e142]: 系统管理员
+        - generic [ref=e143]: 最近同步 2026-03-20 07:51:55
+        - button "刷新" [ref=e144] [cursor=pointer]:
+          - img [ref=e146]
+          - generic [ref=e148]: 刷新
+        - button "使用说明" [ref=e149] [cursor=pointer]:
+          - img [ref=e151]
+          - generic [ref=e153]: 使用说明
+        - button "AI 助手" [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]: AI 助手
+        - button "退出" [ref=e156] [cursor=pointer]:
+          - img [ref=e158]
+          - generic [ref=e161]: 退出
+    - main [ref=e162]:
+      - generic [ref=e1387]:
+        - generic [ref=e1388]:
+          - generic [ref=e1390]:
+            - heading "先处理 APP 问题和联动" [level=3] [ref=e1391]
+            - paragraph [ref=e1392]: 按生命周期走就不会乱：先收问题，再挂研发，再看版本，最后回到资料和 APP 台账。
+          - generic [ref=e1393]:
+            - generic [ref=e1394]:
+              - button "1 先收问题 客服、运营和领导反馈先统一落到问题记录，不先拆研发单。" [ref=e1395]:
+                - generic [ref=e1396]: "1"
+                - generic [ref=e1397]:
+                  - strong [ref=e1398]: 先收问题
+                  - generic [ref=e1399]: 客服、运营和领导反馈先统一落到问题记录，不先拆研发单。
+              - button "2 再挂研发 确定是 Bug、升级还是测试待发版，再交给技术处理。" [active] [ref=e1400]:
+                - generic [ref=e1401]: "2"
+                - generic [ref=e1402]:
+                  - strong [ref=e1403]: 再挂研发
+                  - generic [ref=e1404]: 确定是 Bug、升级还是测试待发版，再交给技术处理。
+              - button "3 然后盯版本 上线、验证、回告和回滚判断都放在版本发布里。" [ref=e1405]:
+                - generic [ref=e1406]: "3"
+                - generic [ref=e1407]:
+                  - strong [ref=e1408]: 然后盯版本
+                  - generic [ref=e1409]: 上线、验证、回告和回滚判断都放在版本发布里。
+              - button "4 最后查资料和 APP 台账 资料、话术、适用版本和 APP 生命周期只在需要时再看。" [ref=e1410]:
+                - generic [ref=e1411]: "4"
+                - generic [ref=e1412]:
+                  - strong [ref=e1413]: 最后查资料和 APP 台账
+                  - generic [ref=e1414]: 资料、话术、适用版本和 APP 生命周期只在需要时再看。
+            - generic [ref=e1415]:
+              - generic [ref=e1416]:
+                - generic [ref=e1417]: 今天优先
+                - generic [ref=e1418]:
+                  - article [ref=e1419]:
+                    - generic [ref=e1420]: 待客户回告
+                    - strong [ref=e1421]: "0"
+                  - article [ref=e1422]:
+                    - generic [ref=e1423]: 研发待办
+                    - strong [ref=e1424]: "4"
+                  - article [ref=e1425]:
+                    - generic [ref=e1426]: 待发布版本
+                    - strong [ref=e1427]: "3"
+                  - article [ref=e1428]:
+                    - generic [ref=e1429]: 开放风险
+                    - strong [ref=e1430]: "3"
+              - generic [ref=e1431]:
+                - generic [ref=e1432]: 常用入口
+                - generic [ref=e1433]:
+                  - button "问题记录 先收反馈，再决定是否要挂研发联动。" [ref=e1434]:
+                    - generic [ref=e1435]:
+                      - strong [ref=e1436]: 问题记录
+                      - generic [ref=e1437]: 先收反馈，再决定是否要挂研发联动。
+                  - button "研发联动 集中看 Bug、升级和待发版事项。" [ref=e1438]:
+                    - generic [ref=e1439]:
+                      - strong [ref=e1440]: 研发联动
+                      - generic [ref=e1441]: 集中看 Bug、升级和待发版事项。
+                  - button "版本发布 统一看发版、验证、回告和回滚风险。" [ref=e1442]:
+                    - generic [ref=e1443]:
+                      - strong [ref=e1444]: 版本发布
+                      - generic [ref=e1445]: 统一看发版、验证、回告和回滚风险。
+                  - button "内部资料 资料、话术和版本说明都去这里找。" [ref=e1446]:
+                    - generic [ref=e1447]:
+                      - strong [ref=e1448]: 内部资料
+                      - generic [ref=e1449]: 资料、话术和版本说明都去这里找。
+              - generic [ref=e1450]:
+                - generic [ref=e1451]: 优先提醒
+                - list [ref=e1452]:
+                  - listitem [ref=e1453]: 项目 "春季增长投放" 存在 1 条高等级风险。
+                  - listitem [ref=e1454]: 高等级问题 "搜索广告落地页交付延后" 仍未关闭。
+                  - listitem [ref=e1455]: APP "工单助手" 版本 v3.2.2 已待上线，请确认发布时间窗口。
+        - button "更多运营概览和周报" [ref=e1458] [cursor=pointer]:
+          - generic [ref=e1459]: 更多运营概览和周报
+          - img [ref=e1461]
+        - generic [ref=e1463]:
+          - generic [ref=e1465]:
+            - heading "APP 生命周期工作台" [level=3] [ref=e1466]
+            - paragraph [ref=e1467]: 按“收问题 -> 挂研发 -> 发版本 -> 查资料/看 APP”的顺序处理，不再一上来摊开所有概念。
+          - generic [ref=e1469]:
+            - tablist [ref=e1473]:
+              - tab "APP" [ref=e1475]
+              - tab "问题" [ref=e1476]
+              - tab "资料" [ref=e1477]
+              - tab "计划" [ref=e1478]
+              - tab "周报" [ref=e1479]
+              - tab "发版" [ref=e1480]
+              - tab "风险" [ref=e1481]
+              - tab "研发" [selected] [ref=e1482]
+            - tabpanel "研发" [ref=e1873]:
+              - generic [ref=e1874]:
+                - button "全部研发项" [ref=e1875]
+                - button "待修复 Bug" [ref=e1876]
+                - button "功能升级" [ref=e1877]
+                - button "测试待发版" [ref=e1878]
+                - button "已超期" [ref=e1879]
+              - group [ref=e1880]:
+                - generic [ref=e1881]:
+                  - generic [ref=e1883]:
+                    - img [ref=e1886]
+                    - textbox "搜 APP / 标题 / 模块 / 提出人 / 影响" [ref=e1888]
+                  - generic [ref=e1890] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e1892]
+                      - generic [ref=e1893]: 全部 APP 项目
+                    - img [ref=e1896]
+                  - generic [ref=e1899] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e1901]
+                      - generic [ref=e1902]: 全部状态
+                    - img [ref=e1905]
+                  - generic [ref=e1908] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e1910]
+                      - generic [ref=e1911]: 全部类型
+                    - img [ref=e1914]
+                  - generic [ref=e1917] [cursor=pointer]:
+                    - generic:
+                      - combobox [ref=e1919]
+                      - generic: 全部严重度
+                    - img [ref=e1922]
+                  - textbox "负责人筛选" [ref=e1926]
+                  - button "重置" [ref=e1927] [cursor=pointer]:
+                    - img [ref=e1929]
+                    - generic [ref=e1931]: 重置
+                  - button "新增 Bug/升级" [ref=e1932] [cursor=pointer]:
+                    - img [ref=e1934]
+                    - generic [ref=e1938]: 新增 Bug/升级
+              - generic [ref=e1939]:
+                - generic [ref=e1940]: 当前结果 2 条
+                - generic [ref=e1941]: 每条研发待办都直接挂在具体 APP 运营项目下
+              - generic [ref=e1944]:
+                - table [ref=e1946]:
+                  - rowgroup [ref=e1960]:
+                    - row "APP / 项目 待办标题 模块 类型 严重度 负责人 提出人 截止日期 版本挂载 状态 影响说明 ??" [ref=e1961]:
+                      - columnheader "APP / 项目" [ref=e1962]:
+                        - generic [ref=e1963]: APP / 项目
+                      - columnheader "待办标题" [ref=e1964]:
+                        - generic [ref=e1965]: 待办标题
+                      - columnheader "模块" [ref=e1966]:
+                        - generic [ref=e1967]: 模块
+                      - columnheader "类型" [ref=e1968]:
+                        - generic [ref=e1969]: 类型
+                      - columnheader "严重度" [ref=e1970]:
+                        - generic [ref=e1971]: 严重度
+                      - columnheader "负责人" [ref=e1972]:
+                        - generic [ref=e1973]: 负责人
+                      - columnheader "提出人" [ref=e1974]:
+                        - generic [ref=e1975]: 提出人
+                      - columnheader "截止日期" [ref=e1976]:
+                        - generic [ref=e1977]: 截止日期
+                      - columnheader "版本挂载" [ref=e1978]:
+                        - generic [ref=e1979]: 版本挂载
+                      - columnheader "状态" [ref=e1980]:
+                        - generic [ref=e1981]: 状态
+                      - columnheader "影响说明" [ref=e1982]:
+                        - generic [ref=e1983]: 影响说明
+                      - columnheader "??" [ref=e1984]:
+                        - generic [ref=e1985]: "??"
+                - table [ref=e1990]:
+                  - rowgroup [ref=e2004]:
+                    - row "BI 看板 BI 看板上线推广 筛选项切换后图表状态丢失 图表首页 Bug 修复 阻塞 周柯 王越 2026-03-21 v1.0.1 / 首发图表筛选修复热补丁 待发布 待评估 首发客户无法连续查看核心指标，影响上线体验。 详情 编辑 删除" [ref=e2005]:
+                      - cell "BI 看板 BI 看板上线推广" [ref=e2006]:
+                        - generic [ref=e2008]:
+                          - strong [ref=e2009]: BI 看板
+                          - generic [ref=e2010]: BI 看板上线推广
+                      - cell "筛选项切换后图表状态丢失" [ref=e2011]:
+                        - generic [ref=e2012]: 筛选项切换后图表状态丢失
+                      - cell "图表首页" [ref=e2013]:
+                        - generic [ref=e2014]: 图表首页
+                      - cell "Bug 修复" [ref=e2015]:
+                        - generic [ref=e2018]: Bug 修复
+                      - cell "阻塞" [ref=e2019]:
+                        - generic [ref=e2022]: 阻塞
+                      - cell "周柯" [ref=e2023]:
+                        - generic [ref=e2024]: 周柯
+                      - cell "王越" [ref=e2025]:
+                        - generic [ref=e2026]: 王越
+                      - cell "2026-03-21" [ref=e2027]:
+                        - generic [ref=e2028]: 2026-03-21
+                      - cell "v1.0.1 / 首发图表筛选修复热补丁 待发布" [ref=e2029]:
+                        - generic [ref=e2031]:
+                          - strong [ref=e2032]: v1.0.1 / 首发图表筛选修复热补丁
+                          - generic [ref=e2034]: 待发布
+                      - cell "待评估" [ref=e2035]:
+                        - generic [ref=e2038] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e2040]
+                            - generic [ref=e2041]: 待评估
+                          - img [ref=e2044]
+                      - cell "首发客户无法连续查看核心指标，影响上线体验。" [ref=e2046]:
+                        - generic [ref=e2047]: 首发客户无法连续查看核心指标，影响上线体验。
+                      - cell "详情 编辑 删除" [ref=e2048]:
+                        - generic [ref=e2051]:
+                          - button "详情" [ref=e2053] [cursor=pointer]:
+                            - generic [ref=e2054]: 详情
+                          - button "编辑" [ref=e2056] [cursor=pointer]:
+                            - generic [ref=e2057]: 编辑
+                          - button "删除" [ref=e2059] [cursor=pointer]:
+                            - generic [ref=e2060]: 删除
+                    - row "云帆 CRM 春季增长投放 注册落地页埋点丢失导致转化数据不准 注册转化页 Bug 修复 高 周柯 顾宁 2026-03-22 v2.8.1 / 拉新落地页埋点与线索回传 测试中 开发中 运营无法准确统计投放转化率，影响拉新预算分配。 详情 编辑 删除" [ref=e2061]:
+                      - cell "云帆 CRM 春季增长投放" [ref=e2062]:
+                        - generic [ref=e2064]:
+                          - strong [ref=e2065]: 云帆 CRM
+                          - generic [ref=e2066]: 春季增长投放
+                      - cell "注册落地页埋点丢失导致转化数据不准" [ref=e2067]:
+                        - generic [ref=e2068]: 注册落地页埋点丢失导致转化数据不准
+                      - cell "注册转化页" [ref=e2069]:
+                        - generic [ref=e2070]: 注册转化页
+                      - cell "Bug 修复" [ref=e2071]:
+                        - generic [ref=e2074]: Bug 修复
+                      - cell "高" [ref=e2075]:
+                        - generic [ref=e2078]: 高
+                      - cell "周柯" [ref=e2079]:
+                        - generic [ref=e2080]: 周柯
+                      - cell "顾宁" [ref=e2081]:
+                        - generic [ref=e2082]: 顾宁
+                      - cell "2026-03-22" [ref=e2083]:
+                        - generic [ref=e2084]: 2026-03-22
+                      - cell "v2.8.1 / 拉新落地页埋点与线索回传 测试中" [ref=e2085]:
+                        - generic [ref=e2087]:
+                          - strong [ref=e2088]: v2.8.1 / 拉新落地页埋点与线索回传
+                          - generic [ref=e2090]: 测试中
+                      - cell "开发中" [ref=e2091]:
+                        - generic [ref=e2094] [cursor=pointer]:
+                          - generic:
+                            - combobox [ref=e2096]
+                            - generic [ref=e2097]: 开发中
+                          - img [ref=e2100]
+                      - cell "运营无法准确统计投放转化率，影响拉新预算分配。" [ref=e2102]:
+                        - generic [ref=e2103]: 运营无法准确统计投放转化率，影响拉新预算分配。
+                      - cell "详情 编辑 删除" [ref=e2104]:
+                        - generic [ref=e2107]:
+                          - button "详情" [ref=e2109] [cursor=pointer]:
+                            - generic [ref=e2110]: 详情
+                          - button "编辑" [ref=e2112] [cursor=pointer]:
+                            - generic [ref=e2113]: 编辑
+                          - button "删除" [ref=e2115] [cursor=pointer]:
+                            - generic [ref=e2116]: 删除

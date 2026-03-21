@@ -1,0 +1,91 @@
+<script>
+    window.approvalTemplateMap = {$approvalTemplateMapJson|raw};
+</script>
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">审批类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-object_type" class="form-control selectpicker" disabled>
+                {foreach name="objectTypeList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.object_type" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+            <input type="hidden" name="row[object_type]" value="{$row.object_type}">
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="contract">
+        <label class="control-label col-xs-12 col-sm-2">审批合同:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-contract_id" class="form-control selectpicker" disabled>
+                {foreach name="contractList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.contract_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+            <input type="hidden" name="row[contract_id]" value="{$row.contract_id}">
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="payment_plan">
+        <label class="control-label col-xs-12 col-sm-2">审批付款计划:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-payment_plan_id" class="form-control selectpicker" disabled>
+                {foreach name="paymentPlanList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.payment_plan_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+            <input type="hidden" name="row[payment_plan_id]" value="{$row.payment_plan_id}">
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="expense_request">
+        <label class="control-label col-xs-12 col-sm-2">审批费用申请:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-expense_request_id" class="form-control selectpicker" disabled>
+                {foreach name="expenseRequestList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.expense_request_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+            <input type="hidden" name="row[expense_request_id]" value="{$row.expense_request_id}">
+        </div>
+    </div>
+    <div class="form-group" data-approval-target="purchase_order">
+        <label class="control-label col-xs-12 col-sm-2">审批采购单:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-purchase_order_id" class="form-control selectpicker" disabled>
+                {foreach name="purchaseOrderList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.purchase_order_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+            <input type="hidden" name="row[purchase_order_id]" value="{$row.purchase_order_id}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">审批模板:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" value="{$row.template_name|default='手动审批'}" disabled>
+            <div class="help-block">当前进度：第 {$row.current_step|default=1} / {$row.total_steps|default=1} 级，当前节点：{$row.current_step_name|default='人工审批'}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">当前审批人:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-approver_admin_id" class="form-control selectpicker" data-live-search="true" name="row[approver_admin_id]">
+                <option value="">未指定审批人</option>
+                {foreach name="approverList" item="vo" key="key"}
+                <option value="{$key}" {eq name="row.approver_admin_id" value="$key"}selected{/eq}>{$vo}</option>
+                {/foreach}
+            </select>
+            <div class="help-block">只会调整当前待审批节点的审批人，不影响已完成节点。</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">发起原因:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-submit_reason" data-rule="required" class="form-control" rows="4" name="row[submit_reason]">{$row.submit_reason|default=''}</textarea>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>
