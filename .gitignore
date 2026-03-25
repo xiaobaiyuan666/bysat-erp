@@ -1,5 +1,8 @@
-storage/app-data.json
-storage/*.tmp
-storage/*.log
-public/uploads/*
-!public/uploads/.gitkeep
+.playwright-cli/
+output/
+tmp-*
+tmp_probe_*.php
+tmp_test_gateway_chat.php
+docs/
+scripts/
+storage/

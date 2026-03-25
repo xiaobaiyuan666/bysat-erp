@@ -1,2 +1,0 @@
-[      11ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8090/console/assets/TeamView-DhIA-VMa.js:0
-[      12ms] [ERROR] TypeError: Failed to fetch dynamically imported module: http://127.0.0.1:8090/console/assets/TeamView-DhIA-VMa.js @ http://127.0.0.1:8090/console/assets/vue-DCCMHqZ6.js:0

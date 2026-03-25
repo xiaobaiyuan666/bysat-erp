@@ -1,8 +1,0 @@
-- generic [ref=e2]:
-  - heading "请登录后操作" [level=1] [ref=e4]
-  - paragraph [ref=e5]: 页面将在 3 秒后自动跳转
-  - paragraph [ref=e6]:
-    - link "返回首页" [ref=e7] [cursor=pointer]:
-      - /url: /
-    - link "立即跳转" [ref=e8] [cursor=pointer]:
-      - /url: /MWDObBuRlr.php/index/login?url=%2FMWDObBuRlr.php%2Fproject%2Fproject
