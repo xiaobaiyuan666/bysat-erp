@@ -55,6 +55,25 @@ class Setting extends Backend
             ]);
         }
 
+        $defaultSetting = $this->service->getDefaultSetting();
+        $defaultSummary = null;
+        if ($defaultSetting) {
+            $diagnostic = (array) ($defaultSetting['diagnostic'] ?? []);
+            $defaultSummary = [
+                'id' => (int) ($defaultSetting['id'] ?? 0),
+                'edit_url' => url('ai/setting/edit', ['ids' => (int) ($defaultSetting['id'] ?? 0)]),
+                'ping_url' => url('ai/setting/ping', ['ids' => (int) ($defaultSetting['id'] ?? 0)]),
+                'provider_name' => (string) ($defaultSetting['provider_name'] ?? ''),
+                'model' => (string) ($defaultSetting['model'] ?? ''),
+                'configured' => !empty($defaultSetting['configured']),
+                'skip_ssl_verify' => !empty($defaultSetting['skip_ssl_verify']),
+                'updated_at_text' => (string) ($defaultSetting['updated_at_text'] ?? ''),
+                'diagnostic' => $diagnostic,
+                'diagnostic_label_class' => $this->getDiagnosticLabelClass((string) ($diagnostic['type'] ?? 'info')),
+            ];
+        }
+        $this->assign('defaultAiSetting', $defaultSummary);
+
         return $this->view->fetch();
     }
 
@@ -247,6 +266,21 @@ class Setting extends Backend
         }
 
         return implode('；', $parts);
+    }
+
+    protected function getDiagnosticLabelClass(string $type): string
+    {
+        if ($type === 'success') {
+            return 'success';
+        }
+        if ($type === 'danger') {
+            return 'danger';
+        }
+        if ($type === 'warning') {
+            return 'warning';
+        }
+
+        return 'info';
     }
 
     protected function buildMissingModelMessage(string $currentModel, array $result): string

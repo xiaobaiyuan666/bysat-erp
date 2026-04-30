@@ -1,0 +1,265 @@
+<style>
+    .upgrade-page {
+        padding: 18px;
+        background: #f5f7fa;
+    }
+
+    .upgrade-card,
+    .upgrade-panel {
+        padding: 18px;
+        background: #fff;
+        border: 1px solid #e6edf5;
+        border-radius: 12px;
+        box-shadow: 0 10px 24px rgba(31, 45, 61, 0.05);
+    }
+
+    .upgrade-hero,
+    .upgrade-grid,
+    .upgrade-panel {
+        margin-bottom: 16px;
+    }
+
+    .upgrade-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(260px, 360px);
+        gap: 16px;
+    }
+
+    .upgrade-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.95fr);
+        gap: 16px;
+        align-items: start;
+    }
+
+    .upgrade-title {
+        margin: 0 0 8px;
+        font-size: 28px;
+        color: #1f2d3d;
+    }
+
+    .upgrade-desc,
+    .upgrade-muted,
+    .upgrade-list li,
+    .upgrade-meta,
+    .upgrade-code,
+    .upgrade-empty {
+        color: #66788a;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .upgrade-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #edf4ff;
+        color: #2c6df3;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .upgrade-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+    }
+
+    .upgrade-item {
+        padding: 14px;
+        border-radius: 10px;
+        background: #f8fbff;
+        border: 1px solid #e4edf7;
+    }
+
+    .upgrade-item strong {
+        display: block;
+        margin-bottom: 6px;
+        color: #1f2d3d;
+    }
+
+    .upgrade-code {
+        word-break: break-all;
+    }
+
+    .upgrade-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+    }
+
+    .upgrade-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 10px;
+    }
+
+    .upgrade-list li {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #e7edf5;
+        background: #fafcff;
+    }
+
+    .upgrade-status-ok {
+        color: #1d9d57;
+    }
+
+    .upgrade-status-bad {
+        color: #d93025;
+    }
+
+    .upgrade-remote-message {
+        max-height: 160px;
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .upgrade-side-stack {
+        display: grid;
+        gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+        .upgrade-hero,
+        .upgrade-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="upgrade-page" id="erp-upgrade-page">
+    <script type="text/plain" id="erp-upgrade-bootstrap">{$overviewPayload}</script>
+
+    <section class="upgrade-hero">
+        <div class="upgrade-card">
+            <span class="upgrade-badge">系统内在线升级</span>
+            <h2 class="upgrade-title">系统更新中心</h2>
+            <p class="upgrade-desc">
+                连接 GitHub 检查新版本，先备份当前程序；如果本次版本包含数据库迁移，还会自动导出数据库 SQL 备份，再执行升级。
+            </p>
+            <div class="upgrade-actions">
+                <button type="button" class="btn btn-primary" data-action="check-update"><i class="fa fa-refresh"></i> 检查更新</button>
+                <button type="button" class="btn btn-success" data-action="start-update"><i class="fa fa-cloud-download"></i> 执行更新</button>
+                <button type="button" class="btn btn-default" data-action="reload-overview"><i class="fa fa-repeat"></i> 刷新页面</button>
+            </div>
+        </div>
+        <div class="upgrade-card">
+            <h3 style="margin:0 0 10px;">当前程序</h3>
+            <div class="upgrade-grid" data-role="local-cards"></div>
+        </div>
+    </section>
+
+    <section class="upgrade-layout">
+        <div class="upgrade-side-stack">
+            <div class="upgrade-panel">
+                <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px;">
+                    <h3 style="margin:0;">更新源配置</h3>
+                    <span class="upgrade-muted" data-role="token-hint"></span>
+                </div>
+                <form id="upgrade-config-form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>更新模式</label>
+                                <select class="form-control" name="source_mode">
+                                    <option value="branch">GitHub 分支</option>
+                                    <option value="release">GitHub 发布包</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>程序目录</label>
+                                <input type="text" class="form-control" name="package_subdir" placeholder="fastadmin">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>仓库拥有者</label>
+                                <input type="text" class="form-control" name="owner" placeholder="xiaobaiyuan666">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>仓库名称</label>
+                                <input type="text" class="form-control" name="repo" placeholder="bysat-erp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>分支</label>
+                                <input type="text" class="form-control" name="branch" placeholder="master">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>发布标签</label>
+                                <input type="text" class="form-control" name="release_tag" placeholder="latest">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>发布包匹配规则</label>
+                        <input type="text" class="form-control" name="release_asset_pattern" placeholder="bysat-erp-fastadmin-baota-*.zip">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub 访问令牌</label>
+                        <input type="password" class="form-control" name="github_token" placeholder="可选，留空则沿用当前配置">
+                    </div>
+                    <div class="checkbox" style="margin-top:0;">
+                        <label>
+                            <input type="checkbox" name="skip_ssl_verify" value="1">
+                            服务器证书链不完整时跳过 SSL 校验
+                        </label>
+                    </div>
+                    <div class="upgrade-actions">
+                        <button type="button" class="btn btn-primary" data-action="save-config"><i class="fa fa-save"></i> 保存配置</button>
+                        <button type="button" class="btn btn-default" data-action="fill-default"><i class="fa fa-magic"></i> 恢复默认仓库</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="upgrade-panel">
+                <h3 style="margin:0 0 14px;">远端状态</h3>
+                <div class="upgrade-grid" data-role="remote-cards">
+                    <div class="upgrade-item"><strong>远端版本</strong><div class="upgrade-empty">请先点击“检查更新”。</div></div>
+                </div>
+                <div style="margin-top:14px;" data-role="remote-message"></div>
+            </div>
+
+            <div class="upgrade-panel">
+                <h3 style="margin:0 0 14px;">注意事项</h3>
+                <ul class="upgrade-list" data-role="warning-list">
+                    <li class="upgrade-empty">当前没有额外提示。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="upgrade-side-stack">
+            <div class="upgrade-panel">
+                <h3 style="margin:0 0 14px;">环境检查</h3>
+                <ul class="upgrade-list" data-role="environment-list"></ul>
+            </div>
+
+            <div class="upgrade-panel">
+                <h3 style="margin:0 0 14px;">最近代码备份</h3>
+                <ul class="upgrade-list" data-role="backup-list"></ul>
+            </div>
+
+            <div class="upgrade-panel">
+                <h3 style="margin:0 0 14px;">更新记录</h3>
+                <ul class="upgrade-list" data-role="history-list"></ul>
+            </div>
+        </div>
+    </section>
+</div>

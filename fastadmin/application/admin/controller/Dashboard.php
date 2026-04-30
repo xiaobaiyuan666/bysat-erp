@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\library\ErpModuleService;
 use app\common\controller\Backend;
 use think\Db;
 
@@ -12,15 +13,22 @@ use think\Db;
  */
 class Dashboard extends Backend
 {
+    protected $moduleService = null;
+
     public function index()
     {
         $this->assignconfig('dashboardAiAskUrl', url('ai/conversation/ask'));
+        $this->assignconfig('dashboardAiSubmitUrl', url('ai/conversation/submit'));
+        $this->assignconfig('dashboardAiRunUrl', url('ai/conversation/run'));
+        $this->assignconfig('dashboardAiStatusUrl', url('ai/conversation/status'));
         $this->assignconfig('dashboardAiConversationUrl', url('ai/conversation/index'));
         $this->assignconfig('dashboardAiSettingUrl', url('ai/setting/index'));
 
+        $this->moduleService = new ErpModuleService();
         $profile = $this->getCurrentUserProfile();
 
         $this->view->assign([
+            'brandInfo' => $this->moduleService->getBrand(),
             'currentUser' => $this->buildCurrentUser($profile),
             'aiCenter' => $this->buildAiCenter(),
             'primarySummary' => $this->buildPrimarySummary($profile),
@@ -34,18 +42,21 @@ class Dashboard extends Backend
 
     protected function buildCurrentUser(array $profile): array
     {
+        $roleKey = $this->resolveDashboardRoleKey($profile);
+
         return [
             'name' => $profile['name'],
             'title' => $profile['title'],
             'department' => $profile['department'],
-            'role_label' => $this->mapRoleLabel($profile['role_key']),
-            'role_tip' => $this->buildRoleTip($profile['role_key']),
-            'quick_links' => $this->buildUserQuickLinks($profile['role_key']),
+            'role_label' => $this->mapRoleLabel($roleKey),
+            'role_tip' => $this->buildRoleTip($roleKey),
+            'quick_links' => $this->buildUserQuickLinks($roleKey),
         ];
     }
 
     protected function buildAiCenter(): array
     {
+        $brand = $this->moduleService ? $this->moduleService->getBrand() : [];
         $setting = $this->getDefaultAiSetting();
         $configured = $setting
             && trim((string)($setting['base_url'] ?? '')) !== ''
@@ -56,30 +67,39 @@ class Dashboard extends Backend
             ? trim((string)($setting['provider_name'] ?? 'OpenAI Compatible') . ' / ' . (string)($setting['model'] ?? ''), ' /')
             : '还没有完成 AI 配置';
 
+        $focuses = [
+            ['key' => 'overview', 'label' => '综合经营'],
+            ['key' => 'finance', 'label' => '财务'],
+            ['key' => 'business', 'label' => '客户与采购'],
+            ['key' => 'project', 'label' => '项目'],
+        ];
+        $quickPrompts = [
+            ['title' => '今天先做什么', 'focus' => 'overview', 'preset_key' => 'daily-brief'],
+            ['title' => '回款与付款风险', 'focus' => 'finance', 'preset_key' => 'cash-risk'],
+            ['title' => '项目复盘', 'focus' => 'project', 'preset_key' => 'project-risk'],
+        ];
+
+        if ($this->hasAccess('app/workbench/index')) {
+            $focuses[] = ['key' => 'app', 'label' => '项目运营'];
+            $quickPrompts[] = ['title' => '项目运营分析', 'focus' => 'app', 'preset_key' => 'app-review'];
+        }
+
         return [
             'title' => '企业 ERP AI 智能管理系统',
             'subtitle' => '参考陀螺匠这类系统的工作台思路，把待办、审批和业务入口收在一个首页里。你先问 AI，再进入对应工作台处理。', // phpcs:ignore Generic.Files.LineLength.TooLong
             'model_label' => $modelLabel,
             'model_hint' => $configured
-                ? '当前可以直接分析财务、项目、APP 运营和客户采购数据。'
+                ? '当前可以直接分析你有权限查看的经营数据，并按模块范围自动收上下文。'
                 : '先补齐 Base URL、API Key 和模型名称，再让 AI 接管分析。',
             'configured' => $configured,
             'setting_id' => (int)($setting['id'] ?? 0),
             'open_url' => $this->buildAiUrl(),
             'config_url' => (string)url('ai/setting/index'),
-            'focuses' => [
-                ['key' => 'overview', 'label' => '综合经营'],
-                ['key' => 'finance', 'label' => '财务'],
-                ['key' => 'business', 'label' => '客户与采购'],
-                ['key' => 'project', 'label' => '项目'],
-                ['key' => 'app', 'label' => 'APP 运营'],
-            ],
-            'quick_prompts' => [
-                ['title' => '今天先做什么', 'focus' => 'overview', 'preset_key' => 'daily-brief'],
-                ['title' => '回款与付款风险', 'focus' => 'finance', 'preset_key' => 'cash-risk'],
-                ['title' => '项目复盘', 'focus' => 'project', 'preset_key' => 'project-risk'],
-                ['title' => 'APP 问题分析', 'focus' => 'app', 'preset_key' => 'app-review'],
-            ],
+            'brand_notice' => (string)($brand['copyright_notice'] ?? ''),
+            'brand_website' => (string)($brand['website'] ?? ''),
+            'brand_website_label' => (string)($brand['website_label'] ?? ''),
+            'focuses' => $focuses,
+            'quick_prompts' => $quickPrompts,
         ];
     }
 
@@ -133,7 +153,7 @@ class Dashboard extends Backend
 
         if ($this->hasAccess('app/workbench/index')) {
             $items[] = [
-                'title' => 'APP 问题',
+                'title' => '运营问题',
                 'value' => $this->safeCount('app_issue', function ($query) {
                     $query->where('status', 'in', ['new', 'processing', 'waiting_customer', 'escalated']);
                 }),
@@ -147,7 +167,7 @@ class Dashboard extends Backend
     protected function buildPrimarySummary(array $profile): array
     {
         $adminId = (int)($profile['admin_id'] ?? 0);
-        $roleKey = (string)($profile['role_key'] ?? 'viewer');
+        $roleKey = $this->resolveDashboardRoleKey($profile);
 
         switch ($roleKey) {
             case 'finance':
@@ -188,7 +208,7 @@ class Dashboard extends Backend
                     $this->buildSummaryItem('我的采购单', $this->safeCount('business_purchase_order', function ($query) use ($adminId) {
                         $query->where('owner_admin_id', $adminId)->where('status', 'in', ['draft', 'pending_approval', 'approved', 'processing']);
                     }), 'business/purchase_order/index'),
-                    $this->buildSummaryItem('我的 APP', $this->safeCount('app_project', function ($query) use ($adminId) {
+                    $this->buildSummaryItem('我的运营项目', $this->safeCount('app_project', function ($query) use ($adminId) {
                         $query->where('manager_admin_id', $adminId)->where('status', 'in', ['planning', 'running', 'paused']);
                     }), 'app/project/index'),
                     $this->buildSummaryItem('待我审批', $this->countPendingApprovals($adminId), 'business/approval/index'),
@@ -246,7 +266,7 @@ class Dashboard extends Backend
     {
         $items = [];
         $adminId = (int)($profile['admin_id'] ?? 0);
-        $roleKey = (string)($profile['role_key'] ?? 'viewer');
+        $roleKey = $this->resolveDashboardRoleKey($profile);
 
         $this->appendQueueItem($items, $this->buildMyApprovalTodo($adminId));
 
@@ -292,13 +312,14 @@ class Dashboard extends Backend
         $this->appendQueueItem($items, $this->buildProjectTodo());
         $this->appendQueueItem($items, $this->buildIssueTodo());
 
-        return array_slice(array_values($items), 0, 4);
+        return array_slice(array_values($items), 0, 3);
     }
 
     protected function buildMyWorkPanels(array $profile): array
     {
         $adminId = (int)($profile['admin_id'] ?? 0);
-        $roleKey = (string)($profile['role_key'] ?? 'viewer');
+        $roleKey = $this->resolveDashboardRoleKey($profile);
+
         $panels = [];
 
         $this->appendMyWorkPanel($panels, $this->buildApprovalPanel($adminId, $roleKey));
@@ -312,6 +333,11 @@ class Dashboard extends Backend
     protected function appendMyWorkPanel(array &$panels, ?array $panel): void
     {
         if (!$panel) {
+            return;
+        }
+
+        $count = (int)($panel['count'] ?? 0);
+        if ($count <= 0 && empty($panel['items'])) {
             return;
         }
 
@@ -581,7 +607,7 @@ class Dashboard extends Backend
         return [
             'title' => $personalOnly ? '我的问题' : '问题跟进',
             'count' => $count,
-            'desc' => $personalOnly ? '先处理自己负责的问题，再去完整 APP 工作台。' : '这里看当前最需要处理的 APP 问题。',
+            'desc' => $personalOnly ? '先处理自己负责的问题，再去完整项目运营工作台。' : '这里看当前最需要处理的运营问题。',
             'empty' => $personalOnly ? '当前没有分配给我的问题。' : '当前没有需要优先推进的问题。',
             'button' => '打开问题记录',
             'url' => $personalOnly
@@ -660,9 +686,9 @@ class Dashboard extends Backend
 
         if ($this->hasAccess('app/workbench/index')) {
             $cards[] = [
-                'title' => 'APP 运营',
+                'title' => '项目运营',
                 'desc' => '问题记录、研发联动、发版和资料统一从这里进入。',
-                'primary_title' => '打开 APP 工作台',
+                'primary_title' => '打开项目运营工作台',
                 'primary_url' => (string)url('app/workbench/index'),
                 'links' => [
                     ['title' => '问题记录', 'url' => (string)url('app/issue/index')],
@@ -673,15 +699,15 @@ class Dashboard extends Backend
             ];
         }
 
-        $roleKey = (string)($profile['role_key'] ?? 'admin');
+        $roleKey = $this->resolveDashboardRoleKey($profile);
         $sortMap = [
-            'finance' => ['财务中心' => 1, '客户与采购' => 2, '项目交付' => 3, 'APP 运营' => 4],
-            'project' => ['项目交付' => 1, '客户与采购' => 2, 'APP 运营' => 3, '财务中心' => 4],
-            'operations' => ['客户与采购' => 1, 'APP 运营' => 2, '项目交付' => 3, '财务中心' => 4],
-            'service' => ['APP 运营' => 1, '客户与采购' => 2, '项目交付' => 3, '财务中心' => 4],
-            'tech' => ['APP 运营' => 1, '项目交付' => 2, '财务中心' => 3, '客户与采购' => 4],
-            'viewer' => ['项目交付' => 1, 'APP 运营' => 2, '客户与采购' => 3, '财务中心' => 4],
-            'admin' => ['客户与采购' => 1, '财务中心' => 2, '项目交付' => 3, 'APP 运营' => 4],
+            'finance' => ['财务中心' => 1, '客户与采购' => 2, '项目交付' => 3, '项目运营' => 4],
+            'project' => ['项目交付' => 1, '客户与采购' => 2, '项目运营' => 3, '财务中心' => 4],
+            'operations' => ['客户与采购' => 1, '项目运营' => 2, '项目交付' => 3, '财务中心' => 4],
+            'service' => ['项目运营' => 1, '客户与采购' => 2, '项目交付' => 3, '财务中心' => 4],
+            'tech' => ['项目运营' => 1, '项目交付' => 2, '财务中心' => 3, '客户与采购' => 4],
+            'viewer' => ['项目交付' => 1, '项目运营' => 2, '客户与采购' => 3, '财务中心' => 4],
+            'admin' => ['客户与采购' => 1, '财务中心' => 2, '项目交付' => 3, '项目运营' => 4],
         ];
         $weights = $sortMap[$roleKey] ?? $sortMap['admin'];
 
@@ -857,7 +883,7 @@ class Dashboard extends Backend
         }
 
         return [
-            'tag' => 'APP 问题',
+            'tag' => '运营问题',
             'title' => $row['title'] ?: '待处理问题',
             'meta' => implode(' · ', array_filter([
                 trim((string)$row['assignee']) ? ('负责人 ' . trim((string)$row['assignee'])) : '',
@@ -865,7 +891,7 @@ class Dashboard extends Backend
                 $this->formatDateTag('承诺时间', $row['resolve_due_at']),
             ])),
             'url' => (string)url('app/workbench/index'),
-            'button' => '去 APP 工作台',
+            'button' => '去项目运营工作台',
         ];
     }
 
@@ -1099,14 +1125,14 @@ class Dashboard extends Backend
         }
 
         return [
-            'tag' => '我的 APP',
-            'title' => $row['name'] ?: '负责中的 APP',
+            'tag' => '我的项目',
+            'title' => $row['name'] ?: '负责中的项目',
             'meta' => implode(' · ', array_filter([
                 trim((string)$row['app_version']) ? ('版本 ' . trim((string)$row['app_version'])) : '',
                 $this->mapAppLifecycle((string)$row['lifecycle_stage']),
             ])),
             'url' => (string)url('app/project/index'),
-            'button' => '去 APP 台账',
+            'button' => '去项目台账',
         ];
     }
 
@@ -1188,7 +1214,28 @@ class Dashboard extends Backend
             'title' => $profile['title'] ?? '系统角色',
             'department' => $profile['department'] ?? '默认部门',
             'role_key' => $profile['role_key'] ?? 'viewer',
+            'group_names' => $this->getCurrentGroupNames($adminId),
         ];
+    }
+
+    protected function resolveDashboardRoleKey(array $profile): string
+    {
+        return (string)($profile['role_key'] ?? 'viewer');
+    }
+
+    protected function getCurrentGroupNames(int $adminId): array
+    {
+        if ($adminId <= 0 || !$this->tableExists('auth_group_access') || !$this->tableExists('auth_group')) {
+            return [];
+        }
+
+        $rows = Db::name('auth_group_access')
+            ->alias('access')
+            ->join(config('database.prefix') . 'auth_group `group`', '`group`.id = access.group_id', 'LEFT')
+            ->where('access.uid', $adminId)
+            ->column('group.name');
+
+        return array_values(array_unique(array_filter(array_map('strval', $rows ?: []))));
     }
 
     protected function mapRoleLabel(string $roleKey): string
@@ -1212,10 +1259,10 @@ class Dashboard extends Backend
             'admin' => '你看到的是全局经营视角，优先处理审批、资金和关键问题。',
             'finance' => '先看待回款、待付款和审批，再处理台账与智能记账。',
             'project' => '先清理自己负责的任务和项目风险，再补项目台账。',
-            'operations' => '先推进客户和采购，再看 APP 运营和版本节奏。',
+            'operations' => '先推进客户和采购，再看项目运营节奏、问题和发版安排。',
             'service' => '先处理自己负责的问题和客户回告，再同步研发或客户。',
             'tech' => '先处理研发联动和测试待办，再关注发版风险。',
-            'viewer' => '先看你自己的项目、任务和 APP，再进入完整工作台。',
+            'viewer' => '先看你自己的项目、任务和项目运营事项，再进入完整工作台。',
         ];
 
         return $map[$roleKey] ?? '先看今天的待办，再进入对应工作台处理。';
@@ -1239,12 +1286,12 @@ class Dashboard extends Backend
             'project/workbench/index' => '项目工作台',
             'project/task/index' => '任务清单',
             'business/workbench/index' => '采购工作台',
-            'app/workbench/index' => 'APP 工作台',
+            'app/workbench/index' => '项目运营工作台',
             'app/issue/index' => '问题记录',
             'app/tech_ticket/index' => '研发联动',
             'app/release/index' => '版本发布',
             'project/project/index' => '项目台账',
-            'app/project/index' => 'APP 台账',
+            'app/project/index' => '项目台账',
             'ai/conversation/index' => 'AI 工作台',
         ];
 
@@ -1474,6 +1521,12 @@ class Dashboard extends Backend
 
     protected function hasAccess(string $rule): bool
     {
+        if ($this->moduleService) {
+            if (strpos($rule, 'app/') === 0 && !$this->moduleService->isEnabled('app')) {
+                return false;
+            }
+        }
+
         if (!$this->auth || !method_exists($this->auth, 'check')) {
             return true;
         }

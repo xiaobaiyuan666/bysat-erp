@@ -1,0 +1,24 @@
+{
+  "app": "bysat-erp-fastadmin",
+  "label": "ERP online update build",
+  "version": "2026.03.26-online-update",
+  "built_at": "2026-03-26T00:00:00+08:00",
+  "source": {
+    "provider": "github",
+    "owner": "xiaobaiyuan666",
+    "repo": "bysat-erp",
+    "branch": "master",
+    "commit": "4d25c40dd329039faeca716eb5eae17474f5c6e5"
+  },
+  "package": {
+    "subdir": "fastadmin",
+    "preferred_source_mode": "branch",
+    "release_asset_pattern": "bysat-erp-fastadmin-baota-*.zip"
+  },
+  "database": {
+    "backup_mode": "when_migrations",
+    "migration_table": "fa_erp_update_migration",
+    "migration_strategy": "pre_deploy"
+  },
+  "migrations": []
+}

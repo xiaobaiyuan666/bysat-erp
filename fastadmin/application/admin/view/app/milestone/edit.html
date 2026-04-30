@@ -1,11 +1,14 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-
+    <div class="alert alert-info" style="margin:0 0 18px;">
+        里程碑用于跟踪项目节点，不区分 APP、小程序还是官网，核心是把负责人、时间点和交付物记录清楚。
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('App_project_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-app_project_id" data-rule="required" class="form-control selectpicker" name="row[app_project_id]">
+                <option value="">请选择</option>
                 {foreach name="appProjectList" item="vo"}
-                <option value="{$key}" {in name="key" value="$row.app_project_id"}selected{/in}>{$vo}</option>
+                <option value="{$key}" {if $key==$row.app_project_id}selected{/if}>{$vo}</option>
                 {/foreach}
             </select>
         </div>
@@ -21,7 +24,7 @@
         <div class="col-xs-12 col-sm-8">
             <select id="c-owner_admin_id" data-rule="required" class="form-control selectpicker" name="row[owner_admin_id]">
                 {foreach name="staffList" item="vo"}
-                <option value="{$key}" {in name="key" value="$row.owner_admin_id"}selected{/in}>{$vo}</option>
+                <option value="{$key}" {if $key==$row.owner_admin_id}selected{/if}>{$vo}</option>
                 {/foreach}
             </select>
         </div>

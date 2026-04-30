@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首次使用说明</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --panel: #ffffff;
+            --line: #dbe4f0;
+            --text: #1f2d3d;
+            --muted: #607083;
+            --brand: #2468f2;
+            --soft: #eef4ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: linear-gradient(180deg, #eef3fb 0%, #f8fbff 100%);
+        }
+
+        .shell {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 32px 20px 48px;
+        }
+
+        .hero,
+        .section {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 18px 48px rgba(25, 48, 91, 0.08);
+        }
+
+        .hero {
+            padding: 28px;
+            background: linear-gradient(135deg, #f8fbff 0%, #edf4ff 52%, #ffffff 100%);
+        }
+
+        .section {
+            margin-top: 18px;
+            padding: 24px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(36, 104, 242, 0.12);
+            color: var(--brand);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 16px 0 10px;
+            font-size: 34px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            margin: 0 0 16px;
+            font-size: 22px;
+        }
+
+        p,
+        li {
+            line-height: 1.75;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #fbfdff;
+        }
+
+        .card strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .steps,
+        .checks {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            border-color: var(--brand);
+            background: var(--brand);
+            color: #fff;
+        }
+
+        .notice {
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: var(--soft);
+            color: var(--text);
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        @media (max-width: 860px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <section class="hero">
+        <span class="tag">正式版使用指引</span>
+        <h1>首次使用说明</h1>
+        <p class="muted">适用系统：ERP AI 管理系统。</p>
+        <p>这套系统定位为中小型互联网企业内部 ERP 管理系统，主线能力包括财务、客户与合同、项目协同、人员权限、审批日志和 AI 助手。建议首次上线使用 <code>clean</code> 模式，以正式流程配置真实账号和基础数据。</p>
+        <div class="actions">
+            <a class="btn btn-primary" href="../MWDObBuRlr.php" target="_blank" rel="noopener">打开后台</a>
+            <a class="btn" href="./正式部署与升级说明.html" target="_blank" rel="noopener">查看部署与升级说明</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>首次登录后先做什么</h2>
+        <ol class="steps">
+            <li>使用默认管理员 <code>admin / Admin@123</code> 登录后台。</li>
+            <li>第一时间修改管理员密码、邮箱和昵称，避免多人共用超级账号。</li>
+            <li>进入“人员权限”，为财务、项目、运营、技术、客服分别建立真实账号。</li>
+            <li>进入“AI 助手 -> AI 设置”，填写正式环境的接口地址、模型名和 API Key。</li>
+            <li>进入“系统资料 -> 模块中心”，确认是否启用“项目运营插件”。</li>
+        </ol>
+    </section>
+
+    <section class="section">
+        <h2>推荐初始化顺序</h2>
+        <div class="grid">
+            <div class="card">
+                <strong>1. 系统配置</strong>
+                <span class="muted">确认公司名称、版权信息、系统首页和基础显示信息。</span>
+            </div>
+            <div class="card">
+                <strong>2. 角色权限</strong>
+                <span class="muted">按真实岗位分配权限，不建议多个同事共用管理员账号。</span>
+            </div>
+            <div class="card">
+                <strong>3. AI 配置</strong>
+                <span class="muted">配置正式模型后，先做一次简单问答和一次首页分析测试。</span>
+            </div>
+            <div class="card">
+                <strong>4. 业务基础核对</strong>
+                <span class="muted">检查财务中心、项目交付、项目运营的字段和流程是否符合公司现状。</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>AI 首次配置建议</h2>
+        <div class="notice">
+            请准备好 <code>Base URL</code>、<code>API Key</code> 和 <code>Model</code>。配置完成后，先在 AI 对话页测试一条简单问题，再在首页 AI 入口做一次业务分析，确认接口可用、响应时间正常。
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>正式环境上线前检查</h2>
+        <ul class="checks">
+            <li>确认安装模式为 <code>clean</code>。</li>
+            <li>确认站点根目录指向 <code>fastadmin/public</code>。</li>
+            <li>确认数据库已做快照或备份。</li>
+            <li>确认附件目录可写，服务器可正常出网。</li>
+            <li>确认 AI Key、接口地址和模型名已经替换为正式环境配置。</li>
+            <li>确认“系统资料 -> 在线更新”页面可以正常打开。</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>常见问题</h2>
+        <div class="grid">
+            <div class="card">
+                <strong>安装器提示数据库无权限</strong>
+                <span class="muted">不要求 root。请先在宝塔创建数据库，再把该数据库授权给当前账号。</span>
+            </div>
+            <div class="card">
+                <strong>安装后打不开后台</strong>
+                <span class="muted">优先检查站点根目录是否指向 <code>fastadmin/public</code>，以及 PHP 版本和扩展是否符合要求。</span>
+            </div>
+            <div class="card">
+                <strong>AI 无法连接</strong>
+                <span class="muted">优先检查接口地址、SSL 证书链、模型名和服务器出网能力。</span>
+            </div>
+            <div class="card">
+                <strong>升级后想回滚</strong>
+                <span class="muted">进入“系统资料 -> 在线更新”，在升级记录中选择最近一次成功记录进行回滚。</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>版权与说明</h2>
+        <p>登录页系统名称、后台左上角 Logo、官网入口和版权说明都在“系统资料 -> 系统配置”中维护。</p>
+        <p>如果不需要显示官网或版权说明，对应配置项留空即可。</p>
+    </section>
+</div>
+</body>
+</html>

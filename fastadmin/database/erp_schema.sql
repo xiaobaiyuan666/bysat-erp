@@ -161,6 +161,7 @@ CREATE TABLE IF NOT EXISTS `fa_app_project` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `legacy_id` varchar(64) NOT NULL DEFAULT '' COMMENT '旧系统ID',
   `name` varchar(150) NOT NULL DEFAULT '' COMMENT '运营项目',
+  `project_type` varchar(30) NOT NULL DEFAULT 'app' COMMENT '项目类型',
   `app_name` varchar(150) NOT NULL DEFAULT '' COMMENT 'APP名称',
   `app_version` varchar(50) NOT NULL DEFAULT '' COMMENT '当前版本',
   `lifecycle_stage` enum('idea','validation','launch','growth','retention','mature','sunset') NOT NULL DEFAULT 'validation' COMMENT '生命周期:idea=构思,validation=验证,launch=上线,growth=增长,retention=留存,mature=成熟,sunset=下线',
@@ -237,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `fa_app_report` (
   KEY `idx_app_report_app_project_id` (`app_project_id`),
   KEY `idx_app_report_owner_admin_id` (`owner_admin_id`),
   KEY `idx_app_report_report_date` (`report_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='运营周报';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='项目汇报';
 
 CREATE TABLE IF NOT EXISTS `fa_app_risk` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -480,3 +481,47 @@ CREATE TABLE IF NOT EXISTS `fa_ai_conversation` (
   PRIMARY KEY (`id`),
   KEY `idx_ai_conversation_message_at` (`message_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='AI会话';
+CREATE TABLE IF NOT EXISTS `fa_ai_task` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `admin_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '绠＄悊鍛?',
+  `prompt` text COMMENT '鍘熷闂',
+  `focus` varchar(30) NOT NULL DEFAULT 'overview' COMMENT '鍒嗘瀽鑼冨洿',
+  `preset_key` varchar(60) NOT NULL DEFAULT '' COMMENT '棰勮',
+  `setting_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '妯″瀷閰嶇疆',
+  `quick_mode` tinyint(1) NOT NULL DEFAULT '1' COMMENT '蹇€熸ā寮?',
+  `status` enum('queued','processing','done','failed') NOT NULL DEFAULT 'queued' COMMENT '浠诲姟鐘舵€?',
+  `result_json` longtext COMMENT '缁撴灉 JSON',
+  `error_message` varchar(500) NOT NULL DEFAULT '' COMMENT '閿欒淇℃伅',
+  `started_at` datetime DEFAULT NULL COMMENT '寮€濮嬫椂闂?',
+  `finished_at` datetime DEFAULT NULL COMMENT '瀹屾垚鏃堕棿',
+  `createtime` bigint(16) DEFAULT NULL,
+  `updatetime` bigint(16) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_ai_task_admin_status` (`admin_id`,`status`),
+  KEY `idx_ai_task_createtime` (`createtime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='AI鍚庡彴浠诲姟';
+ALTER TABLE `fa_business_approval`
+  MODIFY COLUMN `object_type` enum('contract','payment_plan','expense_request','purchase_order','payment_request') NOT NULL DEFAULT 'contract' COMMENT '审批对象类型';
+
+CREATE TABLE IF NOT EXISTS `fa_erp_module` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `legacy_id` varchar(64) NOT NULL DEFAULT '',
+  `module_key` varchar(50) NOT NULL DEFAULT '',
+  `module_name` varchar(100) NOT NULL DEFAULT '',
+  `module_type` varchar(20) NOT NULL DEFAULT 'plugin',
+  `icon` varchar(50) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `entry_route` varchar(100) NOT NULL DEFAULT '',
+  `is_enabled` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `is_locked` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sort_no` int(10) unsigned NOT NULL DEFAULT '0',
+  `updated_at` datetime DEFAULT NULL,
+  `created_by_admin_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_by_name` varchar(50) NOT NULL DEFAULT '',
+  `updated_by_admin_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `updated_by_name` varchar(50) NOT NULL DEFAULT '',
+  `createtime` bigint(16) DEFAULT NULL,
+  `updatetime` bigint(16) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_module_key` (`module_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='ERP 模块中心';

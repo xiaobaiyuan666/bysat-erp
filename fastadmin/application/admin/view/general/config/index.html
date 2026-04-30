@@ -13,6 +13,44 @@
         }
     }
 
+    @media (max-width: 767px) {
+        .edit-form table,
+        .edit-form thead,
+        .edit-form tbody,
+        .edit-form tfoot,
+        .edit-form tr,
+        .edit-form th,
+        .edit-form td {
+            display: block;
+            width: 100% !important;
+        }
+
+        .edit-form thead {
+            display: none;
+        }
+
+        .edit-form table > tbody > tr {
+            padding: 12px 0;
+            border-bottom: 1px solid #edf1f5;
+        }
+
+        .edit-form table > tbody > tr > td {
+            border-top: 0;
+            padding: 6px 8px;
+        }
+
+        .edit-form .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .edit-form .col-sm-8,
+        .edit-form .col-xs-12 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
     .edit-form table > tbody > tr td a.btn-delcfg {
         visibility: hidden;
     }
@@ -21,20 +59,115 @@
         visibility: visible;
     }
 
+    .config-guide {
+        margin: 0 0 14px;
+        padding: 14px 16px;
+        border: 1px solid #dbeafe;
+        border-radius: 8px;
+        background: #f8fbff;
+        color: #4b5563;
+    }
+
+    .config-guide h4 {
+        margin: 0 0 6px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .config-guide p {
+        margin: 0;
+        line-height: 1.7;
+    }
+
+    .config-guide.advanced {
+        border-color: #f6d365;
+        background: #fff9e8;
+    }
+
+    .config-title {
+        display: block;
+        color: #1f2937;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .config-tip {
+        color: #8b97a3;
+        line-height: 1.5;
+        font-size: 12px;
+    }
+
+    .config-page-actions {
+        position: absolute;
+        right: 15px;
+        top: 12px;
+        z-index: 2;
+    }
+
+    .config-page-actions .btn-link {
+        color: #8b97a3;
+    }
+
+    .config-safe-note {
+        margin-top: 10px;
+        color: #6b7280;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .config-safe-note i {
+        color: #18bc9c;
+        margin-right: 4px;
+    }
+
+    .config-simple-form .table > tbody > tr > td {
+        vertical-align: middle;
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .config-simple-form .form-control {
+        max-width: 520px;
+    }
+
+    .config-simple-form textarea.form-control {
+        max-width: 640px;
+    }
+
+    @media (max-width: 767px) {
+        .config-page-actions {
+            position: static;
+            margin-top: 10px;
+        }
+
+        .config-simple-form .form-control,
+        .config-simple-form textarea.form-control {
+            max-width: none;
+        }
+    }
+
 </style>
 <div class="panel panel-default panel-intro">
     <div class="panel-heading">
         {:build_heading(null, false)}
+        <div class="config-page-actions">
+            {if $isAdvancedConfig}
+            <a class="btn btn-default btn-sm" href="{:url('general/config/index')}"><i class="fa fa-arrow-left"></i> 返回基础设置</a>
+            {else/}
+            <a class="btn btn-link btn-sm" href="{:url('general/config/index', ['advanced'=>1])}" title="仅技术人员维护底层参数"><i class="fa fa-lock"></i> 技术人员入口</a>
+            {/if}
+        </div>
+        {if $isAdvancedConfig && $Think.config.app_debug}
         <ul class="nav nav-tabs">
             {foreach $siteList as $index=>$vo}
             <li class="{$vo.active?'active':''}"><a href="#tab-{$vo.name|htmlentities}" data-toggle="tab">{:__(htmlentities($vo.title))}</a></li>
             {/foreach}
-            {if $Think.config.app_debug}
             <li data-toggle="tooltip" title="{:__('Add new config')}">
                 <a href="#addcfg" data-toggle="tab"><i class="fa fa-plus"></i></a>
             </li>
-            {/if}
         </ul>
+        {/if}
     </div>
 
     <div class="panel-body">
@@ -43,14 +176,23 @@
             {foreach $siteList as $index=>$vo}
             <div class="tab-pane fade {$vo.active ? 'active in' : ''}" id="tab-{$vo.name|htmlentities}">
                 <div class="widget-body no-padding">
-                    <form id="{$vo.name|htmlentities}-form" class="edit-form form-horizontal" role="form" data-toggle="validator" method="POST" action="{:url('general.config/edit')}">
+                    {if $vo.description??''}
+                    <div class="config-guide {$vo.is_advanced?'advanced':''}">
+                        <h4>{$vo.title|htmlentities}</h4>
+                        <p>{$vo.description|htmlentities}</p>
+                        {if !$vo.is_advanced}
+                        <div class="config-safe-note"><i class="fa fa-check-circle"></i>建议只由管理员维护这些展示信息；保存后会自动更新后台和登录页展示。</div>
+                        {/if}
+                    </div>
+                    {/if}
+                    <form id="{$vo.name|htmlentities}-form" class="edit-form form-horizontal {$vo.is_advanced?'':'config-simple-form'}" role="form" data-toggle="validator" method="POST" action="{:url('general.config/edit')}">
                         {:token()}
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th width="15%">{:__('Title')}</th>
-                                <th width="68%">{:__('Value')}</th>
-                                {if $Think.config.app_debug}
+                                <th width="18%">配置项</th>
+                                <th width="65%">配置内容</th>
+                                {if $Think.config.app_debug && $isAdvancedConfig}
                                 <th width="15%">{:__('Name')}</th>
                                 <th width="2%"></th>
                                 {/if}
@@ -59,7 +201,12 @@
                             <tbody>
                             {foreach $vo.list as $item}
                             <tr data-favisible="{$item.visible|default=''|htmlentities}" data-name="{$item.name|htmlentities}" class="{if $item.visible??''}hidden{/if}">
-                                <td>{$item.title|htmlentities}</td>
+                                <td>
+                                    <span class="config-title">{$item.title|htmlentities}</span>
+                                    {if $item.tip}
+                                    <span class="config-tip">{$item.tip}</span>
+                                    {/if}
+                                </td>
                                 <td>
                                     <div class="row">
                                         <div class="col-sm-8 col-xs-12">
@@ -170,7 +317,7 @@
                                     </div>
 
                                 </td>
-                                {if $Think.config.app_debug}
+                                {if $Think.config.app_debug && $isAdvancedConfig}
                                 <td>{php}echo "{\$site.". $item['name'] . "}";{/php}</td>
                                 <td>{if $item['id']>18}<a href="javascript:;" class="btn-delcfg text-muted" data-name="{$item.name|htmlentities}"><i class="fa fa-times"></i></a>{/if}</td>
                                 {/if}
@@ -186,7 +333,7 @@
                                         <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
                                     </div>
                                 </td>
-                                {if $Think.config.app_debug}
+                                {if $Think.config.app_debug && $isAdvancedConfig}
                                 <td></td>
                                 <td></td>
                                 {/if}
@@ -197,6 +344,7 @@
                 </div>
             </div>
             {/foreach}
+            {if $Think.config.app_debug && $isAdvancedConfig}
             <div class="tab-pane fade" id="addcfg">
                 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{:url('general.config/add')}">
                     {:token()}
@@ -341,6 +489,7 @@ value2|title2</textarea>
                 </form>
 
             </div>
+            {/if}
             <!--@formatter:on-->
         </div>
     </div>

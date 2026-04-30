@@ -3,6 +3,5 @@ output/
 tmp-*
 tmp_probe_*.php
 tmp_test_gateway_chat.php
-docs/
-scripts/
+test-results/
 storage/

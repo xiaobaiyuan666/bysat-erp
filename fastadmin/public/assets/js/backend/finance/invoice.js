@@ -20,6 +20,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         return 'general/attachment/index?ids=' + ids.join(',');
     };
 
+    var printUrl = function (row) {
+        return 'finance/invoice/printview?ids=' + row.id;
+    };
+
     var bindAttachmentField = function () {
         var $input = $('#c-attachment_ids_json');
         var $summary = $('#c-attachment_summary');
@@ -106,6 +110,15 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         table: table,
                         events: Table.api.events.operate,
                         buttons: [
+                            {
+                                name: 'print',
+                                text: '打印预览',
+                                title: '打印预览',
+                                icon: 'fa fa-print',
+                                classname: 'btn btn-success btn-xs btn-dialog',
+                                url: printUrl,
+                                extend: 'data-area=["88%","92%"]'
+                            },
                             {
                                 name: 'attachments',
                                 text: '查看附件',

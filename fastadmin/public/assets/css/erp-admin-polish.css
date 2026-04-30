@@ -1,0 +1,434 @@
+/* ERP admin usability polish */
+body.inside-header.inside-aside #content > .row > [class*="col-"] > .content,
+.content-wrapper > .content {
+  padding: 12px;
+  background: #f3f5f8;
+}
+
+body.inside-header.inside-aside {
+  overflow-x: hidden;
+}
+
+#content > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#content > .row > [class*="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.inside-header.inside-aside #content > .row > [class*="col-"] > .content > .panel,
+body.inside-header.inside-aside #content > .row > [class*="col-"] > .content > .panel-intro,
+.content-wrapper > .content > .panel,
+.content-wrapper > .content > .panel-intro {
+  max-width: 1480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.panel-intro {
+  border: 0;
+  border-radius: 10px;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.panel-intro > .panel-heading {
+  padding: 12px 16px;
+  background: #f7f9fc;
+  border-bottom: 1px solid #e5eaf0;
+}
+
+.panel-intro > .panel-heading .panel-lead {
+  margin-bottom: 0;
+  color: #66788a;
+  line-height: 1.7;
+}
+
+.panel-intro > .panel-heading .panel-lead em {
+  color: #1f2d3d;
+  font-size: 16px;
+}
+
+.panel-intro > .panel-body {
+  padding: 12px;
+  background: #fff;
+}
+
+.toolbar,
+.fixed-table-toolbar .bs-bars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar {
+  margin: 0 0 10px;
+}
+
+.toolbar .btn,
+.fixed-table-toolbar .btn,
+.form-horizontal .btn,
+.layui-layer-fast .layui-layer-btn a {
+  border-radius: 8px;
+}
+
+.toolbar .btn-group,
+.fixed-table-toolbar .btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  vertical-align: middle;
+}
+
+.toolbar .btn-group > .btn,
+.fixed-table-toolbar .btn-group > .btn {
+  float: none;
+  margin-left: 0;
+}
+
+.nav-tabs-custom > .nav-tabs,
+.panel-heading .nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 0;
+}
+
+.nav-tabs-custom > .nav-tabs > li,
+.panel-heading .nav-tabs > li {
+  float: none;
+  margin-bottom: 0;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.panel-heading .nav-tabs > li > a {
+  border-radius: 8px;
+}
+
+.bootstrap-table {
+  border: 1px solid #e5eaf0;
+  border-radius: 10px;
+  background: #fff;
+  overflow: visible;
+}
+
+.fixed-table-toolbar {
+  padding: 0 0 10px;
+}
+
+.fixed-table-container {
+  border: 0 !important;
+}
+
+.fixed-table-body {
+  overflow-x: auto;
+}
+
+.fixed-table-container thead th .th-inner,
+.bootstrap-table .table:not(.table-condensed) > thead > tr > th,
+.bootstrap-table .table:not(.table-condensed) > tbody > tr > td {
+  white-space: nowrap;
+}
+
+.bootstrap-table .table:not(.table-condensed) > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.fixed-table-pagination {
+  padding: 10px 12px;
+  border-top: 1px solid #edf1f5;
+  background: #fbfcfe;
+}
+
+.fixed-table-pagination:before,
+.fixed-table-pagination:after {
+  content: " ";
+  display: table;
+}
+
+.fixed-table-pagination:after {
+  clear: both;
+}
+
+.fixed-table-toolbar .columns,
+.fixed-table-toolbar .search {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.fixed-table-toolbar .columns-right {
+  margin-left: 8px;
+}
+
+.fixed-table-toolbar .dropdown-menu {
+  border-radius: 8px;
+  border-color: #e4e9f0;
+  box-shadow: 0 10px 24px rgba(31, 45, 61, .12);
+}
+
+.form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.form-horizontal .control-label {
+  color: #52677c;
+  font-weight: 600;
+}
+
+.form-control {
+  border-color: #dbe4ee;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  border-color: #3c8dbc;
+  box-shadow: 0 0 0 3px rgba(60, 141, 188, .12);
+}
+
+body.is-dialog {
+  overflow-x: hidden;
+}
+
+body.is-dialog .form-horizontal {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 14px 16px 76px;
+}
+
+body.is-dialog .form-horizontal .form-group:not(.layer-footer) {
+  margin-bottom: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f3f7;
+}
+
+body.is-dialog .form-horizontal .control-label {
+  padding-top: 7px;
+}
+
+body.is-dialog textarea.form-control {
+  min-height: 86px;
+  resize: vertical;
+}
+
+body.is-dialog .bootstrap-select,
+body.is-dialog .bootstrap-select > .dropdown-toggle,
+body.is-dialog .selectpicker,
+body.is-dialog .sp_container {
+  width: 100% !important;
+}
+
+body.is-dialog .input-group {
+  width: 100%;
+}
+
+body.is-dialog .radio,
+body.is-dialog .checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+body.is-dialog .radio label,
+body.is-dialog .checkbox label {
+  margin-left: 0;
+  line-height: 1.8;
+}
+
+.form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-inline .form-control {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.fieldlist dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.fieldlist dd input {
+  min-width: 0;
+}
+
+.alert-info-light,
+.alert-warning-light {
+  border: 0;
+  border-radius: 10px;
+  line-height: 1.7;
+}
+
+.erp-form-note {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f5f9ff;
+  color: #52677c;
+  line-height: 1.7;
+}
+
+.erp-form-section {
+  margin: 16px 0 6px;
+  padding: 8px 12px;
+  border-left: 3px solid #3c8dbc;
+  border-radius: 8px;
+  background: #f7f9fc;
+  color: #1f2d3d;
+  font-weight: 700;
+}
+
+body.is-dialog .form-horizontal > .erp-form-section:first-child,
+body.is-dialog .form-horizontal > .erp-form-note:first-child {
+  margin-top: 0;
+}
+
+body.is-dialog .layer-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  margin: 12px -16px -76px !important;
+  padding: 10px 16px !important;
+  border-top: 1px solid #e5eaf0;
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 -8px 18px rgba(31, 45, 61, .06);
+}
+
+body.is-dialog .layer-footer .btn {
+  min-width: 92px;
+}
+
+.layui-layer-fast {
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+.layui-layer-fast .layui-layer-title {
+  background: #1f2d3d !important;
+}
+
+@media (max-width: 767px) {
+  body.inside-header.inside-aside #content > .row > [class*="col-"] > .content,
+  .content-wrapper > .content {
+    padding: 8px;
+  }
+
+  .panel-intro > .panel-heading,
+  .panel-intro > .panel-body {
+    padding: 10px;
+  }
+
+  .toolbar,
+  .fixed-table-toolbar .bs-bars {
+    width: 100%;
+  }
+
+  .fixed-table-toolbar .search {
+    width: 100%;
+    max-width: none;
+    margin-top: 8px;
+  }
+
+  .fixed-table-toolbar .search input {
+    width: 100%;
+  }
+
+  .fixed-table-toolbar .columns,
+  .fixed-table-toolbar .columns-right {
+    float: none !important;
+    margin-left: 0;
+  }
+
+  .toolbar .btn-group,
+  .fixed-table-toolbar .btn-group,
+  .toolbar .btn,
+  .fixed-table-toolbar .btn {
+    width: 100%;
+  }
+
+  .toolbar .btn-group > .btn,
+  .fixed-table-toolbar .btn-group > .btn {
+    flex: 1 1 auto;
+  }
+
+  .fixed-table-pagination {
+    padding: 8px 10px;
+  }
+
+  .fixed-table-pagination .pull-left,
+  .fixed-table-pagination .pull-right {
+    float: none !important;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .fixed-table-pagination .pagination-detail,
+  .fixed-table-pagination .pagination {
+    margin: 6px 0;
+  }
+
+  body.is-dialog .form-horizontal {
+    padding: 10px 10px 72px;
+  }
+
+  .form-horizontal .control-label {
+    text-align: left;
+    padding-top: 0;
+  }
+
+  .form-inline {
+    display: block;
+  }
+
+  .form-inline .form-control,
+  .fieldlist dd input {
+    width: 100% !important;
+    margin-bottom: 8px;
+  }
+
+  body.is-dialog .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  body.is-dialog .input-group .form-control,
+  body.is-dialog .input-group .input-group-btn,
+  body.is-dialog .input-group .input-group-btn .btn {
+    display: block;
+    width: 100%;
+  }
+
+  .form-layer .form-body {
+    padding: 10px;
+  }
+
+  .form-layer .form-footer {
+    height: auto;
+    min-height: 50px;
+    padding: 8px;
+    line-height: 1.4;
+  }
+
+  .form-layer .form-footer .btn {
+    min-width: 84px;
+  }
+
+  body.is-dialog .layer-footer {
+    margin: 10px -10px -72px !important;
+    padding: 8px 10px !important;
+  }
+}

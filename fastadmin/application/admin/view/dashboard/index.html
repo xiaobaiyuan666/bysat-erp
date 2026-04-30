@@ -1,135 +1,396 @@
 <style>
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .panel.panel-default.panel-intro {
+        margin-bottom: 0;
+        border: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .panel.panel-default.panel-intro > .panel-heading {
+        display: none;
+    }
+
+    .panel.panel-default.panel-intro > .panel-body {
+        padding: 14px;
+        min-height: calc(100vh - 54px);
+        overflow-x: hidden;
+        background: #eef2f6;
+    }
+
     .erp-dashboard {
-        padding: 18px;
-        background: #f5f7fa;
-    }
-
-    .erp-dashboard-grid,
-    .erp-workbench-grid {
-        display: grid;
-        gap: 16px;
-    }
-
-    .erp-dashboard-grid {
-        grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr);
-    }
-
-    .erp-workbench-grid {
-        margin-top: 16px;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-
-    .erp-card {
-        background: #fff;
-        border: 1px solid #e7edf4;
-        border-radius: 12px;
-        box-shadow: 0 10px 24px rgba(31, 45, 61, 0.05);
-    }
-
-    .erp-card-body {
-        padding: 20px;
-    }
-
-    .erp-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: #eef6ff;
-        color: #2b7dbd;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .erp-title {
-        margin: 14px 0 10px;
-        font-size: 28px;
-        line-height: 1.25;
-        font-weight: 700;
+        width: 100%;
+        max-width: 1320px;
+        margin: 0 auto;
+        min-width: 0;
         color: #1f2d3d;
     }
 
-    .erp-subtitle,
-    .erp-text-muted,
-    .erp-todo-meta,
-    .erp-workbench-desc {
-        color: #6b7b88;
-        font-size: 13px;
-        line-height: 1.85;
+    .erp-dashboard *,
+    .erp-dashboard *:before,
+    .erp-dashboard *:after {
+        box-sizing: border-box;
     }
 
-    .erp-model-box {
-        margin-top: 16px;
-        padding: 14px 16px;
+    .erp-hero,
+    .erp-card,
+    .erp-metric {
+        border: 1px solid #e3eaf2;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .erp-hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 18px 20px;
+        margin-bottom: 12px;
+    }
+
+    .erp-eyebrow {
+        margin-bottom: 5px;
+        color: #3c8dbc;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .08em;
+    }
+
+    .erp-title,
+    .erp-card-title,
+    .erp-item-title,
+    .erp-metric-value {
+        margin: 0;
+        color: #1f2d3d;
+        font-weight: 700;
+    }
+
+    .erp-title {
+        font-size: 22px;
+        line-height: 1.35;
+    }
+
+    .erp-card-title {
+        font-size: 16px;
+        line-height: 1.45;
+    }
+
+    .erp-muted,
+    .erp-card-desc,
+    .erp-item-meta,
+    .erp-ai-answer-content {
+        color: #66788a;
+        font-size: 13px;
+        line-height: 1.75;
+        word-break: break-word;
+    }
+
+    .erp-role-pill {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 420px;
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: #f3f7fb;
+        color: #52677c;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .erp-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(160px, 1fr));
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .erp-metric {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+        min-width: 0;
+        min-height: 82px;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .erp-metric:hover,
+    .erp-entry:hover,
+    .erp-queue-item:hover {
+        border-color: #3c8dbc;
+        background: #f5faff;
+        text-decoration: none;
+    }
+
+    .erp-metric-label {
+        display: block;
+        color: #66788a;
+        font-size: 12px;
+    }
+
+    .erp-metric-value {
+        display: block;
+        margin-top: 6px;
+        color: #2474bf;
+        font-size: 26px;
+        line-height: 1.1;
+    }
+
+    .erp-metric-icon {
+        display: inline-flex;
+        width: 34px;
+        height: 34px;
+        align-items: center;
+        justify-content: center;
         border-radius: 10px;
-        background: #f8fbff;
-        border: 1px solid #dfeaf5;
+        background: #eef7ff;
+        color: #2474bf;
+        font-size: 16px;
     }
 
-    .erp-model-name {
-        font-size: 14px;
-        font-weight: 600;
-        color: #1f2d3d;
+    .erp-main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr);
+        gap: 12px;
+        align-items: start;
+        margin-bottom: 12px;
     }
 
-    .erp-toolbar,
-    .erp-focus-list,
-    .erp-quick-list,
-    .erp-answer-actions,
-    .erp-summary-list,
-    .erp-workbench-links {
+    .erp-card {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .erp-dashboard .btn {
+        border-radius: 8px;
+    }
+
+    .erp-dashboard .btn-primary {
+        border-color: #2b7dbd;
+        background: #2b7dbd;
+        color: #fff;
+    }
+
+    .erp-dashboard .btn-primary:hover,
+    .erp-dashboard .btn-primary:focus {
+        border-color: #236a9f;
+        background: #236a9f;
+        color: #fff;
+    }
+
+    .erp-dashboard .btn-default {
+        border-color: #dbe4ee;
+        background: #fff;
+        color: #52677c;
+    }
+
+    .erp-dashboard .btn-default:hover,
+    .erp-dashboard .btn-default:focus {
+        border-color: #3c8dbc;
+        background: #eef7ff;
+        color: #2b7dbd;
+    }
+
+    .erp-card-body {
+        padding: 16px;
+    }
+
+    .erp-card-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .erp-card-actions,
+    .erp-chip-row,
+    .erp-mini-links,
+    .erp-answer-actions {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         gap: 8px;
     }
 
-    .erp-toolbar,
-    .erp-focus-list,
-    .erp-quick-list {
-        margin-top: 14px;
-    }
-
-    .erp-focus-chip,
-    .erp-quick-chip {
-        padding: 8px 14px;
+    .erp-count-badge,
+    .erp-queue-tag,
+    .erp-panel-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 999px;
-        border: 1px solid #dbe6f1;
-        background: #fff;
-        color: #4f5f6f;
         font-size: 12px;
-        cursor: pointer;
-        transition: all .18s ease;
+        font-weight: 700;
     }
 
-    .erp-focus-chip.is-active,
-    .erp-focus-chip:hover,
-    .erp-quick-chip:hover {
-        background: #eef7ff;
-        border-color: #3c8dbc;
-        color: #3c8dbc;
+    .erp-count-badge {
+        padding: 4px 9px;
+        background: #fff4e8;
+        color: #d48806;
+        white-space: nowrap;
     }
 
-    .erp-ai-form {
-        margin-top: 16px;
+    .erp-queue-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .erp-queue-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px 12px;
+        min-width: 0;
+        padding: 13px;
+        border: 1px solid #e4eaf1;
+        border-radius: 10px;
+        background: #fbfdff;
+    }
+
+    .erp-queue-main {
+        min-width: 0;
+    }
+
+    .erp-queue-tag {
+        width: max-content;
+        max-width: 100%;
+        padding: 4px 8px;
+        margin-bottom: 8px;
+        background: #fff4e8;
+        color: #d48806;
+    }
+
+    .erp-queue-action {
+        display: flex;
+        align-items: center;
+    }
+
+    .erp-empty {
+        padding: 14px;
+        border: 1px dashed #dbe4ee;
+        border-radius: 10px;
+        background: #fbfdff;
+        color: #7b8794;
+        font-size: 13px;
+        line-height: 1.7;
     }
 
     .erp-ai-form textarea {
-        min-height: 112px;
-        resize: vertical;
+        min-height: 96px;
+        max-height: 210px;
+        resize: none;
+        border-radius: 9px;
+        line-height: 1.7;
+    }
+
+    .erp-ai-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .erp-ai-toolbar > .erp-muted {
+        flex: 1 1 260px;
+        min-width: 0;
+    }
+
+    .erp-ai-buttons {
+        display: flex;
+        flex: 0 0 auto;
+        gap: 8px;
+    }
+
+    .erp-ai-scope {
+        margin-top: 10px;
+        padding: 11px 12px;
+        border: 1px solid #e4eaf1;
+        border-radius: 10px;
+        background: #fbfdff;
+    }
+
+    .erp-ai-scope-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
+        color: #52677c;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .erp-ai-scope-title span:last-child {
+        color: #8a98a8;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .erp-chip-row {
+        margin-top: 10px;
+    }
+
+    .erp-chip {
+        max-width: 100%;
+        padding: 7px 12px;
+        border: 1px solid #dbe4ee;
+        border-radius: 999px;
+        background: #fff;
+        color: #52677c;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .erp-chip.is-active,
+    .erp-chip:hover {
+        border-color: #3c8dbc;
+        color: #2b7dbd;
+        background: #eef7ff;
+    }
+
+    .erp-task-banner {
+        display: none;
+        gap: 10px;
+        align-items: flex-start;
+        margin-top: 12px;
+        padding: 10px 12px;
+        border: 1px solid #d8e8f7;
+        border-radius: 9px;
+        background: #f4f9ff;
+    }
+
+    .erp-task-badge {
+        display: inline-flex;
+        min-width: 68px;
+        justify-content: center;
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: #e5f2ff;
+        color: #2474bf;
+        font-size: 12px;
+        font-weight: 700;
     }
 
     .erp-answer-box {
         display: none;
-        margin-top: 16px;
-        padding: 16px;
+        margin-top: 12px;
+        padding: 14px;
+        border: 1px solid #dfe8f2;
         border-radius: 10px;
         background: #fbfdff;
-        border: 1px solid #e8eef5;
     }
 
     .erp-answer-box.is-visible {
@@ -137,447 +398,511 @@
     }
 
     .erp-answer-title {
-        margin: 0 0 10px;
-        font-size: 16px;
+        margin: 0 0 8px;
+        font-size: 15px;
         font-weight: 700;
-        color: #1f2d3d;
     }
 
-    .erp-answer-content {
-        white-space: pre-wrap;
-        word-break: break-word;
-        color: #1f2d3d;
-        line-height: 1.8;
-        font-size: 13px;
+    .erp-answer-meta {
+        display: none;
+        margin-bottom: 8px;
+        color: #52677c;
+        font-size: 12px;
+    }
+
+    .erp-ai-answer-content {
+        max-height: 320px;
+        overflow-y: auto;
+    }
+
+    .erp-ai-answer-content h4 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .erp-ai-answer-content p,
+    .erp-ai-answer-content ul {
+        margin: 0 0 10px;
+    }
+
+    .erp-ai-answer-content ul {
+        padding-left: 18px;
     }
 
     .erp-answer-diagnostic {
         display: none;
+        margin-bottom: 10px;
+    }
+
+    .erp-stream-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1.1em;
+        margin-left: 4px;
+        vertical-align: text-bottom;
+        border-radius: 999px;
+        background: #3c8dbc;
+        animation: erpCursorBlink 1s steps(1) infinite;
+    }
+
+    .erp-entry-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 10px;
+    }
+
+    .erp-entry-section {
         margin-bottom: 12px;
     }
 
-    .erp-section-title {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 700;
-        color: #1f2d3d;
-    }
-
-    .erp-user-card {
-        padding: 14px 16px;
-        margin-top: 14px;
-        border-radius: 10px;
-        background: #f8fbff;
-        border: 1px solid #dfeaf5;
-    }
-
-    .erp-user-name {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 700;
-        color: #1f2d3d;
-    }
-
-    .erp-user-meta {
-        margin-top: 6px;
-        color: #52616b;
-        font-size: 13px;
-    }
-
-    .erp-user-links {
+    .erp-quick-bar {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 12px;
-    }
-
-    .erp-summary-list {
-        margin-top: 14px;
-    }
-
-    .erp-summary-item {
-        display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+        margin-bottom: 12px;
         padding: 10px 12px;
+        border: 1px solid #e4eaf1;
         border-radius: 10px;
-        background: #f7fafc;
-        border: 1px solid #e7edf4;
-        color: #1f2d3d;
-        text-decoration: none;
+        background: #fbfdff;
     }
 
-    .erp-summary-item:hover {
-        text-decoration: none;
-        border-color: #3c8dbc;
-        background: #eef7ff;
-    }
-
-    .erp-summary-value {
-        font-size: 20px;
-        font-weight: 700;
-        color: #3c8dbc;
-    }
-
-    .erp-todo-list {
-        margin: 16px 0 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .erp-todo-list li {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 14px;
-        padding: 14px 0;
-        border-bottom: 1px dashed #e8eef5;
-    }
-
-    .erp-todo-list li:last-child {
-        padding-bottom: 0;
-        border-bottom: 0;
-    }
-
-    .erp-todo-title {
-        font-size: 14px;
-        font-weight: 600;
-        color: #1f2d3d;
-        line-height: 1.6;
-    }
-
-    .erp-todo-tag {
-        display: inline-flex;
-        align-items: center;
-        padding: 2px 8px;
-        margin-bottom: 8px;
-        border-radius: 999px;
-        background: #fff4e8;
-        color: #d48806;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .erp-empty {
-        margin-top: 16px;
-        padding: 18px;
-        border-radius: 10px;
-        background: #f9fbfd;
-        border: 1px dashed #dbe6f1;
-        color: #7b8794;
+    .erp-quick-label {
+        color: #52677c;
         font-size: 13px;
-        line-height: 1.8;
-    }
-
-    .erp-workbench-card h3 {
-        margin: 0 0 10px;
-        font-size: 16px;
         font-weight: 700;
-        color: #1f2d3d;
     }
 
-    .erp-workbench-actions {
-        margin-top: 14px;
+    .erp-entry {
+        min-width: 0;
+        padding: 13px;
+        border: 1px solid #e4eaf1;
+        border-radius: 10px;
+        background: #fbfdff;
+    }
+
+    .erp-entry .btn {
+        max-width: 100%;
+        margin-top: 10px;
+        white-space: normal;
+    }
+
+    .erp-entry-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .erp-workbench-links {
-        margin-top: 12px;
+        gap: 7px;
+        margin-top: 10px;
     }
 
     .erp-mini-link {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 8px 12px;
+        gap: 5px;
+        max-width: 100%;
+        padding: 6px 10px;
+        border: 1px solid #dbe4ee;
         border-radius: 999px;
-        background: #f5f8fb;
-        border: 1px solid #e5edf5;
-        color: #52616b;
-        text-decoration: none;
+        background: #fff;
+        color: #52677c;
         font-size: 12px;
+        text-decoration: none;
     }
 
     .erp-mini-link:hover {
-        color: #3c8dbc;
-        text-decoration: none;
         border-color: #3c8dbc;
+        color: #2b7dbd;
         background: #eef7ff;
+        text-decoration: none;
     }
 
-    .erp-personal-grid {
-        margin-top: 16px;
+    .erp-detail-card {
+        margin-top: 0;
+    }
+
+    .erp-detail-card .erp-card-body {
+        padding: 14px 16px;
+    }
+
+    .erp-detail-card .erp-card-head {
+        margin-bottom: 10px;
+    }
+
+    .erp-panel-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 12px;
-    }
-
-    .erp-personal-card {
-        padding: 14px;
-        border-radius: 12px;
-        border: 1px solid #e7edf4;
-        background: #fbfdff;
-    }
-
-    .erp-personal-head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-    }
-
-    .erp-personal-title {
-        margin: 0;
-        font-size: 15px;
-        font-weight: 700;
-        color: #1f2d3d;
-    }
-
-    .erp-personal-count {
-        min-width: 44px;
-        height: 44px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        background: #eef7ff;
-        color: #3c8dbc;
-        font-size: 20px;
-        font-weight: 700;
-    }
-
-    .erp-personal-list {
-        margin-top: 12px;
-        display: grid;
-        gap: 10px;
-    }
-
-    .erp-personal-item {
-        padding-top: 10px;
-        border-top: 1px dashed #e3ebf4;
-    }
-
-    .erp-personal-item:first-child {
-        padding-top: 0;
-        border-top: 0;
-    }
-
-    .erp-personal-item-title {
-        font-size: 13px;
-        font-weight: 600;
-        color: #1f2d3d;
-        line-height: 1.6;
-    }
-
-    .erp-personal-item-meta {
-        margin-top: 4px;
-        color: #6b7b88;
-        font-size: 12px;
-        line-height: 1.7;
-    }
-
-    .erp-personal-footer {
-        margin-top: 12px;
-    }
-
-    .erp-personal-links {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 8px;
     }
 
-    @media (max-width: 1280px) {
-        .erp-dashboard-grid {
+    .erp-panel-card {
+        min-width: 0;
+        padding: 12px;
+        border: 1px solid #e4eaf1;
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    .erp-panel-head {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .erp-panel-count {
+        flex: 0 0 auto;
+        min-width: 34px;
+        height: 34px;
+        background: #eef7ff;
+        color: #2474bf;
+    }
+
+    .erp-panel-item {
+        padding-top: 8px;
+        margin-top: 8px;
+        border-top: 1px dashed #e4eaf1;
+    }
+
+    .erp-panel-item:first-child {
+        padding-top: 0;
+        margin-top: 0;
+        border-top: 0;
+    }
+
+    @media (min-width: 1500px) {
+        .erp-main-grid {
+            grid-template-columns: minmax(0, 1.25fr) minmax(420px, .75fr);
+        }
+    }
+
+    @media (max-width: 1180px) {
+        .erp-main-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .erp-metrics {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 860px) {
+        .panel.panel-default.panel-intro > .panel-body {
+            padding: 8px;
+        }
+
+        .erp-hero {
+            display: block;
+            padding: 14px;
+        }
+
+        .erp-role-pill {
+            margin-top: 10px;
+            white-space: normal;
+        }
+
+        .erp-title {
+            font-size: 18px;
+        }
+
+        .erp-card-body {
+            padding: 13px;
+        }
+
+        .erp-card-head {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .erp-card-actions {
+            margin-top: 8px;
+            justify-content: flex-start;
+        }
+
+        .erp-queue-item {
+            grid-template-columns: 1fr;
+        }
+
+        .erp-queue-action {
+            display: block;
+        }
+
+        .erp-quick-bar {
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .erp-metrics {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .erp-metric {
+            display: block;
+            min-height: 70px;
+            padding: 10px;
+        }
+
+        .erp-metric-icon {
+            display: none;
+        }
+
+        .erp-metric-value {
+            font-size: 21px;
+        }
+
+        .erp-ai-toolbar {
+            display: block;
+        }
+
+        .erp-ai-buttons {
+            margin-top: 8px;
+        }
+
+        .erp-ai-buttons .btn {
+            flex: 1 1 0;
+        }
+
+        .erp-entry-grid,
+        .erp-panel-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .erp-queue-action .btn,
+        .erp-entry .btn {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .erp-metrics {
             grid-template-columns: 1fr;
         }
     }
 
-    @media (max-width: 768px) {
-        .erp-dashboard {
-            padding: 12px;
+    @keyframes erpCursorBlink {
+        0%,
+        49% {
+            opacity: 1;
         }
 
-        .erp-card-body {
-            padding: 16px;
-        }
-
-        .erp-title {
-            font-size: 24px;
-        }
-
-        .erp-model-box,
-        .erp-todo-list li {
-            flex-direction: column;
-            align-items: flex-start;
+        50%,
+        100% {
+            opacity: 0;
         }
     }
 </style>
 
 <div class="panel panel-default panel-intro">
-    <div class="panel-heading">
-        <div class="panel-lead">
-            <em>企业 ERP AI 智能管理系统</em>
-            首页先看当前身份、我的摘要和统一待办，再进入对应工作台。
-        </div>
-    </div>
     <div class="panel-body">
         <div class="erp-dashboard" id="erp-dashboard-page" data-ai-setting-id="{$aiCenter.setting_id}" data-ai-configured="{if $aiCenter.configured}1{else}0{/if}">
-            <div class="erp-dashboard-grid">
+            <section class="erp-hero">
+                <div>
+                    <div class="erp-eyebrow">工作台</div>
+                    <h2 class="erp-title">{$currentUser.name}，今天按这个顺序处理</h2>
+                    <div class="erp-muted">{$currentUser.role_tip}</div>
+                </div>
+                <div class="erp-role-pill">
+                    <i class="fa fa-user-circle"></i>
+                    <span>{$currentUser.title} / {$currentUser.department} / {$currentUser.role_label}</span>
+                </div>
+            </section>
+
+            {if !empty($primarySummary)}
+            <section class="erp-metrics">
+                {foreach name="primarySummary" item="item"}
+                <a href="{$item.url}" class="erp-metric addtabsit">
+                    <span>
+                        <span class="erp-metric-label">{$item.title}</span>
+                        <span class="erp-metric-value">{$item.value}</span>
+                    </span>
+                    <span class="erp-metric-icon"><i class="fa fa-angle-right"></i></span>
+                </a>
+                {/foreach}
+            </section>
+            {/if}
+
+            <section class="erp-main-grid">
                 <div class="erp-card">
                     <div class="erp-card-body">
-                        <span class="erp-badge"><i class="fa fa-bolt"></i> {$aiCenter.title}</span>
-                        <h2 class="erp-title">先问 AI，再处理业务</h2>
-                        <div class="erp-subtitle">{$aiCenter.subtitle}</div>
-
-                        <div class="erp-model-box">
+                        <div class="erp-card-head">
                             <div>
-                                <div class="erp-model-name">当前模型：{$aiCenter.model_label}</div>
-                                <div class="erp-text-muted">{$aiCenter.model_hint}</div>
+                                <h3 class="erp-card-title">今天先处理</h3>
+                                <div class="erp-card-desc">这里只放需要马上动手的事项，处理完再进各模块看详情。</div>
                             </div>
-                            <div class="erp-toolbar" style="margin-top:0;">
-                                <a href="{$aiCenter.open_url}" class="btn btn-default addtabsit"><i class="fa fa-comments-o"></i> 完整 AI 工作台</a>
-                                <a href="{$aiCenter.config_url}" class="btn btn-default addtabsit"><i class="fa fa-sliders"></i> AI 配置</a>
-                            </div>
+                            {if !empty($todayQueue)}
+                            <span class="erp-count-badge">{$todayQueue|count} 项</span>
+                            {/if}
                         </div>
 
-                        <div class="erp-focus-list">
-                            {foreach name="aiCenter.focuses" item="focus"}
-                            <button type="button" class="erp-focus-chip {if $focus.key==='overview'}is-active{/if}" data-dashboard-focus="{$focus.key}">{$focus.label}</button>
+                        {if !empty($todayQueue)}
+                        <ul class="erp-queue-list">
+                            {foreach name="todayQueue" item="item"}
+                            <li class="erp-queue-item">
+                                <div class="erp-queue-main">
+                                    <span class="erp-queue-tag">{$item.tag}</span>
+                                    <div class="erp-item-title">{$item.title}</div>
+                                    <div class="erp-item-meta">{$item.meta}</div>
+                                </div>
+                                <div class="erp-queue-action">
+                                    <a href="{$item.url}" class="btn btn-primary btn-sm addtabsit">{$item.button}</a>
+                                </div>
+                            </li>
                             {/foreach}
-                        </div>
+                        </ul>
+                        {else /}
+                        <div class="erp-empty">当前没有需要优先处理的待办。可以直接进入下方业务入口做录入、跟进和审批。</div>
+                        {/if}
+                    </div>
+                </div>
 
-                        <div class="erp-quick-list">
-                            {foreach name="aiCenter.quick_prompts" item="item"}
-                            <button type="button" class="erp-quick-chip" data-dashboard-preset="{$item.preset_key}" data-dashboard-focus="{$item.focus}">{$item.title}</button>
-                            {/foreach}
+                <div class="erp-card">
+                    <div class="erp-card-body">
+                        <div class="erp-card-head">
+                            <div>
+                                <h3 class="erp-card-title">AI 快速判断</h3>
+                                <div class="erp-card-desc">首页只做短问题判断；连续追问和长内容分析进完整 AI 工作台。</div>
+                            </div>
+                            <div class="erp-card-actions">
+                                <a href="{$aiCenter.open_url}" class="btn btn-default btn-sm addtabsit"><i class="fa fa-comments-o"></i> 完整 AI</a>
+                                <a href="{$aiCenter.config_url}" class="btn btn-default btn-sm addtabsit"><i class="fa fa-sliders"></i> 配置</a>
+                            </div>
                         </div>
 
                         <div class="erp-ai-form">
-                            <textarea class="form-control" data-role="dashboard-ai-prompt" placeholder="直接提问，例如：今天先处理哪些回款？哪个项目最容易延期？APP 里最需要先推动的是什么？"></textarea>
-                            <div class="erp-toolbar">
-                                <button type="button" class="btn btn-primary" data-action="dashboard-ai-send"><i class="fa fa-send"></i> 直接分析</button>
-                                <button type="button" class="btn btn-default" data-action="dashboard-ai-clear">清空结果</button>
+                            <textarea class="form-control" data-role="dashboard-ai-prompt" placeholder="例如：今天先处理哪些回款？哪个项目最容易延期？现在我应该先做什么？"></textarea>
+                            <div class="erp-ai-toolbar">
+                                <div class="erp-muted">调用当前配置的大模型，支持 <code>Ctrl + Enter</code> 发送。</div>
+                                <div class="erp-ai-buttons">
+                                    <button type="button" class="btn btn-primary btn-sm" data-action="dashboard-ai-send"><i class="fa fa-send"></i> 分析</button>
+                                    <button type="button" class="btn btn-default btn-sm" data-action="dashboard-ai-clear">清空</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="erp-ai-scope">
+                            <div class="erp-ai-scope-title">
+                                <span>快捷问题</span>
+                                <span>点一下自动填入问题，不跳页面</span>
+                            </div>
+                            <div class="erp-muted">当前模型：{$aiCenter.model_label}</div>
+                            <div class="erp-muted">{$aiCenter.model_hint}</div>
+
+                            <div class="erp-chip-row">
+                                {foreach name="aiCenter.focuses" item="focus"}
+                                <button type="button" class="erp-chip {if $focus.key==='overview'}is-active{/if}" data-dashboard-focus="{$focus.key}">{$focus.label}</button>
+                                {/foreach}
+                            </div>
+
+                            <div class="erp-chip-row">
+                                {foreach name="aiCenter.quick_prompts" item="item"}
+                                <button type="button" class="erp-chip" data-dashboard-preset="{$item.preset_key}" data-dashboard-focus="{$item.focus}">{$item.title}</button>
+                                {/foreach}
+                            </div>
+                        </div>
+
+                        <div class="erp-task-banner" data-role="dashboard-ai-task-wrap">
+                            <span class="erp-task-badge" data-role="dashboard-ai-task-badge">后台中</span>
+                            <div>
+                                <strong data-role="dashboard-ai-task-title">AI 后台任务</strong>
+                                <div class="erp-muted" data-role="dashboard-ai-task-text">当前分析会在后台继续执行，你可以继续浏览其他页面。</div>
                             </div>
                         </div>
 
                         <div class="erp-answer-box" data-role="dashboard-ai-answer-box">
                             <div class="alert erp-answer-diagnostic" data-role="dashboard-ai-diagnostic"></div>
-                            <h3 class="erp-answer-title">AI 分析结果</h3>
-                            <div class="erp-answer-content" data-role="dashboard-ai-answer"></div>
-                            <div class="erp-answer-actions" data-role="dashboard-ai-actions" style="margin-top:14px;"></div>
+                            <h4 class="erp-answer-title">AI 分析结果</h4>
+                            <div class="erp-answer-meta" data-role="dashboard-ai-answer-meta"></div>
+                            <div class="erp-ai-answer-content" data-role="dashboard-ai-answer"></div>
+                            <div class="erp-answer-actions" data-role="dashboard-ai-actions" style="margin-top:12px;"></div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="erp-card">
-                    <div class="erp-card-body">
-                        <h3 class="erp-section-title">我的工作台</h3>
-                        <div class="erp-text-muted" style="margin-top:8px;">按当前登录身份展示最该先处理的事情和高频入口。</div>
+            {if !empty($workbenchCards)}
+            <section class="erp-card erp-entry-section">
+                <div class="erp-card-body">
+                    <div class="erp-card-head">
+                        <div>
+                            <h3 class="erp-card-title">业务入口</h3>
+                            <div class="erp-card-desc">常用操作在上方，完整业务模块在下方；首页不再重复堆入口。</div>
+                        </div>
+                    </div>
 
-                        <div class="erp-user-card">
-                            <h4 class="erp-user-name">{$currentUser.name}</h4>
-                            <div class="erp-user-meta">{$currentUser.title} · {$currentUser.department} · {$currentUser.role_label}</div>
-                            <div class="erp-text-muted" style="margin-top:8px;">{$currentUser.role_tip}</div>
-                            {if !empty($currentUser.quick_links)}
-                            <div class="erp-user-links">
-                                {foreach name="currentUser.quick_links" item="item"}
-                                <a href="{$item.url}" class="erp-mini-link addtabsit"><i class="fa fa-angle-right"></i> {$item.title}</a>
+                    {if !empty($currentUser.quick_links)}
+                    <div class="erp-quick-bar">
+                        <span class="erp-quick-label">常用操作</span>
+                        {foreach name="currentUser.quick_links" item="item"}
+                        <a href="{$item.url}" class="erp-mini-link addtabsit"><i class="fa fa-angle-right"></i> {$item.title}</a>
+                        {/foreach}
+                    </div>
+                    {/if}
+
+                    <div class="erp-entry-grid">
+                        {foreach name="workbenchCards" item="module"}
+                        <div class="erp-entry">
+                            <h4 class="erp-item-title">{$module.title}</h4>
+                            <div class="erp-item-meta">{$module.desc}</div>
+                            <a href="{$module.primary_url}" class="btn btn-primary btn-sm addtabsit">{$module.primary_title}</a>
+                            {if !empty($module.links)}
+                            <div class="erp-entry-links">
+                                {foreach name="module.links" item="link"}
+                                <a href="{$link.url}" class="erp-mini-link addtabsit"><i class="fa fa-angle-right"></i> {$link.title}</a>
                                 {/foreach}
                             </div>
                             {/if}
                         </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </section>
+            {/if}
 
-                        {if !empty($primarySummary)}
-                        <div class="erp-summary-list">
-                            {foreach name="primarySummary" item="item"}
-                            <a href="{$item.url}" class="erp-summary-item addtabsit">
-                                <span>{$item.title}</span>
-                                <span class="erp-summary-value">{$item.value}</span>
-                            </a>
-                            {/foreach}
+            {if !empty($myWorkPanels)}
+            <section class="erp-card erp-detail-card">
+                <div class="erp-card-body">
+                    <div class="erp-card-head">
+                        <div>
+                            <h3 class="erp-card-title">我的工作明细</h3>
+                            <div class="erp-card-desc">按当前账号展示更细的待处理内容。</div>
                         </div>
-                        {/if}
-
-                        {if !empty($myWorkPanels)}
-                        <div class="erp-personal-grid">
-                            {foreach name="myWorkPanels" item="panel"}
-                            <div class="erp-personal-card">
-                                <div class="erp-personal-head">
-                                    <div>
-                                        <div class="erp-personal-title">{$panel.title}</div>
-                                        <div class="erp-text-muted" style="margin-top:6px;">{$panel.desc}</div>
-                                    </div>
-                                    <div class="erp-personal-count">{$panel.count}</div>
-                                </div>
-                                {if !empty($panel.items)}
-                                <div class="erp-personal-list">
-                                    {foreach name="panel.items" item="item"}
-                                    <div class="erp-personal-item">
-                                        <div class="erp-personal-item-title">{$item.title}</div>
-                                        <div class="erp-personal-item-meta">{$item.meta}</div>
-                                    </div>
-                                    {/foreach}
-                                </div>
-                                {else /}
-                                <div class="erp-empty" style="margin-top:12px;">{$panel.empty}</div>
-                                {/if}
-                                {if !empty($panel.quick_links)}
-                                <div class="erp-personal-links">
-                                    {foreach name="panel.quick_links" item="item"}
-                                    <a href="{$item.url}" class="erp-mini-link addtabsit"><i class="fa fa-angle-right"></i> {$item.title}</a>
-                                    {/foreach}
-                                </div>
-                                {/if}
-                                <div class="erp-personal-footer">
-                                    <a href="{$panel.url}" class="btn btn-default btn-sm addtabsit">{$panel.button}</a>
-                                </div>
-                            </div>
-                            {/foreach}
-                        </div>
-                        {/if}
-
-                        {if !empty($todayQueue)}
-                        <ul class="erp-todo-list">
-                            {foreach name="todayQueue" item="item"}
-                            <li>
+                    </div>
+                    <div class="erp-panel-grid">
+                        {foreach name="myWorkPanels" item="panel"}
+                        <div class="erp-panel-card">
+                            <div class="erp-panel-head">
                                 <div>
-                                    <span class="erp-todo-tag">{$item.tag}</span>
-                                    <div class="erp-todo-title">{$item.title}</div>
-                                    <div class="erp-todo-meta">{$item.meta}</div>
+                                    <h4 class="erp-item-title">{$panel.title}</h4>
+                                    <div class="erp-item-meta">{$panel.desc}</div>
                                 </div>
-                                <a href="{$item.url}" class="btn btn-default btn-sm addtabsit">{$item.button}</a>
-                            </li>
-                            {/foreach}
-                        </ul>
-                        {else /}
-                        <div class="erp-empty">当前没有需要优先处理的待办。你可以直接进入各业务工作台做录入、跟进和审批。</div>
-                        {/if}
-                    </div>
-                </div>
-            </div>
+                                <span class="erp-panel-count">{$panel.count}</span>
+                            </div>
 
-            {if !empty($workbenchCards)}
-            <div class="erp-workbench-grid">
-                {foreach name="workbenchCards" item="module"}
-                <div class="erp-card erp-workbench-card">
-                    <div class="erp-card-body">
-                        <h3>{$module.title}</h3>
-                        <div class="erp-workbench-desc">{$module.desc}</div>
-                        <div class="erp-workbench-actions">
-                            <a href="{$module.primary_url}" class="btn btn-primary btn-sm addtabsit">{$module.primary_title}</a>
+                            {if !empty($panel.items)}
+                            <div>
+                                {foreach name="panel.items" item="item"}
+                                <div class="erp-panel-item">
+                                    <div class="erp-item-title">{$item.title}</div>
+                                    <div class="erp-item-meta">{$item.meta}</div>
+                                </div>
+                                {/foreach}
+                            </div>
+                            {else /}
+                            <div class="erp-empty">{$panel.empty}</div>
+                            {/if}
+
+                            <div style="margin-top:12px;">
+                                <a href="{$panel.url}" class="btn btn-default btn-sm addtabsit">{$panel.button}</a>
+                            </div>
                         </div>
-                        <div class="erp-workbench-links">
-                            {foreach name="module.links" item="item"}
-                            <a href="{$item.url}" class="erp-mini-link addtabsit"><i class="fa fa-angle-right"></i> {$item.title}</a>
-                            {/foreach}
-                        </div>
+                        {/foreach}
                     </div>
                 </div>
-                {/foreach}
-            </div>
+            </section>
             {/if}
         </div>
     </div>

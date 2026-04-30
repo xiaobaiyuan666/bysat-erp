@@ -15,7 +15,7 @@ class Conversation extends Backend
     protected $model = null;
     protected $service = null;
 
-    protected $noNeedRight = ['bootstrap', 'ask', 'clear'];
+    protected $noNeedRight = ['bootstrap', 'ask', 'submit', 'run', 'status', 'clear'];
 
     public function _initialize()
     {
@@ -31,14 +31,15 @@ class Conversation extends Backend
             'preset_key' => (string) $this->request->get('preset_key', '', 'trim'),
             'prompt' => (string) $this->request->get('prompt', '', 'trim'),
             'auto_ask' => (int) $this->request->get('auto_ask/d', 0) === 1,
-            'setting_id' => (int) $this->request->get('setting_id/d', 0),
         ];
 
         $this->assignconfig('bootstrapUrl', url('ai/conversation/bootstrap'));
         $this->assignconfig('askUrl', url('ai/conversation/ask'));
+        $this->assignconfig('submitTaskUrl', url('ai/conversation/submit'));
+        $this->assignconfig('runTaskUrl', url('ai/conversation/run'));
+        $this->assignconfig('taskStatusUrl', url('ai/conversation/status'));
         $this->assignconfig('clearUrl', url('ai/conversation/clear'));
         $this->assignconfig('settingIndexUrl', url('ai/setting/index'));
-        $this->assignconfig('settingAddUrl', url('ai/setting/add'));
         $this->assignconfig('initialAiEntry', $initialEntry);
 
         return $this->view->fetch();
@@ -49,8 +50,7 @@ class Conversation extends Backend
         $this->guardIndexPermission();
         @set_time_limit(60);
 
-        $settingId = (int) $this->request->get('setting_id/d', 0);
-        $data = $this->service->getBootstrapData($settingId);
+        $data = $this->service->getBootstrapData();
         $this->success('获取成功。', null, $data);
     }
 
@@ -65,10 +65,9 @@ class Conversation extends Backend
         $prompt = (string) $this->request->post('prompt', '', 'trim');
         $focus = (string) $this->request->post('focus', 'overview', 'trim');
         $presetKey = (string) $this->request->post('preset_key', '', 'trim');
-        $settingId = (int) $this->request->post('setting_id/d', 0);
         $quickMode = (int) $this->request->post('quick_mode/d', 0) === 1;
 
-        $result = $this->service->ask($prompt, $focus, $presetKey, $settingId, [
+        $result = $this->service->ask($prompt, $focus, $presetKey, 0, [
             'quick_mode' => $quickMode,
         ]);
         if (!$result['ok']) {
@@ -76,6 +75,73 @@ class Conversation extends Backend
         }
 
         $this->success('发送成功。', null, $result);
+    }
+
+    public function submit()
+    {
+        $this->guardIndexPermission();
+
+        if (!$this->request->isPost()) {
+            $this->error('请求方式错误。');
+        }
+
+        $prompt = (string) $this->request->post('prompt', '', 'trim');
+        $focus = (string) $this->request->post('focus', 'overview', 'trim');
+        $presetKey = (string) $this->request->post('preset_key', '', 'trim');
+        $quickMode = (int) $this->request->post('quick_mode/d', 0) === 1;
+
+        $result = $this->service->submitTask($prompt, $focus, $presetKey, 0, [
+            'quick_mode' => $quickMode,
+        ]);
+        if (!$result['ok']) {
+            $this->error($result['error'] ?? '任务提交失败。', null, $result);
+        }
+
+        $this->success('任务已提交。', null, $result);
+    }
+
+    public function run()
+    {
+        $this->guardIndexPermission();
+
+        if (!$this->request->isPost()) {
+            $this->error('请求方式错误。');
+        }
+
+        $taskId = (int) $this->request->post('task_id/d', 0);
+        if ($taskId <= 0) {
+            $this->error('缺少任务编号。');
+        }
+
+        @ignore_user_abort(true);
+        if (function_exists('session_write_close')) {
+            @session_write_close();
+        }
+        @set_time_limit(0);
+
+        $result = $this->service->runTask($taskId);
+        if (!$result['ok']) {
+            $this->error($result['error'] ?? '后台任务执行失败。', null, $result);
+        }
+
+        $this->success('后台任务执行完成。', null, $result);
+    }
+
+    public function status()
+    {
+        $this->guardIndexPermission();
+
+        $taskId = (int) $this->request->get('task_id/d', 0);
+        if ($taskId <= 0) {
+            $this->error('缺少任务编号。');
+        }
+
+        $result = $this->service->getTaskStatus($taskId);
+        if (!$result['ok']) {
+            $this->error($result['error'] ?? '获取任务状态失败。', null, $result);
+        }
+
+        $this->success('获取成功。', null, $result);
     }
 
     public function clear()

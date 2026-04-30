@@ -1,4 +1,7 @@
 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="alert alert-info" style="margin:0 0 18px;">
+        版本发布不只用于 APP，也可以记录小程序、官网、活动投放等项目的上线、回告和回滚安排。
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('App_project_id')}:</label>
         <div class="col-xs-12 col-sm-8">
@@ -13,13 +16,13 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Version')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-version" data-rule="required" class="form-control" name="row[version]" type="text" value="">
+            <input id="c-version" data-rule="required" class="form-control" name="row[version]" type="text" value="" placeholder="例如：v2.3.0 / 2026-Q1 / 第 1 波">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="" placeholder="例如：官网改版上线 / 春季投放第一波上线">
         </div>
     </div>
     <div class="form-group">
@@ -52,7 +55,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Channel')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-channel" data-rule="required" class="form-control" name="row[channel]" type="text" value="">
+            <input id="c-channel" data-rule="required" class="form-control" name="row[channel]" type="text" value="" placeholder="例如：应用市场 / 官网 / 微信生态 / 广告投放">
         </div>
     </div>
     <div class="form-group">
@@ -66,7 +69,7 @@
         <label class="control-label col-xs-12 col-sm-2">关联问题记录:</label>
         <div class="col-xs-12 col-sm-8">
             <input id="c-service_ticket_ids_json" class="form-control selectpage" name="row[service_ticket_ids_json]" type="text" value="" data-source="app/issue/index" data-primary-key="id" data-field="title" data-multiple="true" data-pagination="true" placeholder="可多选问题记录">
-            <p class="help-block">用于记录这次发版解决了哪些问题，列表页可以直接查看关联问题。</p>
+            <p class="help-block">用于记录这次发布解决了哪些问题，列表页可以直接查看关联问题。</p>
         </div>
     </div>
     <div class="form-group">
@@ -82,31 +85,31 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Customer_sync_note')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-customer_sync_note" class="form-control" rows="4" name="row[customer_sync_note]"></textarea>
+            <textarea id="c-customer_sync_note" class="form-control" rows="4" name="row[customer_sync_note]" placeholder="填写客户、业务方或内部同步说明"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Verification_summary')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-verification_summary" class="form-control" rows="4" name="row[verification_summary]"></textarea>
+            <textarea id="c-verification_summary" class="form-control" rows="4" name="row[verification_summary]" placeholder="填写上线前验证结论"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Release_result')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-release_result" class="form-control" rows="4" name="row[release_result]"></textarea>
+            <textarea id="c-release_result" class="form-control" rows="4" name="row[release_result]" placeholder="填写实际发布结果"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Release_notes')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-release_notes" class="form-control" rows="4" name="row[release_notes]"></textarea>
+            <textarea id="c-release_notes" class="form-control" rows="4" name="row[release_notes]" placeholder="填写对外或对内发布说明"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Rollback_plan')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-rollback_plan" class="form-control" rows="4" name="row[rollback_plan]"></textarea>
+            <textarea id="c-rollback_plan" class="form-control" rows="4" name="row[rollback_plan]" placeholder="填写回滚方案"></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -121,7 +124,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Notes')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]"></textarea>
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]" placeholder="补充备注"></textarea>
         </div>
     </div>
     <div class="form-group layer-footer">

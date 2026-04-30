@@ -1,29 +1,29 @@
 ﻿define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
 
-        var providerPresets = {
+    var providerPresets = {
         aliyun: {
-            provider_name: 'Aliyun',
+            provider_name: '阿里云百炼',
             base_url: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
             model: 'qwen-plus',
-            model_hint: 'Aliyun / qwen-plus, qwen-max, qwen-turbo.'
+            model_hint: '阿里云百炼常见模型：qwen-plus、qwen-max、qwen-turbo。'
         },
         openai: {
             provider_name: 'OpenAI',
             base_url: 'https://api.openai.com/v1',
             model: 'gpt-5.4',
-            model_hint: 'OpenAI models: gpt-5.4, gpt-4o, gpt-4.1-mini.'
+            model_hint: 'OpenAI 兼容模型示例：gpt-5.4、gpt-4o、gpt-4.1-mini。'
         },
         deepseek: {
             provider_name: 'DeepSeek',
             base_url: 'https://api.deepseek.com/v1',
             model: 'deepseek-chat',
-            model_hint: 'DeepSeek models: deepseek-chat, deepseek-reasoner.'
+            model_hint: 'DeepSeek 常见模型：deepseek-chat、deepseek-reasoner。'
         },
         gateway: {
-            provider_name: 'Custom',
+            provider_name: '通用网关',
             base_url: '',
             model: '',
-            model_hint: 'Fill your custom endpoint and paste API key, then load models.'
+            model_hint: '填写自有网关地址和 API Key 后，点击识别协议并加载模型。'
         }
     };
 
@@ -223,7 +223,7 @@
                 Toastr.error('模型检测失败');
             }
         }).always(function () {
-            $button.prop('disabled', false).text('检测模型');
+            $button.prop('disabled', false).text('识别协议并加载模型');
         });
     };
 
@@ -298,25 +298,25 @@
     };
 
     var displayApiKey = function (value) {
-        return value ? value : '<span class=\"text-muted\">Not Set</span>';
+        return value ? '<span class=\"label label-success\">已保存</span>' : '<span class=\"label label-warning\">未填写</span>';
     };
 
     var defaultFormatter = function (value, row) {
         return row.is_default
-            ? '<span class=\"label label-success\">Default</span>'
-            : '<span class=\"label label-default\">No</span>';
+            ? '<span class=\"label label-success\">默认</span>'
+            : '<span class=\"label label-default\">备用</span>';
     };
 
     var configuredFormatter = function (value, row) {
         return row.configured
-            ? '<span class=\"label label-primary\">Yes</span>'
-            : '<span class=\"label label-warning\">No</span>';
+            ? '<span class=\"label label-primary\">完整</span>'
+            : '<span class=\"label label-warning\">待补</span>';
     };
 
     var sslFormatter = function (value, row) {
         return row.skip_ssl_verify
-            ? '<span class=\"label label-info\">Skip SSL</span>'
-            : '<span class=\"label label-default\">Verify SSL</span>';
+            ? '<span class=\"label label-info\">已跳过</span>'
+            : '<span class=\"label label-default\">正常校验</span>';
     };
 
     var diagnosticFormatter = function (value) {
@@ -337,7 +337,7 @@
 
         return [
             '<div class=\"text-left\">',
-            '<span class=\"label label-' + labelClass + '\">' + escapeHtml(value.title || 'Notice') + '</span>',
+            '<span class=\"label label-' + labelClass + '\">' + escapeHtml(value.title || '提示') + '</span>',
             '<div style=\"margin-top:6px;color:#666;line-height:1.7;\">' + escapeHtml(value.message || '') + '</div>',
             '</div>'
         ].join('');
@@ -366,16 +366,12 @@
                 fixedRightNumber: 1,
                 columns: [[
                     {checkbox: true},
-                    {field: 'provider_name', title: 'Provider', operate: 'LIKE'},
-                    {field: 'model', title: 'Model', operate: 'LIKE'},
-                    {field: 'base_url', title: 'Base URL', operate: 'LIKE'},
-                    {field: 'configured', title: 'Configured', operate: false, formatter: configuredFormatter},
-                    {field: 'skip_ssl_verify', title: 'SSL Verify', operate: false, formatter: sslFormatter},
-                    {field: 'workspace_json', title: 'Default', operate: false, formatter: defaultFormatter},
-                    {field: 'api_key', title: 'API Key', operate: false, formatter: displayApiKey},
-                    {field: 'temperature', title: 'Temperature', operate: 'BETWEEN'},
-                    {field: 'diagnostic', title: 'Diagnostic', operate: false, formatter: diagnosticFormatter},
-                    {field: 'updatetime', title: 'Updated Time', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false, formatter: Table.api.formatter.datetime},
+                    {field: 'provider_name', title: '供应商', operate: 'LIKE'},
+                    {field: 'model', title: '模型', operate: 'LIKE'},
+                    {field: 'configured', title: '配置状态', operate: false, formatter: configuredFormatter},
+                    {field: 'workspace_json', title: '默认状态', operate: false, formatter: defaultFormatter},
+                    {field: 'diagnostic', title: '可用提示', operate: false, formatter: diagnosticFormatter},
+                    {field: 'updatetime', title: '更新时间', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false, formatter: Table.api.formatter.datetime},
                     {
                         field: 'operate',
                         title: __('Operate'),
@@ -384,21 +380,21 @@
                         buttons: [
                             {
                                 name: 'setdefault',
-                                text: 'Set Default',
-                                title: 'Set as Default',
+                                text: '设默认',
+                                title: '设为默认模型',
                                 classname: 'btn btn-info btn-xs btn-ajax',
                                 icon: 'fa fa-check-circle',
                                 url: 'ai/setting/setdefault/ids/{ids}',
                                 visible: function (row) {
                                     return !row.is_default;
                                 },
-                                confirm: '确认后将该配置设置为默认模型，是否继续？',
+                                confirm: '确认后 AI 工作台将默认使用该模型，是否继续？',
                                 refresh: true
                             },
                             {
                                 name: 'ping',
-                                text: 'Test Connection',
-                                title: 'Test Model Connection',
+                                text: '测试',
+                                title: '测试连接',
                                 classname: 'btn btn-success btn-xs btn-ajax',
                                 icon: 'fa fa-plug',
                                 url: 'ai/setting/ping/ids/{ids}',
@@ -406,8 +402,8 @@
                             },
                             {
                                 name: 'applyrecommended',
-                                text: 'Apply Recommend',
-                                title: 'Apply Recommended Model',
+                                text: '用推荐',
+                                title: '应用推荐模型',
                                 classname: 'btn btn-warning btn-xs btn-ajax',
                                 icon: 'fa fa-bolt',
                                 url: 'ai/setting/applyrecommended/ids/{ids}',

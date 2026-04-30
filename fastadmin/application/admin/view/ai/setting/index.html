@@ -24,6 +24,57 @@
         font-size: 12px;
         line-height: 1.7;
     }
+
+    .ai-default-card {
+        margin: 12px 16px 0;
+        padding: 14px 16px;
+        border: 1px solid #e5ecf4;
+        border-radius: 10px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+    }
+
+    .ai-default-card h4 {
+        margin: 0 0 6px;
+        color: #1f2d3d;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .ai-default-card p {
+        margin: 0;
+        color: #6b7b8d;
+        line-height: 1.7;
+    }
+
+    .ai-default-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    @media (max-width: 767px) {
+        .ai-setting-helper,
+        .ai-default-card {
+            display: block;
+        }
+
+        .ai-setting-helper .btn-group,
+        .ai-default-card .btn-group {
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .ai-setting-helper .btn,
+        .ai-default-card .btn {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+    }
 </style>
 
 <div class="panel panel-default panel-intro">
@@ -31,8 +82,8 @@
 
     <div class="ai-setting-helper">
         <div>
-            <h4>先配模型，再去 AI 工作台直接问</h4>
-            <p>这里支持 OpenAI 兼容协议。建议至少保留一条默认模型，并先做一次“测试连接”，确认接口、模型和 Key 都可用。</p>
+            <h4>AI 配置统一在这里维护</h4>
+            <p>AI 工作台不再单独切换模型，只自动使用“默认模型”。新增或修改后先点“测试”，通过后再设为默认。</p>
         </div>
         <div class="btn-group">
             <a href="{:url('ai/conversation/index')}" class="btn btn-primary addtabsit">
@@ -41,6 +92,42 @@
             <a href="{:url('ai/setting/add')}" class="btn btn-success btn-dialog" data-area='["72%","86%"]'>
                 <i class="fa fa-plus"></i> 新增模型
             </a>
+        </div>
+    </div>
+
+    <div class="ai-default-card">
+        <div>
+            <h4>当前生效模型</h4>
+            {if $defaultAiSetting}
+            <p>{$defaultAiSetting.provider_name|htmlentities} / {$defaultAiSetting.model|htmlentities}</p>
+            <div class="ai-default-meta">
+                {if $defaultAiSetting.configured}
+                <span class="label label-success">配置完整</span>
+                {else/}
+                <span class="label label-warning">待补配置</span>
+                {/if}
+                {if $defaultAiSetting.skip_ssl_verify}
+                <span class="label label-info">已跳过 SSL 校验</span>
+                {/if}
+                {if $defaultAiSetting.updated_at_text}
+                <span class="label label-default">更新于 {$defaultAiSetting.updated_at_text|htmlentities}</span>
+                {/if}
+                {if $defaultAiSetting.diagnostic}
+                <span class="label label-{$defaultAiSetting.diagnostic_label_class|htmlentities}">{$defaultAiSetting.diagnostic.title|default='提示'|htmlentities}</span>
+                {/if}
+            </div>
+            {else/}
+            <p>还没有模型配置。新增一条 OpenAI 兼容模型后，AI 工作台就能开始使用。</p>
+            <div class="ai-default-meta"><span class="label label-warning">未配置</span></div>
+            {/if}
+        </div>
+        <div class="btn-group">
+            {if $defaultAiSetting}
+            <a href="{$defaultAiSetting.ping_url|htmlentities}" class="btn btn-success btn-ajax"><i class="fa fa-plug"></i> 测试默认模型</a>
+            <a href="{$defaultAiSetting.edit_url|htmlentities}" class="btn btn-default btn-dialog" data-area='["72%","86%"]'><i class="fa fa-pencil"></i> 编辑默认模型</a>
+            {else/}
+            <a href="{:url('ai/setting/add')}" class="btn btn-success btn-dialog" data-area='["72%","86%"]'><i class="fa fa-plus"></i> 新增模型</a>
+            {/if}
         </div>
     </div>
 

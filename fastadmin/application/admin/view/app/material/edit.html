@@ -3,7 +3,7 @@
         <label class="control-label col-xs-12 col-sm-2">{:__('App_project_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-app_project_id" data-rule="required" class="form-control selectpicker" name="row[app_project_id]">
-                <option value="">请选择</option>
+                <option value="">请选择所属项目</option>
                 {foreach name="appProjectList" item="vo"}
                 <option value="{$key}" {in name="key" value="$row.app_project_id"}selected{/in}>{$vo}</option>
                 {/foreach}
@@ -13,7 +13,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="{$row.title|htmlentities}" placeholder="例如：客服标准回复口径、版本发布操作手册">
         </div>
     </div>
     <div class="form-group">
@@ -30,7 +30,7 @@
         <label class="control-label col-xs-12 col-sm-2">{:__('Owner_admin_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-owner_admin_id" data-rule="required" class="form-control selectpicker" name="row[owner_admin_id]">
-                <option value="">请选择</option>
+                <option value="">请选择负责人</option>
                 {foreach name="ownerAdminList" item="vo"}
                 <option value="{$key}" {in name="key" value="$row.owner_admin_id"}selected{/in}>{$vo}</option>
                 {/foreach}
@@ -40,19 +40,20 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Version_tag')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-version_tag" data-rule="required" class="form-control" name="row[version_tag]" type="text" value="{$row.version_tag|htmlentities}">
+            <input id="c-version_tag" data-rule="required" class="form-control" name="row[version_tag]" type="text" value="{$row.version_tag|htmlentities}" placeholder="例如：v1.0、2026Q1、客服版">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Applicable_versions')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-applicable_versions" data-rule="required" class="form-control" name="row[applicable_versions]" type="text" value="{$row.applicable_versions|htmlentities}">
+            <input id="c-applicable_versions" data-rule="required" class="form-control" name="row[applicable_versions]" type="text" value="{$row.applicable_versions|htmlentities}" placeholder="填写适用项目阶段、版本范围或使用部门">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Expires_on')}:</label>
         <div class="col-xs-12 col-sm-8">
             <input id="c-expires_on" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[expires_on]" type="text" value="{$row.expires_on}">
+            <p class="help-block">如果资料长期有效，可以留空。</p>
         </div>
     </div>
     <div class="form-group">
@@ -69,24 +70,25 @@
         <label class="control-label col-xs-12 col-sm-2">{:__('Replacement_material_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-replacement_material_id" class="form-control selectpicker" name="row[replacement_material_id]">
-                <option value="">请选择</option>
+                <option value="">不设置替代资料</option>
                 {foreach name="materialList" item="vo"}
                 <option value="{$key}" {in name="key" value="$row.replacement_material_id"}selected{/in}>{$vo}</option>
                 {/foreach}
             </select>
+            <p class="help-block">如果这份资料后续有新版替代，可以在这里维护替代关系。</p>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Download_name')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-download_name" class="form-control" name="row[download_name]" type="text" value="{$row.download_name|htmlentities}">
+            <input id="c-download_name" class="form-control" name="row[download_name]" type="text" value="{$row.download_name|htmlentities}" placeholder="例如：客服FAQ.pdf">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Download_url')}:</label>
         <div class="col-xs-12 col-sm-8">
             <div class="input-group">
-                <input id="c-download_url" class="form-control" name="row[download_url]" type="text" value="{$row.download_url|htmlentities}">
+                <input id="c-download_url" class="form-control" name="row[download_url]" type="text" value="{$row.download_url|htmlentities}" placeholder="上传附件或填写现成下载地址">
                 <span class="input-group-btn">
                     <button type="button" id="faupload-download_url" class="btn btn-danger faupload" data-input-id="c-download_url" data-multiple="false"><i class="fa fa-upload"></i> {:__('Upload')}</button>
                 </span>
@@ -95,13 +97,13 @@
                 </span>
             </div>
             <input id="c-file_path" name="row[file_path]" type="hidden" value="{$row.file_path|htmlentities}">
-            <p class="help-block">已保存的资料链接可以直接修改，重新上传后保存即可更新。</p>
+            <p class="help-block">重新上传或更换链接后保存即可更新当前资料附件。</p>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Notes')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]">{$row.notes|htmlentities}</textarea>
+            <textarea id="c-notes" class="form-control" rows="4" name="row[notes]" placeholder="写清楚这份资料适合谁用、什么场景下用、需要注意什么">{$row.notes|htmlentities}</textarea>
         </div>
     </div>
     <div class="form-group layer-footer">

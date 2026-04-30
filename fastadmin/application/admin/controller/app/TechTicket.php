@@ -4,7 +4,6 @@ namespace app\admin\controller\app;
 
 use app\admin\library\traits\ErpAuditHelper;
 use app\admin\library\traits\ErpCrudHelper;
-use app\common\controller\Backend;
 use think\Db;
 use think\Exception;
 use think\exception\PDOException;
@@ -15,7 +14,7 @@ use think\exception\ValidateException;
  *
  * @icon fa fa-circle-o
  */
-class TechTicket extends Backend
+class TechTicket extends Base
 {
     use ErpAuditHelper;
     use ErpCrudHelper;

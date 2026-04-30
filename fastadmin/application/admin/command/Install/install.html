@@ -17,16 +17,16 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        body, input, button {
+        body, input, button, select {
             font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, 'Microsoft Yahei', Arial, sans-serif;
             font-size: 14px;
             color: #7E96B3;
         }
 
         .container {
-            max-width: 480px;
+            max-width: 520px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px 20px 32px;
             text-align: center;
         }
 
@@ -60,17 +60,53 @@
             margin-bottom: 20px;
         }
 
-        .form-group .form-field:first-child input {
+        .install-guide {
+            margin-top: 18px;
+            padding: 16px 18px;
+            text-align: left;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #dfe8f3;
+            box-shadow: 0 8px 24px rgba(31, 45, 61, 0.04);
+        }
+
+        .install-guide h3 {
+            margin: 0 0 10px;
+            color: #3C5675;
+            font-size: 16px;
+        }
+
+        .install-guide ul {
+            margin: 0;
+            padding-left: 18px;
+            color: #6b7b8d;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .field-help {
+            margin-top: 6px;
+            padding-left: 180px;
+            color: #8a99ac;
+            font-size: 12px;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .form-group .form-field:first-child input,
+        .form-group .form-field:first-child select {
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
         }
 
-        .form-group .form-field:last-child input {
+        .form-group .form-field:last-child input,
+        .form-group .form-field:last-child select {
             border-bottom-left-radius: 4px;
             border-bottom-right-radius: 4px;
         }
 
-        .form-field input {
+        .form-field input,
+        .form-field select {
             background: #fff;
             margin: 0 0 2px;
             border: 2px solid transparent;
@@ -78,9 +114,12 @@
             width: 100%;
             padding: 15px 15px 15px 180px;
             box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
         }
 
-        .form-field input:focus {
+        .form-field input:focus,
+        .form-field select:focus {
             border-color: #4e73df;
             background: #fff;
             color: #444;
@@ -155,6 +194,53 @@
             color: #e21a1a;
             border-radius: 3px;
         }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 18px 14px 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            form {
+                margin-top: 28px;
+            }
+
+            .form-field label {
+                float: none;
+                width: auto;
+                margin: 0 0 8px;
+                text-align: left;
+                display: block;
+            }
+
+            .form-field input,
+            .form-field select {
+                padding: 14px 16px;
+            }
+
+            .field-help {
+                padding-left: 0;
+            }
+
+            .form-buttons {
+                height: auto;
+                line-height: normal;
+            }
+
+            button, .btn {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                margin: 0 0 10px;
+            }
+
+            .form-buttons .btn {
+                margin-right: 0;
+            }
+        }
     </style>
 </head>
 
@@ -172,6 +258,20 @@
         </svg>
     </h1>
     <h2>{:__('Installing FastAdmin')}</h2>
+    <p>{:__('Official installer mode')}</p>
+    <div style="margin-top:12px;font-size:13px;line-height:1.8;">
+        <a href="{$firstUseUrl}" target="_blank">{:__('First Use Guide')}</a>
+        &nbsp; | &nbsp;
+        <a href="{$deployGuideUrl}" target="_blank">{:__('Deployment Guide')}</a>
+    </div>
+    <div class="install-guide">
+        <h3>安装前准备</h3>
+        <ul>
+            <li>先在宝塔创建一个空数据库，并把数据库账号授权给它。</li>
+            <li>网站运行目录指向 `fastadmin/public`。</li>
+            <li>数据库账号不需要 root，只要它对目标数据库有权限就能安装。</li>
+        </ul>
+    </div>
     <div>
 
         <form method="post">
@@ -187,33 +287,39 @@
             <div class="form-group">
                 <div class="form-field">
                     <label>{:__('Mysql Hostname')}</label>
-                    <input type="text" name="mysqlHostname" value="127.0.0.1" required="">
+                    <input type="text" name="mysqlHostname" value="{$defaultMysqlHostname|htmlentities}" required="">
                 </div>
+                <div class="field-help">本机一般填 `127.0.0.1`，如果数据库和网站在同一台服务器，通常不用改。</div>
 
                 <div class="form-field">
                     <label>{:__('Mysql Database')}</label>
-                    <input type="text" name="mysqlDatabase" value="" required="">
+                    <input type="text" name="mysqlDatabase" value="{$defaultMysqlDatabase|htmlentities}" required="">
                 </div>
+                <div class="field-help">这里填你在宝塔里提前创建好的数据库名。</div>
 
                 <div class="form-field">
                     <label>{:__('Mysql Username')}</label>
-                    <input type="text" name="mysqlUsername" value="root" required="">
+                    <input type="text" name="mysqlUsername" value="{$defaultMysqlUsername|htmlentities}" required="">
                 </div>
+                <div class="field-help">这里填数据库账号，不是宝塔面板登录账号。</div>
 
                 <div class="form-field">
                     <label>{:__('Mysql Password')}</label>
-                    <input type="password" name="mysqlPassword">
+                    <input type="password" name="mysqlPassword" value="{$defaultMysqlPassword|htmlentities}">
                 </div>
+                <div class="field-help">这里填数据库账号对应的密码。</div>
 
                 <div class="form-field">
                     <label>{:__('Mysql Prefix')}</label>
-                    <input type="text" name="mysqlPrefix" value="fa_">
+                    <input type="text" name="mysqlPrefix" value="{$defaultMysqlPrefix|htmlentities}">
                 </div>
+                <div class="field-help">建议保留默认值，或者填 `erp_` 这种带下划线的前缀，方便区分数据表。</div>
 
                 <div class="form-field">
                     <label>{:__('Mysql Hostport')}</label>
-                    <input type="number" name="mysqlHostport" value="3306">
+                    <input type="number" name="mysqlHostport" value="{$defaultMysqlHostport|htmlentities}">
                 </div>
+                <div class="field-help">MySQL 默认是 `3306`，如果宝塔数据库端口改过，就填你自己的端口。</div>
             </div>
 
             <div class="form-group">
@@ -221,29 +327,49 @@
                     <label>{:__('Admin Username')}</label>
                     <input name="adminUsername" value="admin" required=""/>
                 </div>
+                <div class="field-help">后台登录账号，建议只用英文字母、数字或下划线。</div>
 
                 <div class="form-field">
                     <label>{:__('Admin Email')}</label>
                     <input name="adminEmail" value="admin@admin.com" required="">
                 </div>
+                <div class="field-help">用于后台留档，后面也可以进系统再修改。</div>
 
                 <div class="form-field">
                     <label>{:__('Admin Password')}</label>
                     <input type="password" name="adminPassword" required="">
                 </div>
+                <div class="field-help">建议 8 位以上，避免过于简单的密码。</div>
 
                 <div class="form-field">
                     <label>{:__('Repeat Password')}</label>
                     <input type="password" name="adminPasswordConfirmation" required="">
                 </div>
+                <div class="field-help">两次密码必须一致，安装完成后建议第一次登录就修改。</div>
             </div>
 
             <div class="form-group">
                 <div class="form-field">
                     <label>{:__('Website')}</label>
-                    <input type="text" name="siteName" value="{:__('My Website')}" required=""/>
+                    <input type="text" name="siteName" value="{$defaultSiteName|htmlentities}" required=""/>
+                </div>
+                <div class="field-help">这里是系统名称，默认已经帮你填好，一般不用改。</div>
+
+                <div class="form-field">
+                    <label>{:__('Install Mode')}</label>
+                    <select name="installMode">
+                        <option value="clean" {if $defaultInstallMode=='clean'}selected{/if}>{:__('Clean Install')}</option>
+                        {if $hasDemoInstall}
+                        <option value="demo" {if $defaultInstallMode=='demo'}selected{/if}>{:__('Demo Install')}</option>
+                        {/if}
+                    </select>
                 </div>
 
+            </div>
+
+            <div class="warmtips">
+                {:__('Install mode help')}
+                <a href="javascript:;" style="cursor:default;">{:__('Existing database tips')}</a>
             </div>
 
             <div class="form-buttons">
@@ -259,6 +385,21 @@
         <script>
             $(function () {
                 $('form :input:first').select();
+
+                var extractErrorMessage = function (xhr) {
+                    if (xhr && xhr.responseJSON && xhr.responseJSON.msg) {
+                        return xhr.responseJSON.msg;
+                    }
+                    if (xhr && xhr.responseText) {
+                        var wrap = document.createElement('div');
+                        wrap.innerHTML = xhr.responseText;
+                        var title = wrap.querySelector('h1');
+                        if (title && title.textContent) {
+                            return title.textContent;
+                        }
+                    }
+                    return '安装失败，请检查数据库信息、权限和端口后再重试。';
+                };
 
                 $('form').on('submit', function (e) {
                     e.preventDefault();
@@ -278,6 +419,7 @@
                                 var data = ret.data;
                                 $error.hide();
                                 $(".form-group", form).remove();
+                                $(".install-guide").remove();
                                 $button.remove();
                                 $("#success").text(ret.msg).show();
 
@@ -286,8 +428,20 @@
 
                                 if (typeof data.adminName !== 'undefined') {
                                     var url = location.href.replace(/install\.php/, data.adminName);
-                                    $("#warmtips").html("{:__('Security tips')}" + '<a href="' + url + '">' + url + '</a>').show();
+                                    var modeText = data.installMode === 'demo' ? '演示安装' : '纯净安装';
+                                    var html = "{:__('Security tips')}" +
+                                        '<a href="' + url + '">' + url + '</a>' +
+                                        '<div style="margin-top:10px;line-height:1.8;">后台账号：<strong>' + (data.adminUsername || 'admin') + '</strong></div>' +
+                                        '<div style="line-height:1.8;">安装模式：<strong>' + modeText + '</strong></div>' +
+                                        '<div style="line-height:1.8;">表前缀：<strong>' + (data.tablePrefix || '') + '</strong></div>';
+                                    $("#warmtips").html(html).show();
                                     $('<a class="btn" href="' + url + '" id="btn-admin" style="background:#4e73df">' + "{:__('Dashboard')}" + '</a>').appendTo($buttons);
+                                }
+                                if (typeof data.firstUseUrl !== 'undefined') {
+                                    $('<a class="btn" href="' + data.firstUseUrl + '" target="_blank">' + "{:__('First Use Guide')}" + '</a>').appendTo($buttons);
+                                }
+                                if (typeof data.deployGuideUrl !== 'undefined') {
+                                    $('<a class="btn" href="' + data.deployGuideUrl + '" target="_blank">' + "{:__('Deployment Guide')}" + '</a>').appendTo($buttons);
                                 }
                                 localStorage.setItem("fastep", "installed");
                             } else {
@@ -299,7 +453,7 @@
                             }
                         },
                         error: function (xhr) {
-                            $error.show().text(xhr.responseText);
+                            $error.show().text(extractErrorMessage(xhr));
                             $button.prop('disabled', false).text("{:__('Install now')}");
                             $("html,body").animate({
                                 scrollTop: 0
@@ -307,6 +461,11 @@
                         }
                     });
                     return false;
+                });
+
+                $('input[name="mysqlPrefix"]').on('blur', function () {
+                    var value = $.trim($(this).val() || '').replace(/[^A-Za-z0-9_]/g, '');
+                    $(this).val(value || 'fa_');
                 });
             });
         </script>

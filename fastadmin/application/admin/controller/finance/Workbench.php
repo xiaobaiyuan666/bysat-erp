@@ -8,6 +8,8 @@ use app\admin\library\traits\ErpCrudHelper;
 use app\common\controller\Backend;
 use think\Db;
 use think\Exception;
+use think\Config;
+use think\Response;
 use think\exception\PDOException;
 
 /**
@@ -20,7 +22,7 @@ class Workbench extends Backend
     use ErpAuditHelper;
     use ErpCrudHelper;
 
-    protected $noNeedRight = ['smartbookbootstrap', 'smartbook', 'smartbooksave'];
+    protected $noNeedRight = ['smartbookbootstrap', 'smartbook', 'smartbooksave', 'reportprint', 'reportexport'];
 
     /**
      * @var FinanceSmartBookkeepingService
@@ -44,9 +46,16 @@ class Workbench extends Backend
         $this->view->assign([
             'currentUser' => $this->buildCurrentUser($profile),
             'summaryCards' => $this->buildSummaryCards($profile),
+            'reportSnapshots' => $this->buildReportSnapshots(),
+            'reportSections' => $this->buildReportSections(),
+            'trendSeries' => $this->buildTrendSeries(),
+            'agingSections' => $this->buildAgingSections(),
+            'financeAlerts' => $this->buildFinanceAlerts(),
+            'reportActions' => $this->buildReportActions(),
             'quickActions' => $this->buildQuickActions(),
             'quickPanels' => $this->buildQuickPanels($profile),
             'usageGuide' => $this->buildUsageGuide(),
+            'billPreview' => $this->buildBillPreview(),
             'approvalTodos' => $this->buildApprovalTodos($profile),
             'invoiceTodos' => $this->buildInvoiceTodos(),
             'attachmentTodos' => $this->buildAttachmentTodos(),
@@ -54,6 +63,83 @@ class Workbench extends Backend
         ]);
 
         return $this->view->fetch();
+    }
+
+    public function reportprint()
+    {
+        $this->guardWorkbenchPermission();
+        $profile = $this->getCurrentUserProfile();
+        $this->view->engine->layout(false);
+        $this->view->assign([
+            'currentUser' => $this->buildCurrentUser($profile),
+            'summaryCards' => $this->buildSummaryCards($profile),
+            'reportSnapshots' => $this->buildReportSnapshots(),
+            'reportSections' => $this->buildReportSections(),
+            'trendSeries' => $this->buildTrendSeries(),
+            'agingSections' => $this->buildAgingSections(),
+            'financeAlerts' => $this->buildFinanceAlerts(),
+            'billPreview' => $this->buildBillPreview(),
+            'brandInfo' => $this->buildBrandInfo(),
+            'printedAt' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $this->view->fetch('finance/workbench/reportprint');
+    }
+
+    public function reportexport()
+    {
+        $this->guardWorkbenchPermission();
+        $section = (string)$this->request->get('section', 'day', 'trim');
+
+        if ($section === 'aging') {
+            $filename = 'finance-aging-' . date('Ymd-His') . '.csv';
+            $headers = ['类型', '区间', '单据数', '金额', '说明'];
+            $rows = [];
+            foreach ($this->buildAgingSections() as $group) {
+                foreach ($group['rows'] as $row) {
+                    $rows[] = [
+                        $group['title'],
+                        $row['label'],
+                        (string)$row['count'],
+                        (string)$row['amount_text'],
+                        (string)($row['hint'] ?? ''),
+                    ];
+                }
+            }
+
+            return $this->createCsvResponse($filename, $headers, $rows);
+        }
+
+        $selected = null;
+        foreach ($this->buildReportSections() as $item) {
+            if ((string)($item['key'] ?? '') === $section) {
+                $selected = $item;
+                break;
+            }
+        }
+
+        if (!$selected) {
+            $this->error('导出类型不存在');
+        }
+
+        $filename = 'finance-' . $section . '-' . date('Ymd-His') . '.csv';
+        $headers = ['周期', '收入', '支出', '净流入', '应收', '应付', '流水笔数', '账单笔数', '趋势'];
+        $rows = [];
+        foreach ($selected['rows'] as $row) {
+            $rows[] = [
+                (string)$row['label'],
+                (string)$row['income_text'],
+                (string)$row['expense_text'],
+                (string)$row['net_text'],
+                (string)$row['receivable_text'],
+                (string)$row['payable_text'],
+                (string)$row['transaction_count'],
+                (string)$row['invoice_count'],
+                (string)($row['trend_text'] ?? ''),
+            ];
+        }
+
+        return $this->createCsvResponse($filename, $headers, $rows);
     }
 
     public function smartbookbootstrap()
@@ -432,6 +518,654 @@ class Workbench extends Backend
         return $this->formatTransactionRows($rows, true);
     }
 
+    protected function buildBillPreview(): array
+    {
+        $items = [];
+
+        if ($this->tableExists('finance_transaction')) {
+            $rows = Db::name('finance_transaction')
+                ->field('id,transaction_date,type,category,counterparty,amount,payment_method,attachment_ids_json')
+                ->order('transaction_date', 'desc')
+                ->order('id', 'desc')
+                ->limit(4)
+                ->select();
+
+            foreach ($this->formatTransactionRows($rows, true) as $row) {
+                $items[] = [
+                    'kind' => 'transaction',
+                    'date' => (string)($row['transaction_date'] ?? ''),
+                    'badge' => '流水',
+                    'title' => (string)($row['counterparty'] ?: '财务流水'),
+                    'type_text' => (string)($row['type_text'] ?? ''),
+                    'status_text' => empty($row['attachment_ids_json']) ? '待补附件' : '附件已齐',
+                    'meta' => trim((string)($row['category'] ?? '') . ' / ' . (string)($row['payment_method_text'] ?? '-'), ' /'),
+                    'amount_text' => (string)$row['amount_text'],
+                    'url' => (string)url('finance/transaction/edit', ['ids' => $row['id']]),
+                    'print_url' => (string)url('finance/transaction/printview', ['ids' => $row['id']]),
+                ];
+            }
+        }
+
+        if ($this->tableExists('finance_invoice')) {
+            $rows = Db::name('finance_invoice')
+                ->field('id,kind,title,counterparty,amount,due_date,status')
+                ->order('due_date', 'desc')
+                ->order('id', 'desc')
+                ->limit(4)
+                ->select();
+
+            foreach ($this->formatInvoiceRows($rows) as $row) {
+                $items[] = [
+                    'kind' => 'invoice',
+                    'date' => (string)($row['due_date'] ?? ''),
+                    'badge' => '账单',
+                    'title' => (string)($row['title'] ?: '往来单据'),
+                    'type_text' => (string)($row['kind_text'] ?? ''),
+                    'status_text' => (string)($row['status_text'] ?? ''),
+                    'meta' => (string)($row['counterparty'] ?? '-'),
+                    'amount_text' => (string)$row['amount_text'],
+                    'url' => (string)url('finance/invoice/edit', ['ids' => $row['id']]),
+                    'print_url' => (string)url('finance/invoice/printview', ['ids' => $row['id']]),
+                ];
+            }
+        }
+
+        usort($items, function ($left, $right) {
+            return strcmp((string)($right['date'] ?? ''), (string)($left['date'] ?? ''));
+        });
+
+        return array_slice($items, 0, 5);
+    }
+
+    protected function buildReportSnapshots(): array
+    {
+        $snapshots = [];
+        foreach ($this->buildReportSections() as $section) {
+            $row = $section['rows'][0] ?? [];
+            if (!$row) {
+                continue;
+            }
+
+            $snapshots[] = [
+                'title' => (string)$section['snapshot_title'],
+                'label' => (string)($row['label'] ?? '-'),
+                'income_text' => (string)($row['income_text'] ?? $this->formatMoney(0)),
+                'expense_text' => (string)($row['expense_text'] ?? $this->formatMoney(0)),
+                'net_text' => (string)($row['net_text'] ?? $this->formatMoney(0)),
+                'receivable_text' => (string)($row['receivable_text'] ?? $this->formatMoney(0)),
+                'payable_text' => (string)($row['payable_text'] ?? $this->formatMoney(0)),
+                'transactions' => (int)($row['transaction_count'] ?? 0),
+                'invoices' => (int)($row['invoice_count'] ?? 0),
+                'trend_text' => (string)($row['trend_text'] ?? '较上一周期持平'),
+                'trend_class' => (string)($row['trend_class'] ?? 'is-flat'),
+            ];
+        }
+
+        return $snapshots;
+    }
+
+    protected function buildReportSections(): array
+    {
+        static $sections = null;
+        if ($sections !== null) {
+            return $sections;
+        }
+
+        $sections = [
+            [
+                'key' => 'day',
+                'title' => '每日报表',
+                'snapshot_title' => '今日财务',
+                'rows' => $this->buildPeriodStats('day', 7),
+            ],
+            [
+                'key' => 'week',
+                'title' => '每周报表',
+                'snapshot_title' => '本周财务',
+                'rows' => $this->buildPeriodStats('week', 8),
+            ],
+            [
+                'key' => 'month',
+                'title' => '每月报表',
+                'snapshot_title' => '本月财务',
+                'rows' => $this->buildPeriodStats('month', 6),
+            ],
+        ];
+
+        return $sections;
+    }
+
+    protected function buildPeriodStats(string $mode, int $periods): array
+    {
+        $ranges = $this->buildDateRanges($mode, $periods);
+        if (!$ranges) {
+            return [];
+        }
+
+        $oldestStart = $ranges[count($ranges) - 1]['start'];
+        $latestEnd = $ranges[0]['end'];
+        $transactions = $this->loadTransactionsForStats($oldestStart, $latestEnd);
+        $invoices = $this->loadInvoicesForStats($oldestStart, $latestEnd);
+        $maxFlow = 0.0;
+        $rows = [];
+
+        foreach ($ranges as $range) {
+            $income = 0.0;
+            $expense = 0.0;
+            $receivable = 0.0;
+            $payable = 0.0;
+            $transactionCount = 0;
+            $invoiceCount = 0;
+
+            foreach ($transactions as $transaction) {
+                $date = (string)($transaction['transaction_date'] ?? '');
+                if ($date < $range['start'] || $date > $range['end_date']) {
+                    continue;
+                }
+
+                $transactionCount++;
+                if ((string)$transaction['type'] === 'income') {
+                    $income += (float)$transaction['amount'];
+                } elseif ((string)$transaction['type'] === 'expense') {
+                    $expense += (float)$transaction['amount'];
+                }
+            }
+
+            foreach ($invoices as $invoice) {
+                $date = (string)($invoice['report_date'] ?? '');
+                if ($date < $range['start'] || $date > $range['end_date']) {
+                    continue;
+                }
+
+                $invoiceCount++;
+                if ((string)$invoice['kind'] === 'receivable') {
+                    $receivable += (float)$invoice['amount'];
+                } elseif ((string)$invoice['kind'] === 'payable') {
+                    $payable += (float)$invoice['amount'];
+                }
+            }
+
+            $net = $income - $expense;
+            $maxFlow = max($maxFlow, $income, $expense, abs($net), $receivable, $payable);
+            $rows[] = [
+                'label' => $range['label'],
+                'income' => $income,
+                'expense' => $expense,
+                'net' => $net,
+                'receivable' => $receivable,
+                'payable' => $payable,
+                'income_text' => $this->formatMoney($income),
+                'expense_text' => $this->formatMoney($expense),
+                'net_text' => $this->formatMoney($net),
+                'receivable_text' => $this->formatMoney($receivable),
+                'payable_text' => $this->formatMoney($payable),
+                'transaction_count' => $transactionCount,
+                'invoice_count' => $invoiceCount,
+                'bar_value' => max($income, $expense, abs($net), $receivable, $payable),
+            ];
+        }
+
+        $maxFlow = max($maxFlow, 1);
+        foreach ($rows as &$row) {
+            $row['bar_width'] = (int)max(10, round(($row['bar_value'] / $maxFlow) * 100));
+        }
+        unset($row);
+
+        $rows = $this->decorateTrendRows($rows);
+
+        return $rows;
+    }
+
+    protected function decorateTrendRows(array $rows): array
+    {
+        $count = count($rows);
+        for ($index = 0; $index < $count; $index++) {
+            $current = $rows[$index];
+            $next = $rows[$index + 1] ?? null;
+            $currentNet = $this->parseMoney($current['net_text'] ?? '0');
+            $previousNet = $next ? $this->parseMoney($next['net_text'] ?? '0') : $currentNet;
+            $delta = $currentNet - $previousNet;
+
+            if (abs($delta) < 0.005) {
+                $rows[$index]['trend_text'] = '较上一周期持平';
+                $rows[$index]['trend_class'] = 'is-flat';
+            } elseif ($delta > 0) {
+                $rows[$index]['trend_text'] = '较上一周期 +' . $this->formatMoney($delta);
+                $rows[$index]['trend_class'] = 'is-up';
+            } else {
+                $rows[$index]['trend_text'] = '较上一周期 ' . $this->formatMoney($delta);
+                $rows[$index]['trend_class'] = 'is-down';
+            }
+        }
+
+        return $rows;
+    }
+
+    protected function buildTrendSeries(): array
+    {
+        $groups = [];
+        foreach ($this->buildReportSections() as $section) {
+            $rows = $section['rows'];
+            if (!$rows) {
+                continue;
+            }
+
+            $values = [];
+            foreach ($rows as $row) {
+                $values[] = (float)$row['income'];
+                $values[] = (float)$row['expense'];
+                $values[] = (float)$row['net'];
+            }
+
+            $minValue = min($values);
+            $maxValue = max($values);
+            if (abs($maxValue - $minValue) < 0.0001) {
+                $maxValue += 1;
+                $minValue -= 1;
+            }
+
+            $width = 420;
+            $height = 152;
+            $paddingX = 24;
+            $paddingY = 18;
+            $chartHeight = $height - ($paddingY * 2);
+            $stepX = count($rows) > 1 ? ($width - ($paddingX * 2)) / (count($rows) - 1) : 0;
+
+            $groups[] = [
+                'key' => (string)$section['key'],
+                'title' => (string)$section['title'],
+                'view_box' => '0 0 ' . $width . ' ' . $height,
+                'labels' => array_map(function ($row, $index) use ($paddingX, $stepX, $height) {
+                    return [
+                        'x' => round($paddingX + ($stepX * $index), 1),
+                        'y' => $height - 6,
+                        'label' => (string)$row['label'],
+                    ];
+                }, $rows, array_keys($rows)),
+                'series' => [
+                    $this->buildTrendLine('收入', 'income', '#1d9d57', $rows, $minValue, $maxValue, $width, $chartHeight, $paddingX, $paddingY),
+                    $this->buildTrendLine('支出', 'expense', '#d93025', $rows, $minValue, $maxValue, $width, $chartHeight, $paddingX, $paddingY),
+                    $this->buildTrendLine('净流入', 'net', '#3c8dbc', $rows, $minValue, $maxValue, $width, $chartHeight, $paddingX, $paddingY),
+                ],
+            ];
+        }
+
+        return $groups;
+    }
+
+    protected function buildTrendLine(string $name, string $field, string $color, array $rows, float $minValue, float $maxValue, int $width, int $chartHeight, int $paddingX, int $paddingY): array
+    {
+        $stepX = count($rows) > 1 ? ($width - ($paddingX * 2)) / (count($rows) - 1) : 0;
+        $points = [];
+
+        foreach ($rows as $index => $row) {
+            $value = (float)$row[$field];
+            $x = $paddingX + ($stepX * $index);
+            $y = $paddingY + (($maxValue - $value) / ($maxValue - $minValue)) * $chartHeight;
+            $points[] = [
+                'x' => round($x, 1),
+                'y' => round($y, 1),
+                'label' => (string)$row['label'],
+                'value_text' => (string)$row[$field . '_text'],
+            ];
+        }
+
+        return [
+            'name' => $name,
+            'color' => $color,
+            'polyline' => implode(' ', array_map(function ($point) {
+                return $point['x'] . ',' . $point['y'];
+            }, $points)),
+            'points' => $points,
+        ];
+    }
+
+    protected function buildAgingSections(): array
+    {
+        static $sections = null;
+        if ($sections !== null) {
+            return $sections;
+        }
+
+        $sections = [
+            $this->buildAgingSection('receivable', '应收账龄'),
+            $this->buildAgingSection('payable', '应付账龄'),
+        ];
+
+        return $sections;
+    }
+
+    protected function buildAgingSection(string $kind, string $title): array
+    {
+        if (!$this->tableExists('finance_invoice')) {
+            return [
+                'key' => $kind,
+                'title' => $title,
+                'due_soon_count' => 0,
+                'due_soon_text' => $this->formatMoney(0),
+                'rows' => [],
+            ];
+        }
+
+        $bucketMeta = [
+            'not_due' => ['label' => '未逾期', 'hint' => '账期正常'],
+            'overdue_0_7' => ['label' => '逾期 0-7 天', 'hint' => '建议立即跟进'],
+            'overdue_8_15' => ['label' => '逾期 8-15 天', 'hint' => '需要明确处理节点'],
+            'overdue_16_30' => ['label' => '逾期 16-30 天', 'hint' => '建议升级跟进'],
+            'overdue_31_plus' => ['label' => '逾期 30+ 天', 'hint' => '高风险账龄'],
+        ];
+        $buckets = [];
+        foreach ($bucketMeta as $key => $meta) {
+            $buckets[$key] = [
+                'key' => $key,
+                'label' => $meta['label'],
+                'hint' => $meta['hint'],
+                'count' => 0,
+                'amount' => 0.0,
+            ];
+        }
+
+        $dueSoonCount = 0;
+        $dueSoonAmount = 0.0;
+        $today = strtotime(date('Y-m-d'));
+        $rows = Db::name('finance_invoice')
+            ->field('amount,due_date,status')
+            ->where('kind', $kind)
+            ->where('status', 'in', ['pending', 'partial', 'overdue'])
+            ->select();
+
+        foreach ($rows as $row) {
+            $dueDate = trim((string)($row['due_date'] ?? ''));
+            if ($dueDate === '') {
+                continue;
+            }
+
+            $dueTimestamp = strtotime($dueDate);
+            $days = (int)floor(($today - $dueTimestamp) / 86400);
+            $amount = (float)$row['amount'];
+
+            if ($days < 0) {
+                $bucketKey = 'not_due';
+                if ($days >= -7) {
+                    $dueSoonCount++;
+                    $dueSoonAmount += $amount;
+                }
+            } elseif ($days <= 7) {
+                $bucketKey = 'overdue_0_7';
+            } elseif ($days <= 15) {
+                $bucketKey = 'overdue_8_15';
+            } elseif ($days <= 30) {
+                $bucketKey = 'overdue_16_30';
+            } else {
+                $bucketKey = 'overdue_31_plus';
+            }
+
+            $buckets[$bucketKey]['count']++;
+            $buckets[$bucketKey]['amount'] += $amount;
+        }
+
+        $maxAmount = 1.0;
+        foreach ($buckets as $bucket) {
+            $maxAmount = max($maxAmount, (float)$bucket['amount']);
+        }
+
+        $resultRows = [];
+        foreach ($buckets as $bucket) {
+            $bucket['amount_text'] = $this->formatMoney((float)$bucket['amount']);
+            $bucket['bar_width'] = (int)max(10, round(((float)$bucket['amount'] / $maxAmount) * 100));
+            $resultRows[] = $bucket;
+        }
+
+        return [
+            'key' => $kind,
+            'title' => $title,
+            'due_soon_count' => $dueSoonCount,
+            'due_soon_text' => $this->formatMoney($dueSoonAmount),
+            'rows' => $resultRows,
+        ];
+    }
+
+    protected function buildFinanceAlerts(): array
+    {
+        $alerts = [];
+        $today = date('Y-m-d');
+        $soonDate = date('Y-m-d', strtotime('+7 day'));
+
+        if ($this->tableExists('finance_invoice')) {
+            $overdueReceivable = Db::name('finance_invoice')
+                ->where('kind', 'receivable')
+                ->where('status', 'in', ['pending', 'partial', 'overdue'])
+                ->where('due_date', '<', $today)
+                ->sum('amount');
+            if ((float)$overdueReceivable > 0) {
+                $alerts[] = [
+                    'level' => 'danger',
+                    'title' => '逾期应收待跟进',
+                    'summary' => $this->formatMoney((float)$overdueReceivable),
+                    'detail' => '已有到期未回款单据，建议优先催收并核对回款计划。',
+                    'url' => (string)url('finance/invoice/index', ['kind' => 'receivable', 'status' => 'overdue']),
+                    'action' => '查看应收',
+                ];
+            }
+
+            $overduePayable = Db::name('finance_invoice')
+                ->where('kind', 'payable')
+                ->where('status', 'in', ['pending', 'partial', 'overdue'])
+                ->where('due_date', '<', $today)
+                ->sum('amount');
+            if ((float)$overduePayable > 0) {
+                $alerts[] = [
+                    'level' => 'warning',
+                    'title' => '逾期应付待处理',
+                    'summary' => $this->formatMoney((float)$overduePayable),
+                    'detail' => '已有到期未支付单据，建议检查付款排期和审批状态。',
+                    'url' => (string)url('finance/invoice/index', ['kind' => 'payable', 'status' => 'overdue']),
+                    'action' => '查看应付',
+                ];
+            }
+
+            $dueSoonReceivable = Db::name('finance_invoice')
+                ->where('kind', 'receivable')
+                ->where('status', 'in', ['pending', 'partial'])
+                ->where('due_date', '>=', $today)
+                ->where('due_date', '<=', $soonDate)
+                ->sum('amount');
+            if ((float)$dueSoonReceivable > 0) {
+                $alerts[] = [
+                    'level' => 'info',
+                    'title' => '7 天内即将到期应收',
+                    'summary' => $this->formatMoney((float)$dueSoonReceivable),
+                    'detail' => '未来 7 天内有应收即将到期，建议提前安排催收节奏。',
+                    'url' => (string)url('finance/invoice/index', ['kind' => 'receivable']),
+                    'action' => '查看回款',
+                ];
+            }
+
+            $dueSoonPayable = Db::name('finance_invoice')
+                ->where('kind', 'payable')
+                ->where('status', 'in', ['pending', 'partial'])
+                ->where('due_date', '>=', $today)
+                ->where('due_date', '<=', $soonDate)
+                ->sum('amount');
+            if ((float)$dueSoonPayable > 0) {
+                $alerts[] = [
+                    'level' => 'info',
+                    'title' => '7 天内即将到期应付',
+                    'summary' => $this->formatMoney((float)$dueSoonPayable),
+                    'detail' => '未来 7 天内有应付到期，建议提前确认审批与资金安排。',
+                    'url' => (string)url('finance/invoice/index', ['kind' => 'payable']),
+                    'action' => '查看付款',
+                ];
+            }
+        }
+
+        if ($this->tableExists('business_payment_request')) {
+            $pendingPayments = (float)Db::name('business_payment_request')
+                ->where('status', 'pending_approval')
+                ->sum('request_amount');
+            if ($pendingPayments > 0) {
+                $alerts[] = [
+                    'level' => 'warning',
+                    'title' => '付款申请待审批',
+                    'summary' => $this->formatMoney($pendingPayments),
+                    'detail' => '已有待审批付款申请，建议同步检查现金流与付款节点。',
+                    'url' => (string)url('business/payment_request/index'),
+                    'action' => '查看付款申请',
+                ];
+            }
+        }
+
+        if ($this->tableExists('finance_transaction')) {
+            $missingAttachments = Db::name('finance_transaction')
+                ->where(function ($query) {
+                    $query->whereNull('attachment_ids_json')->whereOr('attachment_ids_json', '');
+                })
+                ->count();
+            if ((int)$missingAttachments > 0) {
+                $alerts[] = [
+                    'level' => 'info',
+                    'title' => '票据附件仍未补齐',
+                    'summary' => (int)$missingAttachments . ' 笔',
+                    'detail' => '建议尽快补传付款凭证、发票或截图，避免台账与票据脱节。',
+                    'url' => (string)url('finance/transaction/index'),
+                    'action' => '打开流水',
+                ];
+            }
+        }
+
+        if (!$alerts) {
+            $alerts[] = [
+                'level' => 'ok',
+                'title' => '当前无明显财务异常',
+                'summary' => '状态正常',
+                'detail' => '逾期单据、附件缺失和审批风险当前都处于可控范围。',
+                'url' => (string)url('finance/workbench/index'),
+                'action' => '刷新工作台',
+            ];
+        }
+
+        return array_slice($alerts, 0, 5);
+    }
+
+    protected function buildReportActions(): array
+    {
+        return [
+            [
+                'title' => '打印汇总报表',
+                'url' => (string)url('finance/workbench/reportprint'),
+                'class' => 'btn btn-primary btn-dialog',
+                'target' => 'dialog',
+                'dialog' => true,
+            ],
+            [
+                'title' => '导出日报 CSV',
+                'url' => (string)url('finance/workbench/reportexport', ['section' => 'day']),
+                'class' => 'btn btn-default',
+                'target' => '_blank',
+                'dialog' => false,
+            ],
+            [
+                'title' => '导出周报 CSV',
+                'url' => (string)url('finance/workbench/reportexport', ['section' => 'week']),
+                'class' => 'btn btn-default',
+                'target' => '_blank',
+                'dialog' => false,
+            ],
+            [
+                'title' => '导出月报 CSV',
+                'url' => (string)url('finance/workbench/reportexport', ['section' => 'month']),
+                'class' => 'btn btn-default',
+                'target' => '_blank',
+                'dialog' => false,
+            ],
+            [
+                'title' => '导出账龄 CSV',
+                'url' => (string)url('finance/workbench/reportexport', ['section' => 'aging']),
+                'class' => 'btn btn-default',
+                'target' => '_blank',
+                'dialog' => false,
+            ],
+        ];
+    }
+
+    protected function buildDateRanges(string $mode, int $periods): array
+    {
+        $ranges = [];
+        $today = strtotime(date('Y-m-d'));
+
+        for ($index = 0; $index < $periods; $index++) {
+            if ($mode === 'day') {
+                $startTs = strtotime("-{$index} day", $today);
+                $endTs = strtotime('+1 day', $startTs);
+                $label = date('m-d', $startTs);
+            } elseif ($mode === 'week') {
+                $weekStart = strtotime('-' . (date('N', $today) - 1) . ' day', $today);
+                $startTs = strtotime('-' . ($index * 7) . ' day', $weekStart);
+                $endTs = strtotime('+7 day', $startTs);
+                $label = date('m.d', $startTs) . ' - ' . date('m.d', strtotime('-1 day', $endTs));
+            } else {
+                $monthStart = strtotime(date('Y-m-01', $today));
+                $startTs = strtotime("-{$index} month", $monthStart);
+                $startTs = strtotime(date('Y-m-01', $startTs));
+                $endTs = strtotime('+1 month', $startTs);
+                $label = date('Y-m', $startTs);
+            }
+
+            $ranges[] = [
+                'start' => date('Y-m-d', $startTs),
+                'end' => date('Y-m-d', $endTs),
+                'end_date' => date('Y-m-d', strtotime('-1 day', $endTs)),
+                'label' => $label,
+            ];
+        }
+
+        return $ranges;
+    }
+
+    protected function loadTransactionsForStats(string $startDate, string $endDateExclusive): array
+    {
+        if (!$this->tableExists('finance_transaction')) {
+            return [];
+        }
+
+        return Db::name('finance_transaction')
+            ->field('transaction_date,type,amount')
+            ->where('transaction_date', '>=', $startDate)
+            ->where('transaction_date', '<', $endDateExclusive)
+            ->select();
+    }
+
+    protected function loadInvoicesForStats(string $startDate, string $endDateExclusive): array
+    {
+        if (!$this->tableExists('finance_invoice')) {
+            return [];
+        }
+
+        $startTimestamp = strtotime($startDate . ' 00:00:00');
+        $endTimestamp = strtotime($endDateExclusive . ' 00:00:00');
+        $rows = Db::name('finance_invoice')
+            ->field('kind,amount,due_date,createtime')
+            ->where(function ($query) use ($startDate, $endDateExclusive, $startTimestamp, $endTimestamp) {
+                $query->where(function ($timeQuery) use ($startTimestamp, $endTimestamp) {
+                    $timeQuery->where('createtime', '>=', $startTimestamp)->where('createtime', '<', $endTimestamp);
+                })
+                    ->whereOr(function ($orQuery) use ($startDate, $endDateExclusive) {
+                        $orQuery->where('due_date', '>=', $startDate)->where('due_date', '<', $endDateExclusive);
+                    });
+            })
+            ->select();
+
+        foreach ($rows as &$row) {
+            $dueDate = trim((string)($row['due_date'] ?? ''));
+            $row['report_date'] = $dueDate !== ''
+                ? $dueDate
+                : date('Y-m-d', (int)($row['createtime'] ?? time()));
+        }
+        unset($row);
+
+        return $rows;
+    }
+
     protected function formatApprovalRows($rows): array
     {
         $typeMap = [
@@ -533,7 +1267,52 @@ class Workbench extends Backend
 
     protected function formatMoney(float $value): string
     {
-        return '￥' . number_format($value, 2);
+        $prefix = $value < 0 ? '-￥' : '￥';
+        return $prefix . number_format(abs($value), 2);
+    }
+
+    protected function parseMoney(string $value): float
+    {
+        $normalized = str_replace(['￥', ',', ' '], '', $value);
+        return (float)$normalized;
+    }
+
+    protected function createCsvResponse(string $filename, array $headers, array $rows): Response
+    {
+        $content = chr(239) . chr(187) . chr(191);
+        $content .= $this->buildCsvLine($headers);
+        foreach ($rows as $row) {
+            $content .= $this->buildCsvLine($row);
+        }
+
+        return Response::create($content, 'html', 200, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Cache-Control' => 'no-store, no-cache, must-revalidate',
+        ]);
+    }
+
+    protected function buildCsvLine(array $columns): string
+    {
+        $escaped = array_map(function ($value) {
+            $string = (string)$value;
+            $string = str_replace('"', '""', $string);
+            return '"' . $string . '"';
+        }, $columns);
+
+        return implode(',', $escaped) . "\r\n";
+    }
+
+    protected function buildBrandInfo(): array
+    {
+        $siteName = (string)(Config::get('site.name') ?: 'ERP AI 管理系统');
+
+        return [
+            'company_name' => $siteName,
+            'system_name' => (string)(Config::get('site.login_subtitle') ?: '企业 ERP AI 智能管理系统'),
+            'website' => (string)(Config::get('site.site_home_label') ?: Config::get('site.site_home_url') ?: ''),
+            'copyright' => (string)(Config::get('site.copyright') ?: Config::get('site.beian') ?: ''),
+        ];
     }
 
     protected function tableExists(string $table): bool

@@ -1,4 +1,19 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="alert alert-info" style="margin:0 0 18px;">
+        项目运营用于承接 APP、小程序、官网、活动投放等互联网项目。APP 只是其中一种类型。
+    </div>
+    <div class="erp-form-section">项目基础</div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">项目类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="c-project_type" data-rule="required" class="form-control selectpicker" name="row[project_type]">
+                {foreach name="projectTypeList" item="vo"}
+                <option value="{$key}" {if $key==($row.project_type?:'app')}selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+            <div id="project-type-help" class="help-block" style="margin-bottom:0;"></div>
+        </div>
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">运营项目:</label>
         <div class="col-xs-12 col-sm-8">
@@ -6,15 +21,15 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">APP 名称:</label>
+        <label class="control-label col-xs-12 col-sm-2" data-label="project-subject">APP名称:</label>
         <div class="col-xs-12 col-sm-8">
             <input id="c-app_name" data-rule="required" class="form-control" name="row[app_name]" type="text" value="{$row.app_name|htmlentities}">
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">当前版本:</label>
+        <label class="control-label col-xs-12 col-sm-2" data-label="project-version">当前版本:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-app_version" data-rule="required" class="form-control" name="row[app_version]" type="text" value="{$row.app_version|htmlentities}">
+            <input id="c-app_version" class="form-control" name="row[app_version]" type="text" value="{$row.app_version|htmlentities}">
         </div>
     </div>
     <div class="form-group">
@@ -45,6 +60,7 @@
             <input id="c-core_metric" class="form-control" name="row[core_metric]" type="text" value="{$row.core_metric|htmlentities}">
         </div>
     </div>
+    <div class="erp-form-section">运营状态</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">生命周期:</label>
         <div class="col-xs-12 col-sm-8">
@@ -75,6 +91,7 @@
             </select>
         </div>
     </div>
+    <div class="erp-form-section">排期与预算</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">开始日期:</label>
         <div class="col-xs-12 col-sm-8">
@@ -115,6 +132,7 @@
             </select>
         </div>
     </div>
+    <div class="erp-form-section">目标与说明</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">目标说明:</label>
         <div class="col-xs-12 col-sm-8">

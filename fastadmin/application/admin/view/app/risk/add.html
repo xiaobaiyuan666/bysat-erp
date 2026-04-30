@@ -1,9 +1,12 @@
 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-
+    <div class="alert alert-warning" style="margin:0 0 18px;">
+        风险与变更页用于统一记录项目风险、已发生问题、需求变更和外部依赖，避免散落在聊天里。
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('App_project_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-app_project_id" data-rule="required" class="form-control selectpicker" name="row[app_project_id]">
+                <option value="">请选择</option>
                 {foreach name="appProjectList" item="vo"}
                 <option value="{$key}">{$vo}</option>
                 {/foreach}
@@ -13,7 +16,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="" placeholder="例如：审核延期风险 / 广告账户依赖 / 临时需求变更">
         </div>
     </div>
     <div class="form-group">
@@ -65,13 +68,13 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Impact')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-impact" class="form-control" rows="5" name="row[impact]" cols="50"></textarea>
+            <textarea id="c-impact" class="form-control" rows="5" name="row[impact]" cols="50" placeholder="填写影响范围，例如时间、成本、转化、客户体验"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Action_plan')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-action_plan" class="form-control" rows="5" name="row[action_plan]" cols="50"></textarea>
+            <textarea id="c-action_plan" class="form-control" rows="5" name="row[action_plan]" cols="50" placeholder="填写处理方案、负责人和下一步动作"></textarea>
         </div>
     </div>
     <div class="form-group layer-footer">

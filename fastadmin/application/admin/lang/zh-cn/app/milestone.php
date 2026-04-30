@@ -2,8 +2,8 @@
 
 return [
     'Legacy_id' => '旧系统ID',
-    'App_project_legacy_id' => 'APP项目旧ID',
-    'App_project_id' => '所属APP项目',
+    'App_project_legacy_id' => '项目旧ID',
+    'App_project_id' => '所属运营项目',
     'Title' => '里程碑',
     'Owner' => '负责人',
     'Owner_admin_id' => '负责人后台账号',

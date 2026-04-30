@@ -42,16 +42,16 @@ class Config extends Backend
      */
     public function index()
     {
-        $siteList = [];
+        $rawSiteList = [];
         $groupList = ConfigModel::getGroupList();
         foreach ($groupList as $k => $v) {
-            $siteList[$k]['name'] = $k;
-            $siteList[$k]['title'] = $v;
-            $siteList[$k]['list'] = [];
+            $rawSiteList[$k]['name'] = $k;
+            $rawSiteList[$k]['title'] = __($v);
+            $rawSiteList[$k]['list'] = [];
         }
 
         foreach ($this->model->all() as $k => $v) {
-            if (!isset($siteList[$v['group']])) {
+            if (!isset($rawSiteList[$v['group']])) {
                 continue;
             }
             $value = $v->toArray();
@@ -73,18 +73,79 @@ class Config extends Backend
                 //cdnurl不支持在线修改
                 continue;
             }
-            $siteList[$v['group']]['list'][] = $value;
+            $rawSiteList[$v['group']]['list'][] = $value;
         }
-        $index = 0;
-        foreach ($siteList as $k => &$v) {
-            $v['active'] = !$index ? true : false;
-            $index++;
-        }
+        $isAdvancedConfig = $this->request->get('advanced/d', 0) === 1;
+        $siteList = $this->buildSimpleSiteList($rawSiteList, $isAdvancedConfig);
         $this->view->assign('siteList', $siteList);
+        $this->view->assign('isAdvancedConfig', $isAdvancedConfig);
         $this->view->assign('typeList', ConfigModel::getTypeList());
         $this->view->assign('ruleList', ConfigModel::getRegexList());
         $this->view->assign('groupList', ConfigModel::getGroupList());
         return $this->view->fetch();
+    }
+
+    /**
+     * 将 FastAdmin 原始配置收口成小白可用的展示设置和技术高级配置。
+     */
+    protected function buildSimpleSiteList(array $rawSiteList, $isAdvancedConfig = false)
+    {
+        $displayNames = [
+            'name',
+            'login_subtitle',
+            'admin_logo_mini',
+            'admin_logo_text',
+            'site_home_url',
+            'site_home_label',
+            'copyright',
+        ];
+        $displayMap = array_flip($displayNames);
+        $displayList = [];
+        $advancedList = [];
+
+        foreach ($rawSiteList as $group) {
+            foreach ($group['list'] as $item) {
+                if (isset($displayMap[$item['name']])) {
+                    $displayList[$item['name']] = $item;
+                    continue;
+                }
+                if (!empty($group['title'])) {
+                    $item['title'] = $group['title'] . ' / ' . $item['title'];
+                }
+                $advancedList[] = $item;
+            }
+        }
+
+        $orderedDisplayList = [];
+        foreach ($displayNames as $name) {
+            if (isset($displayList[$name])) {
+                $orderedDisplayList[] = $displayList[$name];
+            }
+        }
+
+        if ($isAdvancedConfig) {
+            return [
+                'advanced' => [
+                    'name'        => 'advanced',
+                    'title'       => '高级技术配置',
+                    'description' => '这里保留语言、时区、邮件、字典、上传等底层参数，仅建议技术人员维护。日常改系统名称、Logo、官网和版权请返回基础设置。',
+                    'active'      => true,
+                    'is_advanced' => 1,
+                    'list'        => $advancedList,
+                ],
+            ];
+        }
+
+        return [
+            'display' => [
+                'name'        => 'display',
+                'title'       => '基础设置',
+                'description' => '这里只改系统名称、登录页文案、Logo、官网入口和版权说明，不涉及技术参数，适合日常维护。',
+                'active'      => true,
+                'is_advanced' => 0,
+                'list'        => $orderedDisplayList,
+            ],
+        ];
     }
 
     /**

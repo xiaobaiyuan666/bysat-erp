@@ -1,9 +1,77 @@
+<style>
+    @media (max-width: 767px) {
+        .main-header {
+            min-height: 50px;
+        }
+
+        .main-header .navbar {
+            min-height: 50px;
+            margin-left: 0 !important;
+        }
+
+        .main-header .logo {
+            position: absolute;
+            top: 0;
+            left: 46px;
+            right: 56px;
+            z-index: 2;
+            width: auto !important;
+            max-width: none;
+            height: 50px;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            line-height: 50px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .main-header .logo .logo-mini {
+            display: none !important;
+        }
+
+        .main-header .logo .logo-lg {
+            display: block !important;
+            max-width: 100%;
+            overflow: hidden;
+            font-size: 16px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .main-header .sidebar-toggle {
+            position: relative;
+            z-index: 3;
+            width: 46px;
+            padding-right: 0;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        .main-header .navbar-custom-menu {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 3;
+        }
+
+        .main-header .navbar-custom-menu > .navbar-nav {
+            margin: 0;
+        }
+
+        .main-header .navbar-custom-menu > .navbar-nav > li > a {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+    }
+</style>
+
 <!-- Logo -->
 <a href="javascript:;" class="logo">
     <!-- 迷你模式下Logo的大小为50X50 -->
-    <span class="logo-mini">{$site.name|mb_substr=0,4,'utf-8'|mb_strtoupper='utf-8'|htmlentities}</span>
+    <span class="logo-mini">{:htmlentities((string)(config('site.admin_logo_mini') ?: 'ERP'))}</span>
     <!-- 普通模式下Logo -->
-    <span class="logo-lg">{$site.name|htmlentities}</span>
+    <span class="logo-lg">{:htmlentities((string)(config('site.admin_logo_text') ?: config('site.name') ?: 'ERP AI 管理系统'))}</span>
 </a>
 
 <!-- 顶部通栏样式 -->
@@ -26,9 +94,11 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
+                {if config('site.site_home_url')}
                 <li class="hidden-xs">
-                    <a href="__PUBLIC__" target="_blank"><i class="fa fa-home" style="font-size:14px;"></i> {:__('Home')}</a>
+                    <a href="{:htmlentities((string)config('site.site_home_url'))}" target="_blank"><i class="fa fa-home" style="font-size:14px;"></i> {:htmlentities((string)(config('site.site_home_label') ?: '官网'))}</a>
                 </li>
+                {/if}
 
                 <!-- 清除缓存 -->
                 <li class="hidden-xs">
@@ -86,7 +156,7 @@
                         <li class="user-body">
                             <div class="visible-xs">
                                 <div class="pull-left">
-                                    <a href="__PUBLIC__" target="_blank"><i class="fa fa-home" style="font-size:14px;"></i> {:__('Home')}</a>
+                                    {if config('site.site_home_url')}<a href="{:htmlentities((string)config('site.site_home_url'))}" target="_blank"><i class="fa fa-home" style="font-size:14px;"></i> {:htmlentities((string)(config('site.site_home_label') ?: '官网'))}</a>{/if}
                                 </div>
                                 <div class="pull-right">
                                     <a href="javascript:;" data-type="all" class="wipecache"><i class="fa fa-trash fa-fw"></i> {:__('Wipe all cache')}</a>

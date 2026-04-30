@@ -51,14 +51,29 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 fixedRightNumber: 1,
                 columns: [[
                     {checkbox: true},
-                    {field: 'version', title: __('Version'), operate: 'LIKE'},
-                    {field: 'title', title: __('Title'), operate: 'LIKE'},
-                    {field: 'status', title: __('Status'), searchList: {'planned': __('Status planned'), 'ready': __('Status ready'), 'testing': __('Status testing'), 'released': __('Status released'), 'rollback': __('Status rollback'), 'closed': __('Status closed')}, formatter: Table.api.formatter.status},
-                    {field: 'owner', title: __('Owner'), operate: 'LIKE'},
-                    {field: 'release_date', title: __('Release_date'), operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
-                    {field: 'channel', title: __('Channel'), operate: 'LIKE'},
-                    {field: 'customer_sync_status', title: __('Customer_sync_status'), searchList: {'pending': __('Customer_sync_status pending'), 'done': __('Customer_sync_status done'), 'skip': __('Customer_sync_status skip')}, formatter: Table.api.formatter.status},
-                    {field: 'rollback_ready', title: __('Rollback_ready'), formatter: Table.api.formatter.flag},
+                    {field: 'version', title: '版本号', operate: 'LIKE'},
+                    {field: 'title', title: '发布标题', operate: 'LIKE'},
+                    {field: 'owner', title: '负责人', operate: 'LIKE'},
+                    {
+                        field: 'status',
+                        title: '发布状态',
+                        searchList: {
+                            planned: '待排期',
+                            ready: '待发布',
+                            testing: '测试中',
+                            released: '已发布',
+                            rollback: '已回滚',
+                            closed: '已关闭'
+                        },
+                        formatter: Table.api.formatter.status
+                    },
+                    {field: 'release_date', title: '发布时间', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
+                    {
+                        field: 'customer_sync_status',
+                        title: '客户同步',
+                        searchList: {pending: '待回告', done: '已回告', skip: '无需回告'},
+                        formatter: Table.api.formatter.status
+                    },
                     {
                         field: 'operate',
                         title: __('Operate'),
@@ -67,9 +82,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         buttons: [
                             {
                                 name: 'app_project',
-                                text: '所属APP',
-                                title: '查看所属APP项目',
-                                icon: 'fa fa-mobile',
+                                text: '所属项目',
+                                title: '查看所属运营项目',
+                                icon: 'fa fa-sitemap',
                                 classname: 'btn btn-primary btn-xs btn-dialog',
                                 url: appProjectUrl,
                                 visible: function (row) {
@@ -121,5 +136,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             }
         }
     };
+
     return Controller;
 });

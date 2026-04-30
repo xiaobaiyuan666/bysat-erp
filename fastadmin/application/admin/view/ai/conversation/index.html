@@ -1,114 +1,207 @@
 <style>
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .panel.panel-default.panel-intro,
+    .panel.panel-default.panel-intro > .panel-body {
+        overflow-x: hidden;
+    }
+
     .ai-workbench {
-        background: #f5f7fa;
         padding: 18px;
-        max-width: 1480px;
-        margin: 0 auto;
+        background:
+            radial-gradient(circle at top right, rgba(60, 141, 188, 0.08), transparent 24%),
+            linear-gradient(180deg, #f7f9fc 0%, #f4f7fb 100%);
         min-height: calc(100vh - 120px);
+        overflow-x: hidden;
     }
 
-    .ai-grid {
+    .ai-shell {
         display: grid;
-        grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
-        gap: 18px;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 16px;
         align-items: start;
-    }
-
-    .ai-grid > div {
         min-width: 0;
+        max-width: 1360px;
+        margin: 0 auto;
     }
 
-    .ai-sidebar {
-        position: sticky;
-        top: 16px;
-        max-height: calc(100vh - 80px);
-        overflow: auto;
-        padding-right: 4px;
-    }
-
-    .ai-main {
-        min-width: 0;
-    }
-
-    .ai-panel {
+    .ai-chat,
+    .ai-side-panel {
         background: #fff;
-        border: 1px solid #e6ebf2;
-        border-radius: 14px;
-        box-shadow: 0 6px 16px rgba(31, 45, 61, 0.04);
+        border: 1px solid #e5ecf4;
+        border-radius: 18px;
+        box-shadow: 0 14px 36px rgba(31, 45, 61, 0.06);
     }
 
-    .ai-panel + .ai-panel {
-        margin-top: 16px;
-    }
-
-    .ai-panel-body {
-        padding: 16px 18px;
-    }
-
-    .ai-sidebar .ai-panel-body {
-        padding: 14px 16px;
-    }
-
-    .ai-sidebar > :nth-child(4),
-    .ai-sidebar > :nth-child(5) {
-        display: none;
-    }
-
-    .ai-sidebar .btn-group {
+    .ai-chat {
         display: flex;
-        width: 100%;
+        flex-direction: column;
+        overflow: hidden;
+        min-width: 0;
     }
 
-    .ai-sidebar .btn-group .btn {
-        flex: 1 1 0;
+    .ai-chat-head {
+        padding: 20px 22px 18px;
+        border-bottom: 1px solid #edf2f7;
+        background:
+            radial-gradient(circle at top left, rgba(60, 141, 188, 0.08), transparent 34%),
+            linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
     }
 
-    .ai-title {
-        margin: 0 0 6px;
-        font-size: 18px;
-        font-weight: 600;
+    .ai-chat-head-row {
+        display: flex;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .ai-chat-head-main {
+        min-width: 0;
+    }
+
+    .ai-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #edf6ff;
+        color: #2f7cc1;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .ai-chat-title,
+    .ai-section-title,
+    .ai-status-name,
+    .ai-block-title {
+        margin: 0;
         color: #1f2d3d;
     }
 
-    .ai-desc,
+    .ai-chat-title {
+        margin-top: 14px;
+        font-size: 30px;
+        line-height: 1.2;
+        font-weight: 700;
+    }
+
+    .ai-section-title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .ai-status-name {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.6;
+    }
+
+    .ai-block-title {
+        margin-bottom: 8px;
+        color: #52616b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .03em;
+        text-transform: uppercase;
+    }
+
     .ai-meta,
-    .ai-empty-hint {
-        color: #7b8794;
+    .ai-empty-hint,
+    .ai-context-list li {
+        color: #6f7f92;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .ai-answer-meta {
+        display: none;
+        margin-top: 10px;
+        color: #4d647a;
         font-size: 12px;
         line-height: 1.7;
     }
 
-    .ai-status {
+    .ai-chat-head-actions,
+    .ai-quick-list,
+    .ai-chip-row {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .ai-status-strip {
+        display: grid;
+        grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
         gap: 12px;
-        margin-bottom: 14px;
+        margin-top: 16px;
+        min-width: 0;
     }
 
-    .ai-status-name {
-        font-size: 16px;
-        font-weight: 600;
-        color: #1f2d3d;
+    .ai-status-card {
+        min-width: 0;
+        padding: 15px;
+        border-radius: 16px;
+        background: #fff;
+        border: 1px solid #e4ecf6;
     }
 
-    .ai-chip-group {
+    .ai-status-top,
+    .ai-setting-row {
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .ai-setting-row {
+        margin-top: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .ai-setting-row .form-control {
+        min-width: 220px;
+        max-width: 100%;
+    }
+
+    .ai-status-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 12px;
     }
 
+    .ai-mode-switch {
+        display: inline-flex;
+        border-radius: 999px;
+        overflow: hidden;
+        border: 1px solid #d8e3ef;
+        background: #fff;
+    }
+
+    .ai-mode-switch .btn {
+        min-width: 98px;
+        border: 0;
+        border-radius: 0;
+    }
+
     .ai-chip {
         display: inline-flex;
         align-items: center;
-        padding: 7px 12px;
+        padding: 8px 12px;
         border-radius: 999px;
-        border: 1px solid #d9e2ef;
+        border: 1px solid #dbe5f0;
         background: #fff;
         color: #52616b;
-        cursor: pointer;
         font-size: 12px;
+        line-height: 1.4;
+        cursor: pointer;
         transition: all .16s ease;
     }
 
@@ -119,97 +212,63 @@
         color: #3c8dbc;
     }
 
-    .ai-summary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
-        margin-top: 14px;
-    }
-
-    .ai-summary-card {
-        padding: 14px 14px 12px;
-        border-radius: 12px;
-        background: #f8fbff;
-        border: 1px solid #e5eef7;
-    }
-
-    .ai-summary-card strong {
-        display: block;
-        font-size: 22px;
-        line-height: 1.1;
-        color: #1f2d3d;
-        margin: 6px 0 8px;
-    }
-
-    .ai-summary-card span,
-    .ai-summary-card small {
-        display: block;
-    }
-
-    .ai-preset-panel {
-        margin-top: 14px;
-    }
-
-    .ai-preset-panel .ai-panel-body {
-        padding: 14px 18px;
-    }
-
-    .ai-preset-panel .ai-panel-body > .ai-title,
-    .ai-preset-panel .ai-panel-body > .ai-desc {
+    .ai-diagnostic {
         display: none;
+        margin-bottom: 14px;
     }
 
-    .ai-preset-panel .ai-panel-body::before {
-        content: "\5E38\7528\5206\6790";
-        display: block;
-        margin: 0 0 6px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #1f2d3d;
-    }
-
-    .ai-preset-panel .ai-panel-body::after {
-        content: "\8FD9\4E9B\9884\8BBE\4F1A\81EA\52A8\5E26\4E0A\7ECF\8425\4E0A\4E0B\6587\FF0C\9002\5408\76F4\63A5\5F00\95EE\3002";
-        display: block;
-        margin-bottom: 10px;
-        color: #7b8794;
-        font-size: 12px;
-        line-height: 1.7;
-    }
-
-    .ai-chat {
-        display: flex;
-        flex-direction: column;
-        height: min(78vh, 900px);
-        min-height: 620px;
-        overflow: hidden;
-        background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-    }
-
-    .ai-chat-toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    .ai-task-banner {
+        display: none;
+        align-items: flex-start;
         gap: 12px;
-        padding: 16px 18px;
-        border-bottom: 1px solid #edf2f7;
-        background: rgba(255, 255, 255, 0.96);
+        margin: 16px 18px 0;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: #f7fbff;
+        border: 1px solid #d9e9f7;
+    }
+
+    .ai-task-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 84px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #e8f3ff;
+        color: #2f7cc1;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .ai-task-copy {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .ai-task-copy strong {
+        display: block;
+        margin-bottom: 2px;
+        color: #1f2d3d;
+        font-size: 13px;
     }
 
     .ai-chat-body {
-        flex: 1;
-        min-height: 0;
-        padding: 18px;
-        background: #f8fafc;
+        padding: 20px 22px 18px;
+        background: linear-gradient(180deg, #f8fafc 0%, #f4f7fb 100%);
         overflow-y: auto;
         overflow-x: hidden;
+        min-height: 460px;
+        max-height: calc(100vh - 410px);
+        scrollbar-gutter: stable;
     }
 
     .ai-chat-actions {
         display: none;
-        padding: 12px 18px 0;
-        background: #f8fafc;
+        padding: 14px 22px 0;
         border-top: 1px solid #edf2f7;
+        background: #f8fafc;
     }
 
     .ai-chat-actions.is-visible {
@@ -218,35 +277,62 @@
 
     .ai-chat-actions-title {
         margin-bottom: 8px;
-        font-size: 12px;
-        font-weight: 600;
         color: #52616b;
+        font-size: 12px;
+        font-weight: 700;
     }
 
     .ai-message {
-        margin-bottom: 18px;
         display: flex;
-        width: 100%;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 16px;
     }
 
     .ai-message.is-user {
         justify-content: flex-end;
     }
 
+    .ai-message-avatar {
+        flex: 0 0 38px;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #eef6ff 0%, #e4f1ff 100%);
+        color: #3c8dbc;
+        font-size: 15px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .ai-message.is-user .ai-message-avatar {
+        order: 2;
+        background: linear-gradient(180deg, #e7f3ff 0%, #dcefff 100%);
+        color: #2f78c4;
+    }
+
     .ai-message-bubble {
-        width: min(860px, 92%);
+        max-width: min(820px, calc(100% - 52px));
         padding: 14px 16px 12px;
-        border-radius: 18px;
+        border-radius: 18px 18px 18px 8px;
         background: #fff;
-        border: 1px solid #e4ebf3;
-        box-shadow: 0 6px 14px rgba(31, 45, 61, 0.04);
+        border: 1px solid #e3ebf4;
+        box-shadow: 0 8px 20px rgba(31, 45, 61, 0.05);
         overflow-wrap: anywhere;
     }
 
     .ai-message.is-user .ai-message-bubble {
-        background: linear-gradient(180deg, #edf7ff 0%, #e7f3ff 100%);
-        border-color: #cfe7fb;
         margin-left: auto;
+        border-radius: 18px 18px 8px 18px;
+        background: linear-gradient(180deg, #eff8ff 0%, #e6f3ff 100%);
+        border-color: #cfe5f7;
+    }
+
+    .ai-message-bubble.is-pending {
+        background: #fbfdff;
+        border-style: dashed;
     }
 
     .ai-message-role {
@@ -254,46 +340,44 @@
         align-items: center;
         gap: 6px;
         margin-bottom: 10px;
-        padding: 4px 8px;
+        padding: 4px 9px;
         border-radius: 999px;
-        background: #f5f8fc;
-        font-size: 11px;
-        font-weight: 600;
+        background: #f4f7fb;
         color: #52616b;
+        font-size: 11px;
+        font-weight: 700;
     }
 
     .ai-message-content {
-        font-size: 13px;
-        line-height: 1.75;
         color: #1f2d3d;
+        font-size: 14px;
+        line-height: 1.9;
         word-break: break-word;
-    }
-
-    .ai-message-content p:last-child,
-    .ai-message-content ul:last-child,
-    .ai-message-content ol:last-child,
-    .ai-message-content h4:last-child {
-        margin-bottom: 0;
     }
 
     .ai-message-content h4 {
         margin: 0 0 8px;
-        font-size: 14px;
-        line-height: 1.5;
         color: #1f2d3d;
+        font-size: 14px;
     }
 
-    .ai-message-content p {
+    .ai-message-content p,
+    .ai-message-content ul {
         margin: 0 0 10px;
     }
 
     .ai-message-content ul {
-        margin: 0 0 10px;
         padding-left: 18px;
     }
 
     .ai-message-content li {
         margin-bottom: 6px;
+    }
+
+    .ai-message-content pre {
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: pre-wrap;
     }
 
     .ai-message-content code {
@@ -310,114 +394,174 @@
 
     .ai-message-time {
         margin-top: 8px;
-        font-size: 11px;
         color: #97a6ba;
+        font-size: 11px;
+    }
+
+    .ai-typing {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #52616b;
+    }
+
+    .ai-typing-dots {
+        display: inline-flex;
+        gap: 4px;
+        line-height: 1;
+    }
+
+    .ai-typing-dots span {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #7aa8cb;
+        animation: aiTypingPulse 1s infinite ease-in-out;
+    }
+
+    .ai-typing-dots span:nth-child(2) {
+        animation-delay: .15s;
+    }
+
+    .ai-typing-dots span:nth-child(3) {
+        animation-delay: .3s;
+    }
+
+    .ai-stream-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1.1em;
+        margin-left: 4px;
+        vertical-align: text-bottom;
+        border-radius: 999px;
+        background: #3c8dbc;
+        animation: aiCursorBlink 1s steps(1) infinite;
     }
 
     .ai-composer {
-        padding: 16px 18px 18px;
+        padding: 18px 20px 20px;
         border-top: 1px solid #edf2f7;
         background: #fff;
     }
 
+    .ai-composer-top {
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14px;
+    }
+
     .ai-composer textarea {
-        min-height: 104px;
-        max-height: 220px;
+        min-height: 112px;
+        max-height: 240px;
         resize: none;
         overflow-y: auto;
-        border-radius: 12px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.8;
     }
 
-    .ai-composer-actions {
+    .ai-example-wrap {
         margin-top: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
     }
 
-    .ai-quick-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .ai-quick-list .btn {
-        border-radius: 999px;
-    }
-
-    .ai-sidebar-section {
-        margin-top: 14px;
-    }
-
-    .ai-sidebar-section-title {
+    .ai-example-label {
         margin-bottom: 8px;
+        color: #6f7f92;
         font-size: 12px;
-        font-weight: 600;
-        color: #52616b;
+        font-weight: 700;
     }
 
     .ai-empty {
-        padding: 56px 20px;
+        padding: 64px 24px;
         text-align: center;
     }
 
     .ai-empty i {
-        font-size: 34px;
+        display: block;
+        margin-bottom: 14px;
         color: #c0cad7;
-        margin-bottom: 12px;
+        font-size: 36px;
     }
 
+    .ai-side {
+        display: grid;
+        gap: 16px;
+        min-width: 0;
+    }
+
+    .ai-side-panel {
+        padding: 18px;
+        min-width: 0;
+    }
+
+    .ai-summary-grid,
+    .ai-link-list,
     .ai-context-list {
-        margin: 0;
-        padding-left: 18px;
-    }
-
-    .ai-context-list li {
-        margin-bottom: 8px;
-        color: #52616b;
-        font-size: 12px;
-        line-height: 1.6;
-    }
-
-    .ai-diagnostic {
-        margin-bottom: 16px;
-        display: none;
-    }
-
-    .ai-action-grid {
         display: grid;
         gap: 10px;
     }
 
-    .ai-link-list {
-        display: grid;
-        gap: 8px;
+    .ai-summary-card {
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: #f8fbff;
+        border: 1px solid #e4eef8;
+    }
+
+    .ai-summary-card span {
+        display: block;
+        color: #6f7f92;
+        font-size: 12px;
+    }
+
+    .ai-summary-card strong {
+        display: block;
+        margin: 8px 0 6px;
+        color: #1f2d3d;
+        font-size: 22px;
+        line-height: 1.1;
     }
 
     .ai-link-list .btn {
-        padding: 10px 12px;
-        border-radius: 10px;
+        padding: 12px;
+        border-radius: 12px;
+        text-align: left;
         white-space: normal;
     }
 
-    @media (max-width: 960px) {
-        .ai-grid {
+    .ai-context-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .ai-context-list li {
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: #fafcff;
+        border: 1px solid #e7edf5;
+    }
+
+    @media (max-width: 1360px) {
+        .ai-shell {
             grid-template-columns: 1fr;
         }
+    }
 
-        .ai-sidebar {
-            position: static;
-            max-height: none;
-            overflow: visible;
-            padding-right: 0;
+    @media (max-width: 1080px) {
+        .ai-chat-head-row,
+        .ai-status-top,
+        .ai-setting-row {
+            flex-direction: column;
+            align-items: stretch;
         }
+    }
 
-        .ai-chat {
-            height: auto;
-            min-height: 580px;
-            max-height: none;
+    @media (max-width: 920px) {
+        .ai-status-strip {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -426,23 +570,114 @@
             padding: 12px;
         }
 
-        .ai-chat {
-            min-height: 560px;
+        .ai-chat-head,
+        .ai-chat-body,
+        .ai-chat-actions,
+        .ai-composer,
+        .ai-side-panel {
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+
+        .ai-chat-head-row,
+        .ai-status-top,
+        .ai-setting-row,
+        .ai-composer-top {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .ai-chat-title {
+            font-size: 24px;
         }
 
         .ai-chat-body {
-            max-height: 55vh;
+            min-height: 360px;
+            max-height: 52vh;
+        }
+
+        .ai-chip-row,
+        .ai-quick-list,
+        .ai-chat-head-actions {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .ai-chat-head-actions .btn,
+        .ai-quick-list .btn,
+        .ai-chip-row .ai-chip {
+            flex: 0 0 auto;
+        }
+
+        .ai-message {
+            gap: 10px;
         }
 
         .ai-message-bubble {
-            width: 100%;
+            max-width: calc(100% - 48px);
         }
 
-        .ai-chat-toolbar,
-        .ai-composer,
-        .ai-chat-actions {
-            padding-left: 14px;
-            padding-right: 14px;
+        .ai-composer textarea {
+            min-height: 96px;
+            max-height: 180px;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .ai-workbench {
+            padding: 10px;
+        }
+
+        .ai-chat-title {
+            font-size: 22px;
+        }
+
+        .ai-chat-body {
+            min-height: 320px;
+            max-height: 50vh;
+        }
+
+        .ai-message {
+            gap: 8px;
+        }
+
+        .ai-message-avatar {
+            flex-basis: 32px;
+            width: 32px;
+            height: 32px;
+            font-size: 13px;
+        }
+
+        .ai-message-bubble {
+            max-width: calc(100% - 40px);
+            padding: 12px 13px 10px;
+        }
+    }
+
+    @keyframes aiTypingPulse {
+        0%,
+        80%,
+        100% {
+            transform: scale(.8);
+            opacity: .4;
+        }
+
+        40% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes aiCursorBlink {
+        0%,
+        49% {
+            opacity: 1;
+        }
+
+        50%,
+        100% {
+            opacity: 0;
         }
     }
 </style>
@@ -453,111 +688,114 @@
     </div>
     <div class="panel-body">
         <div class="ai-workbench" id="ai-workbench">
-            <div class="ai-grid">
-                <div class="ai-sidebar">
-                    <div class="alert ai-diagnostic" data-role="diagnostic"></div>
+            <div class="alert ai-diagnostic" data-role="diagnostic"></div>
 
-                    <div class="ai-panel">
-                        <div class="ai-panel-body">
-                            <div class="ai-status">
-                                <div>
-                                    <div class="ai-status-name" data-role="setting-name">AI 助手</div>
-                                    <div class="ai-meta" data-role="setting-meta">正在读取模型配置...</div>
+            <div class="ai-shell">
+                <div class="ai-chat">
+                    <div class="ai-chat-head">
+                        <div class="ai-chat-head-row">
+                            <div class="ai-chat-head-main">
+                                <span class="ai-kicker"><i class="fa fa-comments-o"></i> ERP AI 对话助手</span>
+                                <h2 class="ai-chat-title">先问，再执行</h2>
+                                <div class="ai-meta" data-role="chat-hint">这里是完整 AI 对话页，适合连续追问你当前权限范围内的经营问题。</div>
+                                <div class="ai-answer-meta" data-role="answer-meta"></div>
+                            </div>
+
+                            <div class="ai-chat-head-actions">
+                                <a href="{:url('ai/setting/index')}" class="btn btn-default addtabsit"><i class="fa fa-sliders"></i> 管理 AI 配置</a>
+                                <button type="button" class="btn btn-default" data-action="clear"><i class="fa fa-trash-o"></i> 清空会话</button>
+                            </div>
+                        </div>
+
+                        <div class="ai-status-strip">
+                            <div class="ai-status-card">
+                                <div class="ai-block-title">AI 服务状态</div>
+                                <div class="ai-status-top">
+                                    <div>
+                                        <div class="ai-status-name" data-role="setting-name">正在读取模型配置...</div>
+                                        <div class="ai-meta" data-role="setting-meta">请稍候</div>
+                                    </div>
+                                    <span class="label label-default" data-role="setting-badge">检测中</span>
                                 </div>
-                                <span class="label label-default" data-role="setting-badge">检测中</span>
+
+                                <div class="ai-status-actions">
+                                    <a href="{:url('ai/setting/index')}" class="btn btn-default btn-sm addtabsit"><i class="fa fa-cog"></i> 到 AI 配置维护</a>
+                                    <button type="button" class="btn btn-default btn-sm" data-action="reload"><i class="fa fa-refresh"></i> 刷新状态</button>
+                                </div>
                             </div>
-                            <div class="form-group" style="margin-bottom:10px;">
-                                <label class="control-label" style="display:block;margin-bottom:6px;">当前模型</label>
-                                <select class="form-control" data-role="setting-select">
-                                    <option value="">默认模型</option>
-                                </select>
-                            </div>
-                            <div class="btn-group">
-                                <a href="{:url('ai/setting/index')}" class="btn btn-primary addtabsit">
-                                    <i class="fa fa-sliders"></i> AI 配置
-                                </a>
-                                <a href="{:url('ai/setting/add')}" class="btn btn-default btn-dialog" data-area='["72%","86%"]'>
-                                    <i class="fa fa-plus"></i> 新增模型
-                                </a>
-                            </div>
-                            <div class="ai-sidebar-section">
-                                <div class="ai-sidebar-section-title">上下文来源</div>
-                                <ul class="ai-context-list" data-role="context-list"></ul>
-                            </div>
-                            <div class="ai-sidebar-section">
-                                <div class="ai-sidebar-section-title">常用入口</div>
-                                <div class="ai-link-list" data-role="workspace-actions"></div>
+
+                            <div class="ai-status-card">
+                                <div class="ai-block-title">本次对话模式</div>
+                                <div class="ai-mode-switch">
+                                    <button type="button" class="btn btn-primary" data-mode="quick">快速模式</button>
+                                    <button type="button" class="btn btn-default" data-mode="deep">深度模式</button>
+                                </div>
+                                <div class="ai-meta" data-role="mode-hint" style="margin-top:10px;">快速模式只带轻量上下文，仍调用系统默认大模型，不是本地离线模型；适合在完整对话页里快问快答。</div>
+
+                                <div style="margin-top:12px;">
+                                    <div class="ai-block-title" style="margin-bottom:6px;">当前关注</div>
+                                    <div class="ai-chip-row" data-role="focuses"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="ai-panel">
-                        <div class="ai-panel-body">
-                            <h4 class="ai-title" style="font-size:16px;">分析视角</h4>
-                            <div class="ai-desc" data-role="focus-desc">先选择你想让 AI 聚焦的业务范围，再提问。</div>
-                            <div class="ai-chip-group" data-role="focuses"></div>
+                    <div class="ai-task-banner" data-role="task-state-wrap">
+                        <span class="ai-task-badge" data-role="task-state-badge">后台中</span>
+                        <div class="ai-task-copy">
+                            <strong data-role="task-state-title">AI 后台任务</strong>
+                            <div class="ai-meta" data-role="task-state-text">当前分析会在后台继续执行，你可以继续浏览其他页面。</div>
                         </div>
                     </div>
 
-                    <div class="ai-panel">
-                        <div class="ai-panel-body">
-                            <h4 class="ai-title" style="font-size:16px;">业务入口</h4>
-                            <div class="ai-desc">问完以后，可以直接回对应工作台继续处理。</div>
-                            <div class="ai-desc">常用入口已合并到上方模型卡，减少左侧重复信息。</div>
-                        </div>
+                    <div class="ai-chat-body" data-role="messages"></div>
+
+                    <div class="ai-chat-actions" data-role="action-suggestions-wrap">
+                        <div class="ai-chat-actions-title">AI 还可以继续帮你处理</div>
+                        <div class="ai-quick-list" data-role="action-suggestions"></div>
                     </div>
 
-                    <div class="ai-panel">
-                        <div class="ai-panel-body">
-                            <h4 class="ai-title" style="font-size:16px;">常用分析</h4>
-                            <div class="ai-desc">这些预设会自动带上经营上下文，适合直接开问。</div>
-                            <div class="ai-desc">常用分析已移到右侧主工作区。</div>
+                    <div class="ai-composer">
+                        <div class="ai-composer-top">
+                            <div>
+                                <div class="ai-block-title">直接输入问题</div>
+                                <div class="ai-meta">支持连续追问，使用 <code>Ctrl + Enter</code> 快速发送。</div>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-action="send"><i class="fa fa-send"></i> 发送问题</button>
+                        </div>
+
+                        <textarea class="form-control" data-role="prompt" placeholder="例如：请结合回款、研发排期和项目反馈，告诉我今天最该先推进的 3 件事。"></textarea>
+
+                        <div class="ai-example-wrap">
+                            <div class="ai-example-label">常用提问</div>
+                            <div class="ai-quick-list" data-role="examples"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="ai-main">
-                    <div class="ai-panel">
-                        <div class="ai-panel-body">
-                            <h3 class="ai-title">经营助手工作台</h3>
-                            <div class="ai-desc">直接问经营、财务、项目、APP 运营、合同审批问题，系统会把当前台账数据一起送给模型。</div>
-                            <div class="ai-summary-grid" data-role="summary-cards"></div>
-                        </div>
+                <div class="ai-side">
+                    <div class="ai-side-panel">
+                        <h3 class="ai-section-title">常用分析</h3>
+                        <div class="ai-meta">点一下就按当前业务上下文直接提问。</div>
+                        <div class="ai-chip-row" data-role="presets" style="margin-top:12px;"></div>
                     </div>
 
-                    <div class="ai-panel ai-preset-panel">
-                        <div class="ai-panel-body">
-                            <h4 class="ai-title" style="font-size:16px;">甯哥敤鍒嗘瀽</h4>
-                            <div class="ai-desc">杩欎簺棰勮浼氳嚜鍔ㄥ甫涓婄粡钀ヤ笂涓嬫枃锛岄€傚悎鐩存帴寮€闂€?/div>
-                            <div class="ai-chip-group" data-role="presets"></div>
-                        </div>
+                    <div class="ai-side-panel">
+                        <h3 class="ai-section-title">业务快照</h3>
+                        <div class="ai-meta">AI 会自动带入这些业务摘要来辅助判断。</div>
+                        <div class="ai-summary-grid" data-role="summary-cards" style="margin-top:12px;"></div>
                     </div>
 
-                    <div class="ai-panel ai-chat">
-                        <div class="ai-chat-toolbar">
-                            <div>
-                                <div class="ai-title" style="margin-bottom:4px;font-size:16px;">会话区</div>
-                                <div class="ai-meta" data-role="chat-hint">适合直接问：今天先处理什么、哪几个回款最危险、哪个项目最容易失控。</div>
-                            </div>
-                            <button type="button" class="btn btn-default" data-action="clear">
-                                <i class="fa fa-trash-o"></i> 清空会话
-                            </button>
-                        </div>
-                        <div class="ai-chat-body" data-role="messages"></div>
-                        <div class="ai-chat-actions" data-role="action-suggestions-wrap">
-                            <div class="ai-chat-actions-title">AI 可以继续帮你处理</div>
-                            <div class="ai-quick-list" data-role="action-suggestions"></div>
-                        </div>
-                        <div class="ai-composer">
-                            <textarea class="form-control" data-role="prompt" placeholder="例如：请结合审批、回款、项目和 APP 问题，告诉我今天必须先处理的 5 件事。"></textarea>
-                            <div class="ai-composer-actions">
-                                <div class="ai-quick-list" data-role="examples"></div>
-                                <button type="button" class="btn btn-primary" data-action="send">
-                                    <i class="fa fa-send"></i> 发送给 AI
-                                </button>
-                            </div>
-                            <div class="ai-meta" style="margin-top:10px;">支持连续追问，使用 <code>Ctrl + Enter</code> 快速发送。</div>
-                        </div>
+                    <div class="ai-side-panel">
+                        <h3 class="ai-section-title">业务入口</h3>
+                        <div class="ai-meta">AI 给出结论后，可以直接跳回对应模块继续处理。</div>
+                        <div class="ai-link-list" data-role="workspace-actions" style="margin-top:12px;"></div>
+                    </div>
+
+                    <div class="ai-side-panel">
+                        <h3 class="ai-section-title">已带入上下文</h3>
+                        <div class="ai-meta" data-role="focus-desc">这些数据会跟着本次对话一起分析。</div>
+                        <ul class="ai-context-list" data-role="context-list" style="margin-top:12px;"></ul>
                     </div>
                 </div>
             </div>

@@ -2,8 +2,8 @@
 
 return [
     'Legacy_id' => '旧系统ID',
-    'App_project_legacy_id' => 'APP项目旧ID',
-    'App_project_id' => '所属APP项目',
+    'App_project_legacy_id' => '项目旧ID',
+    'App_project_id' => '所属运营项目',
     'Version' => '版本号',
     'Title' => '发布标题',
     'Status' => '发布状态',

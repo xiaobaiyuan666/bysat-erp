@@ -187,11 +187,11 @@ return [
     'Status unknown, please manually change the status'     => '状态未知，请手动修改开关状态',
     //菜单
     'Dashboard'                                             => '控制台',
-    'General'                                               => '常规管理',
+    'General'                                               => '系统设置',
     'Category'                                              => '分类管理',
     'Addon'                                                 => '插件管理',
     'Auth'                                                  => '权限管理',
-    'Config'                                                => '系统配置',
+    'Config'                                                => '基础设置',
     'Attachment'                                            => '附件管理',
     'Admin'                                                 => '管理员管理',
     'Admin log'                                             => '管理员日志',

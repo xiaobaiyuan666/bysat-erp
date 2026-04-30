@@ -24,60 +24,62 @@ $pdo = new PDO(
 $now = time();
 
 $menuNodes = [
-    ['name' => 'dashboard', 'parent' => null, 'title' => 'AI 指挥台', 'icon' => 'fa fa-dashboard', 'remark' => 'AI 驱动的企业 ERP 智能管理首页。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 120],
-
+    ['name' => 'dashboard', 'parent' => null, 'title' => 'AI 指挥台', 'icon' => 'fa fa-dashboard', 'remark' => '企业 ERP AI 智能管理首页。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 120],
     ['name' => 'ai', 'parent' => null, 'title' => 'AI 中枢', 'icon' => 'fa fa-comments-o', 'remark' => 'AI 工作台和模型配置。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 115],
-    ['name' => 'ai/conversation', 'parent' => 'ai', 'title' => 'AI 工作台', 'icon' => 'fa fa-comments-o', 'remark' => '结合财务、项目、APP 和客户合同数据做分析。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
-    ['name' => 'ai/setting', 'parent' => 'ai', 'title' => 'AI 配置', 'icon' => 'fa fa-sliders', 'remark' => '维护模型配置、推荐模型和连通性测试。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
+    ['name' => 'ai/conversation', 'parent' => 'ai', 'title' => 'AI 工作台', 'icon' => 'fa fa-comments-o', 'remark' => '结合财务、项目、客户和项目运营数据做分析。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
+    ['name' => 'ai/setting', 'parent' => 'ai', 'title' => 'AI 配置', 'icon' => 'fa fa-sliders', 'remark' => '维护模型配置和联通测试。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
 
     ['name' => 'finance', 'parent' => null, 'title' => '财务中心', 'icon' => 'fa fa-rmb', 'remark' => '流水、应收应付和财务工作台。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 110],
-    ['name' => 'finance/workbench', 'parent' => 'finance', 'title' => '财务工作台', 'icon' => 'fa fa-dashboard', 'remark' => '先处理待回款、待付款和待补附件。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
+    ['name' => 'finance/workbench', 'parent' => 'finance', 'title' => '财务工作台', 'icon' => 'fa fa-dashboard', 'remark' => '优先处理回款、付款和附件补传。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
     ['name' => 'finance/transaction', 'parent' => 'finance', 'title' => '资金流水', 'icon' => 'fa fa-exchange', 'remark' => '记录收入、支出和资金往来。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
-    ['name' => 'finance/invoice', 'parent' => 'finance', 'title' => '应收应付', 'icon' => 'fa fa-file-text-o', 'remark' => '跟进回款、付款和逾期单据。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
+    ['name' => 'finance/invoice', 'parent' => 'finance', 'title' => '应收应付', 'icon' => 'fa fa-file-text-o', 'remark' => '统一跟进回款、付款和逾期单据。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
 
-    ['name' => 'business', 'parent' => null, 'title' => '客户与合同', 'icon' => 'fa fa-handshake-o', 'remark' => '客户、供应商、合同、审批和采购付款主线。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 105],
-    ['name' => 'business/workbench', 'parent' => 'business', 'title' => '采购工作台', 'icon' => 'fa fa-dashboard', 'remark' => '集中处理采购审批、对账、结算、到票和付款计划。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 28],
-    ['name' => 'business/customer', 'parent' => 'business', 'title' => '客户档案', 'icon' => 'fa fa-address-book-o', 'remark' => '统一维护客户资料和负责人。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
+    ['name' => 'business', 'parent' => null, 'title' => '客户与合同', 'icon' => 'fa fa-handshake-o', 'remark' => '客户、采购、合同与审批主线。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 105],
+    ['name' => 'business/workbench', 'parent' => 'business', 'title' => '业务工作台', 'icon' => 'fa fa-dashboard', 'remark' => '集中处理客户、采购和付款审批。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 28],
+    ['name' => 'business/customer', 'parent' => 'business', 'title' => '客户档案', 'icon' => 'fa fa-address-book-o', 'remark' => '维护客户资料和负责人。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
     ['name' => 'business/customer_followup', 'parent' => 'business', 'title' => '客户跟进', 'icon' => 'fa fa-commenting-o', 'remark' => '记录沟通结果、下次跟进和回款推进。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 25],
-    ['name' => 'business/supplier', 'parent' => 'business', 'title' => '供应商档案', 'icon' => 'fa fa-truck', 'remark' => '维护供应商资料、结算信息和负责人。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 24],
-    ['name' => 'business/purchase_order', 'parent' => 'business', 'title' => '采购单', 'icon' => 'fa fa-shopping-cart', 'remark' => '管理供应商采购、服务采购和采购付款联动。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 23],
-    ['name' => 'business/purchase_reconciliation', 'parent' => 'business', 'title' => '采购对账', 'icon' => 'fa fa-random', 'remark' => '核对采购金额、付款计划和供应商对账结果。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 22],
+    ['name' => 'business/supplier', 'parent' => 'business', 'title' => '供应商档案', 'icon' => 'fa fa-truck', 'remark' => '维护供应商资料和结算信息。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 24],
+    ['name' => 'business/purchase_order', 'parent' => 'business', 'title' => '采购单', 'icon' => 'fa fa-shopping-cart', 'remark' => '管理采购、外包和付款联动。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 23],
+    ['name' => 'business/purchase_reconciliation', 'parent' => 'business', 'title' => '采购对账', 'icon' => 'fa fa-random', 'remark' => '核对采购金额和供应商对账结果。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 22],
     ['name' => 'business/purchase_settlement', 'parent' => 'business', 'title' => '采购结算', 'icon' => 'fa fa-balance-scale', 'remark' => '跟进采购对账、结算和票据状态。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 21],
-    ['name' => 'business/purchase_invoice', 'parent' => 'business', 'title' => '采购发票', 'icon' => 'fa fa-file-text', 'remark' => '登记到票、验票和票据附件。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
-    ['name' => 'business/contract', 'parent' => 'business', 'title' => '合同台账', 'icon' => 'fa fa-file-text-o', 'remark' => '管理合同金额、状态、附件和关联项目。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 19],
+    ['name' => 'business/purchase_invoice', 'parent' => 'business', 'title' => '采购发票', 'icon' => 'fa fa-file-text', 'remark' => '登记到票、验票和附件。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
+    ['name' => 'business/contract', 'parent' => 'business', 'title' => '合同台账', 'icon' => 'fa fa-file-text-o', 'remark' => '管理合同金额、状态和关联项目。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 19],
     ['name' => 'business/approval', 'parent' => 'business', 'title' => '审批中心', 'icon' => 'fa fa-check-square-o', 'remark' => '统一处理合同、费用、采购和付款审批。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 18],
     ['name' => 'business/approval_template', 'parent' => 'business', 'title' => '审批模板', 'icon' => 'fa fa-sitemap', 'remark' => '配置多级审批模板和审批节点。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 17],
-    ['name' => 'business/receivable_plan', 'parent' => 'business', 'title' => '回款计划', 'icon' => 'fa fa-calendar-check-o', 'remark' => '集中跟踪合同回款节点和到账情况。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 12],
+    ['name' => 'business/receivable_plan', 'parent' => 'business', 'title' => '回款计划', 'icon' => 'fa fa-calendar-check-o', 'remark' => '跟进合同回款节点和到账情况。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 12],
     ['name' => 'business/expense_request', 'parent' => 'business', 'title' => '费用申请', 'icon' => 'fa fa-money', 'remark' => '提交采购、投放、外包等费用申请。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 8],
-    ['name' => 'business/payment_request', 'parent' => 'business', 'title' => '付款申请', 'icon' => 'fa fa-credit-card-alt', 'remark' => '集中处理采购结算后的付款申请、审批和付款动作。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 7],
-    ['name' => 'business/payment_plan', 'parent' => 'business', 'title' => '付款计划', 'icon' => 'fa fa-credit-card', 'remark' => '集中跟踪合同成本、供应商和费用付款。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 5],
+    ['name' => 'business/payment_request', 'parent' => 'business', 'title' => '付款申请', 'icon' => 'fa fa-credit-card-alt', 'remark' => '处理采购结算后的付款申请。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 7],
+    ['name' => 'business/payment_plan', 'parent' => 'business', 'title' => '付款计划', 'icon' => 'fa fa-credit-card', 'remark' => '统一跟踪合同成本、供应商和费用付款。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 5],
 
     ['name' => 'project', 'parent' => null, 'title' => '项目交付', 'icon' => 'fa fa-briefcase', 'remark' => '项目台账和任务清单。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 100],
-    ['name' => 'project/workbench', 'parent' => 'project', 'title' => '项目工作台', 'icon' => 'fa fa-dashboard', 'remark' => '先处理逾期、阻塞和待验收任务。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
+    ['name' => 'project/workbench', 'parent' => 'project', 'title' => '项目工作台', 'icon' => 'fa fa-dashboard', 'remark' => '优先处理逾期、阻塞和待验收任务。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
     ['name' => 'project/project', 'parent' => 'project', 'title' => '项目台账', 'icon' => 'fa fa-folder-open', 'remark' => '查看项目状态、负责人和交付进度。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
     ['name' => 'project/task', 'parent' => 'project', 'title' => '任务清单', 'icon' => 'fa fa-tasks', 'remark' => '查看逾期、进行中和阻塞任务。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
 
-    ['name' => 'app', 'parent' => null, 'title' => 'APP 运营', 'icon' => 'fa fa-mobile', 'remark' => '问题、研发联动、版本发布和资料中心。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 90],
-    ['name' => 'app/workbench', 'parent' => 'app', 'title' => 'APP 工作台', 'icon' => 'fa fa-dashboard', 'remark' => '问题记录、研发联动、版本发布统一入口。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 80],
-    ['name' => 'app/project', 'parent' => 'app', 'title' => 'APP 台账', 'icon' => 'fa fa-table', 'remark' => '查看 APP 生命周期、版本和负责人。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 70],
-    ['name' => 'app/issue', 'parent' => 'app', 'title' => '问题记录', 'icon' => 'fa fa-bug', 'remark' => '客服反馈、Bug 和领导意见统一收口。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 60],
+    ['name' => 'app', 'parent' => null, 'title' => '项目运营', 'icon' => 'fa fa-mobile', 'remark' => '问题、研发联动、发版和资料中心。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 90],
+    ['name' => 'app/workbench', 'parent' => 'app', 'title' => '项目运营工作台', 'icon' => 'fa fa-dashboard', 'remark' => '问题记录、研发联动、版本发布统一入口。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 80],
+    ['name' => 'app/project', 'parent' => 'app', 'title' => '项目台账', 'icon' => 'fa fa-table', 'remark' => '查看项目生命周期、版本和负责人。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 70],
+    ['name' => 'app/issue', 'parent' => 'app', 'title' => '问题记录', 'icon' => 'fa fa-bug', 'remark' => '客服反馈、Bug 和产品意见统一收口。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 60],
     ['name' => 'app/issue_followup', 'parent' => 'app', 'title' => '问题跟进', 'icon' => 'fa fa-commenting-o', 'remark' => '记录问题处理过程和客户回告。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 55],
     ['name' => 'app/tech_ticket', 'parent' => 'app', 'title' => '研发联动', 'icon' => 'fa fa-code-fork', 'remark' => 'Bug、升级和优化需求统一流转。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 50],
     ['name' => 'app/release', 'parent' => 'app', 'title' => '版本发布', 'icon' => 'fa fa-rocket', 'remark' => '测试、发布、回滚和客户回告。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
     ['name' => 'app/material', 'parent' => 'app', 'title' => '内部资料', 'icon' => 'fa fa-folder-open-o', 'remark' => '资料下载、适用版本和归档状态。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 35],
     ['name' => 'app/milestone', 'parent' => 'app', 'title' => '里程碑', 'icon' => 'fa fa-flag-checkered', 'remark' => '维护关键节点和交付节奏。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
-    ['name' => 'app/report', 'parent' => 'app', 'title' => '运营周报', 'icon' => 'fa fa-line-chart', 'remark' => '记录每周运营进展和结论。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
-    ['name' => 'app/risk', 'parent' => 'app', 'title' => '风险问题', 'icon' => 'fa fa-exclamation-triangle', 'remark' => '统一跟踪运营风险和异常问题。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
+    ['name' => 'app/report', 'parent' => 'app', 'title' => '项目汇报', 'icon' => 'fa fa-line-chart', 'remark' => '记录项目推进、阶段总结和下步动作。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
+    ['name' => 'app/risk', 'parent' => 'app', 'title' => '风险问题', 'icon' => 'fa fa-exclamation-triangle', 'remark' => '统一跟踪运营风险和异常。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
 
     ['name' => 'staff', 'parent' => null, 'title' => '人员与权限', 'icon' => 'fa fa-users', 'remark' => '员工档案、操作日志和权限管理。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 70],
-    ['name' => 'staff/profile', 'parent' => 'staff', 'title' => '员工档案', 'icon' => 'fa fa-id-card-o', 'remark' => '维护员工账号、岗位、部门和角色组。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
+    ['name' => 'staff/profile', 'parent' => 'staff', 'title' => '员工档案', 'icon' => 'fa fa-id-card-o', 'remark' => '维护员工账号、岗位、部门和权限组。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
     ['name' => 'staff/audit', 'parent' => 'staff', 'title' => '操作日志', 'icon' => 'fa fa-history', 'remark' => '查看谁新增、修改和删除了什么。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
 
-    ['name' => 'general', 'parent' => null, 'title' => '系统资料', 'icon' => 'fa fa-paperclip', 'remark' => '统一查看系统附件和业务资料。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 60],
+    ['name' => 'general', 'parent' => null, 'title' => '系统设置', 'icon' => 'fa fa-cogs', 'remark' => '系统展示、模块开关、在线更新和附件管理。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 60],
+    ['name' => 'general/config', 'parent' => 'general', 'title' => '基础设置', 'icon' => 'fa fa-cog', 'remark' => '维护系统名称、Logo、官网入口和登录页展示。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
+    ['name' => 'general/module', 'parent' => 'general', 'title' => '模块中心', 'icon' => 'fa fa-puzzle-piece', 'remark' => '控制项目运营等业务开关。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
+    ['name' => 'general/upgrade', 'parent' => 'general', 'title' => '在线更新', 'icon' => 'fa fa-cloud-download', 'remark' => '检查 GitHub 更新、自动备份并执行在线更新。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 15],
     ['name' => 'general/attachment', 'parent' => 'general', 'title' => '附件中心', 'icon' => 'fa fa-paperclip', 'remark' => '查看票据、图片、附件和上传记录。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
 
     ['name' => 'auth', 'parent' => null, 'title' => '系统权限', 'icon' => 'fa fa-lock', 'remark' => '后台账号、权限组和规则节点。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 50],
-    ['name' => 'auth/admin', 'parent' => 'auth', 'title' => '后台账号', 'icon' => 'fa fa-user-secret', 'remark' => '后台登录账号和所属权限组。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
+    ['name' => 'auth/admin', 'parent' => 'auth', 'title' => '后台账号', 'icon' => 'fa fa-user-secret', 'remark' => '维护后台登录账号和所属权限组。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 40],
     ['name' => 'auth/adminlog', 'parent' => 'auth', 'title' => '登录日志', 'icon' => 'fa fa-sign-in', 'remark' => '查看后台登录和访问轨迹。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 30],
     ['name' => 'auth/group', 'parent' => 'auth', 'title' => '权限组', 'icon' => 'fa fa-object-group', 'remark' => '按岗位维护模块权限。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 20],
     ['name' => 'auth/rule', 'parent' => 'auth', 'title' => '规则节点', 'icon' => 'fa fa-list-alt', 'remark' => '查看系统菜单和权限节点。', 'ismenu' => 1, 'type' => 'menu', 'weigh' => 10],
@@ -85,15 +87,12 @@ $menuNodes = [
 
 $resourceSets = [
     ['name' => 'dashboard', 'parent' => 'dashboard', 'actions' => viewActions('AI 指挥台')],
-
     ['name' => 'ai/conversation', 'parent' => 'ai/conversation', 'actions' => aiConversationActions()],
     ['name' => 'ai/setting', 'parent' => 'ai/setting', 'actions' => aiSettingActions()],
-
     ['name' => 'finance/workbench', 'parent' => 'finance/workbench', 'actions' => financeWorkbenchActions()],
-    ['name' => 'finance/transaction', 'parent' => 'finance/transaction', 'actions' => crudActions('资金流水')],
-    ['name' => 'finance/invoice', 'parent' => 'finance/invoice', 'actions' => crudActions('应收应付')],
-
-    ['name' => 'business/workbench', 'parent' => 'business/workbench', 'actions' => viewActions('采购工作台')],
+    ['name' => 'finance/transaction', 'parent' => 'finance/transaction', 'actions' => financeTransactionActions()],
+    ['name' => 'finance/invoice', 'parent' => 'finance/invoice', 'actions' => financeInvoiceActions()],
+    ['name' => 'business/workbench', 'parent' => 'business/workbench', 'actions' => viewActions('业务工作台')],
     ['name' => 'business/customer', 'parent' => 'business/customer', 'actions' => crudActions('客户档案')],
     ['name' => 'business/customer_followup', 'parent' => 'business/customer_followup', 'actions' => crudActions('客户跟进')],
     ['name' => 'business/supplier', 'parent' => 'business/supplier', 'actions' => crudActions('供应商档案')],
@@ -109,27 +108,25 @@ $resourceSets = [
     ['name' => 'business/expense_request', 'parent' => 'business/expense_request', 'actions' => expenseRequestActions()],
     ['name' => 'business/payment_request', 'parent' => 'business/payment_request', 'actions' => paymentRequestActions()],
     ['name' => 'business/payment_plan', 'parent' => 'business/payment_plan', 'actions' => crudActions('付款计划')],
-
     ['name' => 'project/workbench', 'parent' => 'project/workbench', 'actions' => viewActions('项目工作台')],
     ['name' => 'project/project', 'parent' => 'project/project', 'actions' => crudActions('项目台账')],
     ['name' => 'project/task', 'parent' => 'project/task', 'actions' => crudActions('任务清单')],
-
-    ['name' => 'app/workbench', 'parent' => 'app/workbench', 'actions' => viewActions('APP 工作台')],
-    ['name' => 'app/project', 'parent' => 'app/project', 'actions' => crudActions('APP 台账')],
+    ['name' => 'app/workbench', 'parent' => 'app/workbench', 'actions' => viewActions('项目运营工作台')],
+    ['name' => 'app/project', 'parent' => 'app/project', 'actions' => crudActions('项目台账')],
     ['name' => 'app/issue', 'parent' => 'app/issue', 'actions' => crudActions('问题记录')],
     ['name' => 'app/issue_followup', 'parent' => 'app/issue_followup', 'actions' => crudActions('问题跟进')],
     ['name' => 'app/tech_ticket', 'parent' => 'app/tech_ticket', 'actions' => crudActions('研发联动')],
     ['name' => 'app/release', 'parent' => 'app/release', 'actions' => crudActions('版本发布')],
     ['name' => 'app/material', 'parent' => 'app/material', 'actions' => crudActions('内部资料')],
     ['name' => 'app/milestone', 'parent' => 'app/milestone', 'actions' => crudActions('里程碑')],
-    ['name' => 'app/report', 'parent' => 'app/report', 'actions' => crudActions('运营周报')],
+    ['name' => 'app/report', 'parent' => 'app/report', 'actions' => crudActions('项目汇报')],
     ['name' => 'app/risk', 'parent' => 'app/risk', 'actions' => crudActions('风险问题')],
-
     ['name' => 'staff/profile', 'parent' => 'staff/profile', 'actions' => crudActions('员工档案')],
     ['name' => 'staff/audit', 'parent' => 'staff/audit', 'actions' => auditActions()],
-
+    ['name' => 'general/config', 'parent' => 'general/config', 'actions' => viewActions('基础设置')],
+    ['name' => 'general/module', 'parent' => 'general/module', 'actions' => moduleActions()],
+    ['name' => 'general/upgrade', 'parent' => 'general/upgrade', 'actions' => upgradeActions()],
     ['name' => 'general/attachment', 'parent' => 'general/attachment', 'actions' => attachmentActions()],
-
     ['name' => 'auth/admin', 'parent' => 'auth/admin', 'actions' => adminActions()],
     ['name' => 'auth/adminlog', 'parent' => 'auth/adminlog', 'actions' => adminLogActions()],
     ['name' => 'auth/group', 'parent' => 'auth/group', 'actions' => groupActions()],
@@ -139,8 +136,11 @@ $resourceSets = [
 $hiddenMenuNames = [
     'addon',
     'category',
-    'general/config',
     'general/profile',
+    'app/issue_followup',
+    'app/milestone',
+    'app/report',
+    'app/risk',
     'user',
     'user/user',
     'user/group',
@@ -174,7 +174,7 @@ try {
         $stmt->execute([$now, $name]);
     }
 
-    syncGroupRules($pdo, $prefix);
+    syncGroupRules($pdo, $prefix, $now);
     $pdo->commit();
 } catch (Throwable $e) {
     $pdo->rollBack();
@@ -268,7 +268,25 @@ function financeWorkbenchActions(): array
     $actions = viewActions('财务工作台');
     $actions['smartbookbootstrap'] = ['title' => '智能记账初始化', 'remark' => '获取智能记账初始化数据'];
     $actions['smartbook'] = ['title' => '智能记账解析', 'remark' => '解析一句话记账内容'];
-    $actions['smartbooksave'] = ['title' => '智能记账保存', 'remark' => '把智能记账草稿写入系统'];
+    $actions['smartbooksave'] = ['title' => '智能记账保存', 'remark' => '将智能记账草稿写入系统'];
+    $actions['reportprint'] = ['title' => '打印报表', 'remark' => '打印财务汇总报表'];
+    $actions['reportexport'] = ['title' => '导出报表', 'remark' => '导出财务统计 CSV'];
+
+    return $actions;
+}
+
+function financeTransactionActions(): array
+{
+    $actions = crudActions('资金流水');
+    $actions['printview'] = ['title' => '打印预览', 'remark' => '资金流水打印预览'];
+
+    return $actions;
+}
+
+function financeInvoiceActions(): array
+{
+    $actions = crudActions('应收应付');
+    $actions['printview'] = ['title' => '打印预览', 'remark' => '应收应付账单打印预览'];
 
     return $actions;
 }
@@ -278,6 +296,9 @@ function aiConversationActions(): array
     $actions = viewActions('AI 工作台');
     $actions['bootstrap'] = ['title' => '工作台初始化', 'remark' => '获取 AI 工作台初始化数据'];
     $actions['ask'] = ['title' => '发送提问', 'remark' => '向 AI 发起提问'];
+    $actions['submit'] = ['title' => '提交后台任务', 'remark' => '提交 AI 后台分析任务'];
+    $actions['run'] = ['title' => '执行后台任务', 'remark' => '执行 AI 后台分析任务'];
+    $actions['status'] = ['title' => '查询任务状态', 'remark' => '查询 AI 后台任务状态'];
     $actions['clear'] = ['title' => '清空会话', 'remark' => '清空 AI 会话记录'];
 
     return $actions;
@@ -302,6 +323,26 @@ function attachmentActions(): array
         'add' => ['title' => '上传', 'remark' => '上传附件'],
         'del' => ['title' => '删除', 'remark' => '删除附件'],
         'classify' => ['title' => '分类', 'remark' => '附件分类'],
+    ];
+}
+
+function moduleActions(): array
+{
+    return [
+        'index' => ['title' => '查看', 'remark' => '查看模块中心'],
+        'save' => ['title' => '保存开关', 'remark' => '保存模块开关配置'],
+    ];
+}
+
+function upgradeActions(): array
+{
+    return [
+        'index' => ['title' => '查看', 'remark' => '查看在线更新中心'],
+        'overview' => ['title' => '总览', 'remark' => '获取在线更新总览数据'],
+        'saveconfig' => ['title' => '保存配置', 'remark' => '保存 GitHub 更新源配置'],
+        'checkupdate' => ['title' => '检查更新', 'remark' => '检查 GitHub 是否有新版本'],
+        'startupdate' => ['title' => '执行更新', 'remark' => '创建备份后应用在线更新'],
+        'rollback' => ['title' => '回滚', 'remark' => '从更新备份回滚系统文件和数据库'],
     ];
 }
 
@@ -437,7 +478,7 @@ function findRuleId(PDO $pdo, string $prefix, string $name): int
     return $row ? (int) $row['id'] : 0;
 }
 
-function syncGroupRules(PDO $pdo, string $prefix): void
+function syncGroupRules(PDO $pdo, string $prefix, int $now): void
 {
     $nameToId = [];
     foreach ($pdo->query("SELECT id,name FROM {$prefix}auth_rule") as $row) {
@@ -445,11 +486,12 @@ function syncGroupRules(PDO $pdo, string $prefix): void
     }
 
     $groupPatterns = [
-        'ERP 财务组' => ['dashboard', 'dashboard/index', 'finance/*', 'business/*', 'general', 'general/attachment/*', 'ai', 'ai/conversation/*'],
-        'ERP 项目组' => ['dashboard', 'dashboard/index', 'project/*', 'business/*', 'general', 'general/attachment/*', 'ai', 'ai/conversation/*'],
-        'ERP 运营组' => ['dashboard', 'dashboard/index', 'business/*', 'app/*', 'general', 'general/attachment/*', 'ai', 'ai/conversation/*'],
-        'ERP 客服组' => ['dashboard', 'dashboard/index', 'app/workbench*', 'app/project*', 'app/issue*', 'app/issue_followup*', 'app/material*', 'app/release', 'app/release/index', 'app/release/edit', 'ai', 'ai/conversation/*', 'general', 'general/attachment/*'],
-        'ERP 技术组' => ['dashboard', 'dashboard/index', 'app/workbench*', 'app/issue*', 'app/issue_followup*', 'app/tech_ticket*', 'app/release*', 'project/workbench*', 'project/task*', 'ai', 'ai/conversation/*'],
+        'ERP 财务组' => ['dashboard', 'dashboard/index', 'ai', 'ai/conversation/*', 'finance', 'finance/*', 'business', 'business/*', 'general', 'general/attachment/*'],
+        'ERP 项目组' => ['dashboard', 'dashboard/index', 'ai', 'ai/conversation/*', 'project', 'project/*', 'business', 'business/*', 'general', 'general/attachment/*'],
+        'ERP 运营组' => ['dashboard', 'dashboard/index', 'ai', 'ai/conversation/*', 'business', 'business/*', 'app', 'app/*', 'general', 'general/attachment/*'],
+        'ERP 客服组' => ['dashboard', 'dashboard/index', 'ai', 'ai/conversation/*', 'app', 'app/workbench*', 'app/project*', 'app/issue*', 'app/issue_followup*', 'app/material*', 'app/release', 'app/release/index', 'app/release/edit', 'general', 'general/attachment/*'],
+        'ERP 技术组' => ['dashboard', 'dashboard/index', 'ai', 'ai/conversation/*', 'app', 'app/workbench*', 'app/issue*', 'app/issue_followup*', 'app/tech_ticket*', 'app/release*', 'project', 'project/workbench*', 'project/task*'],
+        'ERP 公司组' => ['dashboard', 'dashboard/index', 'ai', 'ai/*', 'finance', 'finance/*', 'business', 'business/*', 'project', 'project/*', 'app', 'app/*', 'staff', 'staff/*', 'general', 'general/*', 'auth', 'auth/*'],
         'ERP 只读组' => [
             'dashboard', 'dashboard/index',
             'ai', 'ai/conversation', 'ai/conversation/index',
@@ -457,18 +499,33 @@ function syncGroupRules(PDO $pdo, string $prefix): void
             'business', 'business/workbench', 'business/workbench/index', 'business/customer', 'business/customer/index', 'business/customer_followup', 'business/customer_followup/index', 'business/supplier', 'business/supplier/index', 'business/purchase_order', 'business/purchase_order/index', 'business/purchase_reconciliation', 'business/purchase_reconciliation/index', 'business/purchase_settlement', 'business/purchase_settlement/index', 'business/purchase_invoice', 'business/purchase_invoice/index', 'business/contract', 'business/contract/index', 'business/approval', 'business/approval/index', 'business/receivable_plan', 'business/receivable_plan/index', 'business/expense_request', 'business/expense_request/index', 'business/payment_request', 'business/payment_request/index', 'business/payment_plan', 'business/payment_plan/index',
             'project', 'project/workbench', 'project/workbench/index', 'project/project', 'project/project/index', 'project/task', 'project/task/index',
             'app', 'app/workbench', 'app/workbench/index', 'app/project', 'app/project/index', 'app/issue', 'app/issue/index', 'app/issue_followup', 'app/issue_followup/index', 'app/tech_ticket', 'app/tech_ticket/index', 'app/release', 'app/release/index', 'app/material', 'app/material/index', 'app/milestone', 'app/milestone/index', 'app/report', 'app/report/index', 'app/risk', 'app/risk/index',
-            'general', 'general/attachment', 'general/attachment/index',
+            'general', 'general/config', 'general/config/index', 'general/attachment', 'general/attachment/index',
         ],
     ];
 
     foreach ($groupPatterns as $groupName => $patterns) {
+        ensureAuthGroup($pdo, $prefix, $groupName, $now);
         $ids = resolveRuleIds($patterns, $nameToId);
         if (empty($ids)) {
             continue;
         }
-        $stmt = $pdo->prepare("UPDATE {$prefix}auth_group SET rules = ? WHERE name = ?");
-        $stmt->execute([implode(',', $ids), $groupName]);
+
+        $stmt = $pdo->prepare("UPDATE {$prefix}auth_group SET rules = ?, updatetime = ?, status = 'normal' WHERE name = ?");
+        $stmt->execute([implode(',', $ids), $now, $groupName]);
     }
+}
+
+function ensureAuthGroup(PDO $pdo, string $prefix, string $groupName, int $now): void
+{
+    $stmt = $pdo->prepare("SELECT id FROM {$prefix}auth_group WHERE name = ? LIMIT 1");
+    $stmt->execute([$groupName]);
+    $row = $stmt->fetch();
+    if ($row) {
+        return;
+    }
+
+    $insert = $pdo->prepare("INSERT INTO {$prefix}auth_group (`pid`,`name`,`rules`,`createtime`,`updatetime`,`status`) VALUES (0, ?, '', ?, ?, 'normal')");
+    $insert->execute([$groupName, $now, $now]);
 }
 
 function resolveRuleIds(array $patterns, array $nameToId): array

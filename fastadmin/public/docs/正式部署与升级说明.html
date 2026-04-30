@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>正式部署与升级说明</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --panel: #ffffff;
+            --line: #dbe4f0;
+            --text: #1f2d3d;
+            --muted: #607083;
+            --brand: #2468f2;
+            --soft: #eef4ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: linear-gradient(180deg, #eef3fb 0%, #f8fbff 100%);
+        }
+
+        .shell {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 32px 20px 48px;
+        }
+
+        .hero,
+        .section {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 18px 48px rgba(25, 48, 91, 0.08);
+        }
+
+        .hero {
+            padding: 28px;
+            background: linear-gradient(135deg, #f8fbff 0%, #edf4ff 52%, #ffffff 100%);
+        }
+
+        .section {
+            margin-top: 18px;
+            padding: 24px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(36, 104, 242, 0.12);
+            color: var(--brand);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 16px 0 10px;
+            font-size: 34px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            margin: 0 0 16px;
+            font-size: 22px;
+        }
+
+        p,
+        li {
+            line-height: 1.75;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #fbfdff;
+        }
+
+        .card strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        ul,
+        ol {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .notice {
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: var(--soft);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            border-color: var(--brand);
+            background: var(--brand);
+            color: #fff;
+        }
+
+        @media (max-width: 860px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <section class="hero">
+        <span class="tag">正式环境交付</span>
+        <h1>正式部署与升级说明</h1>
+        <p class="muted">适用于 ERP AI 管理系统正式版。</p>
+        <p>正式环境建议采用完整部署包首次安装，后续小版本升级使用 Patch 包或系统内在线更新。数据库更新必须走迁移链路，不建议直接手工覆盖线上库。</p>
+        <div class="actions">
+            <a class="btn btn-primary" href="../install.php" target="_blank" rel="noopener">打开安装器</a>
+            <a class="btn" href="./首次使用说明.html" target="_blank" rel="noopener">查看首次使用说明</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>推荐环境</h2>
+        <div class="grid">
+            <div class="card">
+                <strong>Web / PHP</strong>
+                <span class="muted"><code>PHP 8.1</code> 或 <code>8.2</code>，站点根目录必须指向 <code>fastadmin/public</code>。</span>
+            </div>
+            <div class="card">
+                <strong>数据库</strong>
+                <span class="muted"><code>MySQL 5.7+</code> 或 <code>8.0+</code>，正式环境建议单独数据库。</span>
+            </div>
+            <div class="card">
+                <strong>必备扩展</strong>
+                <span class="muted"><code>pdo_mysql</code>、<code>curl</code>、<code>fileinfo</code>、<code>mbstring</code>、<code>json</code>、<code>bcmath</code></span>
+            </div>
+            <div class="card">
+                <strong>运维建议</strong>
+                <span class="muted">正式上线前，建议在宝塔保留整站快照和数据库备份。</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>安装策略</h2>
+        <ol>
+            <li>新环境首次上线：使用完整正式包，安装模式选择 <code>clean</code>。</li>
+            <li>演示、培训或内部体验：可选择 <code>demo</code> 模式。</li>
+            <li>日常小版本升级：优先使用 Patch 包或在线更新。</li>
+            <li>跨版本或重大升级：建议先做库快照，再使用完整包。</li>
+        </ol>
+    </section>
+
+    <section class="section">
+        <h2>在线更新策略</h2>
+        <div class="notice">
+            系统内已支持检查更新、代码备份、数据库 SQL 备份、数据库迁移账本和一键回滚。正式环境建议先在测试环境演练一次升级与回滚，再执行线上更新。
+        </div>
+        <div class="grid" style="margin-top:14px;">
+            <div class="card">
+                <strong>完整包</strong>
+                <span class="muted">适合首次部署、跨版本升级、故障恢复和整站重装。</span>
+            </div>
+            <div class="card">
+                <strong>Patch 包</strong>
+                <span class="muted">适合前端样式、小型功能、文案或流程类小版本更新。</span>
+            </div>
+            <div class="card">
+                <strong>数据库迁移</strong>
+                <span class="muted">版本包含迁移时，系统会先做 SQL 备份，再按迁移账本顺序执行。</span>
+            </div>
+            <div class="card">
+                <strong>回滚原则</strong>
+                <span class="muted">回滚会恢复代码备份和对应数据库备份，但仍建议保留宝塔层快照。</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>数据库迁移要求</h2>
+        <ul>
+            <li>已发布的迁移文件不要直接改内容。</li>
+            <li>需要新增结构时，创建新的 migration id。</li>
+            <li>尽量让迁移可重复执行，或兼容旧数据。</li>
+            <li>正式环境更新前，优先在测试库验证迁移结果。</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>官方说明</h2>
+        <p>登录页、后台 Logo、官网入口和版权说明均读取系统配置。</p>
+        <p>部署到不同公司时，可直接在“系统资料 -> 系统配置”中修改。</p>
+    </section>
+</div>
+</body>
+</html>

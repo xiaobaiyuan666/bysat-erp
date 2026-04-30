@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>{$title|default='财务汇总报表打印预览'}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @page {
+            size: A4;
+            margin: 12mm;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background: #f4f6f8;
+            color: #1f2d3d;
+        }
+
+        .print-shell {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .print-toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .print-toolbar button {
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #3c8dbc;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .print-toolbar button.secondary {
+            background: #7b8794;
+        }
+
+        .paper {
+            background: #fff;
+            padding: 30px 34px;
+            border-radius: 16px;
+            box-shadow: 0 10px 32px rgba(31, 45, 61, 0.08);
+        }
+
+        .paper + .paper {
+            margin-top: 16px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: flex-start;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #dce7f4;
+        }
+
+        .brand-mark {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3c8dbc 0%, #6fb1fc 100%);
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .header-main {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .company {
+            margin: 0 0 6px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .system,
+        .meta,
+        .text-muted,
+        .copyright {
+            color: #6b7b8d;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .doc-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #eef6ff;
+            color: #2f78c4;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 12px;
+        }
+
+        .section-title {
+            margin-top: 22px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .grid,
+        .alert-grid,
+        .two-col {
+            display: grid;
+            gap: 16px;
+        }
+
+        .grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            margin-top: 18px;
+        }
+
+        .alert-grid,
+        .two-col {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            margin-top: 18px;
+        }
+
+        .card,
+        .panel {
+            border: 1px solid #e6edf5;
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+            break-inside: avoid;
+        }
+
+        .card strong {
+            display: block;
+            font-size: 22px;
+            margin: 8px 0;
+        }
+
+        .alert-card.is-danger { background: #fff4f3; border-color: #ffd8d4; }
+        .alert-card.is-warning { background: #fff9ef; border-color: #ffe2b8; }
+        .alert-card.is-info { background: #f6fbff; border-color: #dcecff; }
+        .alert-card.is-ok { background: #f2fbf5; border-color: #d5f0df; }
+
+        .row {
+            padding: 12px;
+            border-radius: 10px;
+            background: #fbfdff;
+            border: 1px solid #e7eef6;
+            margin-top: 10px;
+            break-inside: avoid;
+        }
+
+        .row-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .bar {
+            margin-top: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #edf3f9;
+            overflow: hidden;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #6fb1fc 0%, #3c8dbc 100%);
+        }
+
+        .trend-chart {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid #e6eef7;
+            background: linear-gradient(180deg, #fbfdff 0%, #f5f9fe 100%);
+        }
+
+        .legend {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            color: #6b7b8d;
+            font-size: 12px;
+        }
+
+        .legend i {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border-radius: 999px;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .preview-item {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .preview-item:last-child {
+            border-bottom: 0;
+        }
+
+        .amount {
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .footer-sign {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .sign-box {
+            padding-top: 28px;
+            border-top: 1px dashed #c8d4e3;
+            color: #6b7b8d;
+            font-size: 13px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .print-shell {
+                max-width: none;
+                padding: 0;
+            }
+
+            .print-toolbar {
+                display: none;
+            }
+
+            .paper {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="print-shell">
+    <div class="print-toolbar">
+        <button type="button" onclick="window.print()">打印 / 另存为 PDF</button>
+        <button type="button" class="secondary" onclick="window.history.back()">返回</button>
+    </div>
+
+    <div class="paper">
+        <div class="header">
+            <div class="header-main">
+                <div class="brand-mark">猿</div>
+                <div>
+                    <div class="company">{$brandInfo.company_name}</div>
+                    <div class="system">{$brandInfo.system_name}</div>
+                    <div class="copyright">{$brandInfo.website} / {$brandInfo.copyright}</div>
+                </div>
+            </div>
+            <div style="text-align:right;">
+                <div class="doc-tag">财务汇总报表</div>
+                <div class="meta" style="margin-top:10px;">打印时间：{$printedAt}</div>
+                <div class="meta">当前用户：{$currentUser.name} / {$currentUser.department}</div>
+            </div>
+        </div>
+
+        <div class="section-title">核心摘要</div>
+        <div class="grid">
+            {foreach name="summaryCards" item="item"}
+            <div class="card">
+                <div class="text-muted">{$item.title}</div>
+                <strong>{$item.value}</strong>
+                <div class="text-muted">{$item.hint}</div>
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="section-title">周期快照</div>
+        <div class="grid">
+            {foreach name="reportSnapshots" item="item"}
+            <div class="card">
+                <div class="text-muted">{$item.title}</div>
+                <strong>{$item.net_text}</strong>
+                <div class="text-muted">{$item.label}</div>
+                <div class="text-muted">收入 {$item.income_text} / 支出 {$item.expense_text}</div>
+                <div class="text-muted">应收 {$item.receivable_text} / 应付 {$item.payable_text}</div>
+                <div class="text-muted">{$item.trend_text}</div>
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="section-title">风险提醒</div>
+        <div class="alert-grid">
+            {foreach name="financeAlerts" item="item"}
+            <div class="card alert-card is-{$item.level}">
+                <h3>{$item.title}</h3>
+                <div class="amount">{$item.summary}</div>
+                <div class="text-muted">{$item.detail}</div>
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="section-title">趋势图</div>
+        <div class="two-col">
+            {foreach name="trendSeries" item="item"}
+            <div class="panel">
+                <h2>{$item.title}趋势</h2>
+                <svg class="trend-chart" viewBox="{$item.view_box}" preserveAspectRatio="none">
+                    {foreach name="item.series" item="line"}
+                    <polyline fill="none" stroke="{$line.color}" stroke-width="3" points="{$line.polyline}"></polyline>
+                    {foreach name="line.points" item="point"}
+                    <circle cx="{$point.x}" cy="{$point.y}" r="3.5" fill="{$line.color}"></circle>
+                    {/foreach}
+                    {/foreach}
+                    {foreach name="item.labels" item="label"}
+                    <text x="{$label.x}" y="{$label.y}" text-anchor="middle" font-size="11" fill="#7b8794">{$label.label}</text>
+                    {/foreach}
+                </svg>
+                <div class="legend">
+                    <span><i style="background:#1d9d57;"></i>收入</span>
+                    <span><i style="background:#d93025;"></i>支出</span>
+                    <span><i style="background:#3c8dbc;"></i>净流入</span>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="section-title">账龄分层</div>
+        <div class="two-col">
+            {foreach name="agingSections" item="section"}
+            <div class="panel">
+                <h2>{$section.title}</h2>
+                <div class="text-muted">7 天内即将到期 {$section.due_soon_count} 笔 / {$section.due_soon_text}</div>
+                {foreach name="section.rows" item="row"}
+                <div class="row">
+                    <div class="row-top">
+                        <strong>{$row.label}</strong>
+                        <span>{$row.count} 笔 / {$row.amount_text}</span>
+                    </div>
+                    <div class="text-muted">{$row.hint}</div>
+                    <div class="bar"><span style="width: {$row.bar_width}%"></span></div>
+                </div>
+                {/foreach}
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="section-title">日 / 周 / 月明细</div>
+        <div class="two-col">
+            {foreach name="reportSections" item="section"}
+            <div class="panel">
+                <h2>{$section.title}</h2>
+                {foreach name="section.rows" item="row"}
+                <div class="row">
+                    <div class="row-top">
+                        <strong>{$row.label}</strong>
+                        <span>流水 {$row.transaction_count} 笔 / 账单 {$row.invoice_count} 笔</span>
+                    </div>
+                    <div class="text-muted">收入 {$row.income_text} / 支出 {$row.expense_text} / 净流入 {$row.net_text}</div>
+                    <div class="text-muted">应收 {$row.receivable_text} / 应付 {$row.payable_text}</div>
+                    <div class="text-muted">{$row.trend_text}</div>
+                    <div class="bar"><span style="width: {$row.bar_width}%"></span></div>
+                </div>
+                {/foreach}
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="section-title">最近账单与流水</div>
+        <div class="panel">
+            {foreach name="billPreview" item="item"}
+            <div class="preview-item">
+                <div>
+                    <div><strong>{$item.title}</strong></div>
+                    <div class="text-muted">{$item.badge} / {$item.type_text} / {$item.date|default='-'}</div>
+                    <div class="text-muted">{$item.meta}</div>
+                    <div class="text-muted">状态：{$item.status_text}</div>
+                </div>
+                <div class="amount">{$item.amount_text}</div>
+            </div>
+            {/foreach}
+        </div>
+
+        <div class="footer-sign">
+            <div class="sign-box">制表人签字：</div>
+            <div class="sign-box">财务负责人签字：</div>
+            <div class="sign-box">管理层确认：</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

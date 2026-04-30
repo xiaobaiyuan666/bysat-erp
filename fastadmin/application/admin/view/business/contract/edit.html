@@ -1,4 +1,6 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="erp-form-note">编辑合同时重点核对金额、状态、负责人、附件和回款进度，避免合同执行信息断层。</div>
+    <div class="erp-form-section">合同基础</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">合同名称:</label>
         <div class="col-xs-12 col-sm-8">
@@ -59,6 +61,7 @@
             <input id="c-received_total" class="form-control" step="0.01" name="row[received_total]" type="number" value="{$row.received_total|htmlentities}">
         </div>
     </div>
+    <div class="erp-form-section">周期与归属</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">签约日期:</label>
         <div class="col-xs-12 col-sm-8">
@@ -107,6 +110,7 @@
             </select>
         </div>
     </div>
+    <div class="erp-form-section">附件与备注</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">合同附件:</label>
         <div class="col-xs-12 col-sm-8">

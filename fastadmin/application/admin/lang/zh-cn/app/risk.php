@@ -2,10 +2,10 @@
 
 return [
     'Legacy_id' => '旧系统ID',
-    'App_project_legacy_id' => 'APP项目旧ID',
-    'App_project_id' => '所属APP项目',
+    'App_project_legacy_id' => '项目旧ID',
+    'App_project_id' => '所属运营项目',
     'Title' => '风险标题',
-    'Type' => '风险类型',
+    'Type' => '事项类型',
     'Type risk' => '风险',
     'Type issue' => '问题',
     'Type change' => '变更',

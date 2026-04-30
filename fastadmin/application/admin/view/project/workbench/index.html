@@ -1,4 +1,36 @@
 <style>
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .panel.panel-default.panel-intro,
+    .panel.panel-default.panel-intro > .panel-body {
+        overflow-x: hidden;
+    }
+
+    .panel.panel-default.panel-intro .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .panel.panel-default.panel-intro [class^="col-"],
+    .panel.panel-default.panel-intro [class*=" col-"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    body.inside-header.inside-aside .tab-content.tab-addtabs .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    body.inside-header.inside-aside .tab-content.tab-addtabs [class^="col-"],
+    body.inside-header.inside-aside .tab-content.tab-addtabs [class*=" col-"] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     .wb-page {
         padding: 18px;
         background: #f5f7fa;
@@ -11,6 +43,7 @@
         border: 1px solid #e8eef5;
         border-radius: 10px;
         box-shadow: 0 8px 24px rgba(31, 45, 61, 0.05);
+        min-width: 0;
     }
 
     .wb-toolbar,
@@ -118,6 +151,52 @@
         list-style: decimal;
     }
 
+    .wb-more-block {
+        margin-bottom: 16px;
+        background: #fff;
+        border: 1px solid #e8eef5;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(31, 45, 61, 0.05);
+        overflow: hidden;
+    }
+
+    .wb-more-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px 0;
+    }
+
+    .wb-more-head h3 {
+        margin: 0;
+        color: #1f2d3d;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .wb-more-head span {
+        color: #8a98a8;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .wb-more-body {
+        padding: 12px 18px 18px;
+    }
+
+    @media (max-width: 560px) {
+        .wb-more-head {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .wb-more-head span {
+            white-space: normal;
+        }
+    }
+
     .wb-card-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
@@ -136,6 +215,8 @@
     .wb-table {
         width: 100%;
         border-collapse: collapse;
+        table-layout: fixed;
+        word-break: break-word;
     }
 
     .wb-table th,
@@ -176,6 +257,63 @@
             padding: 16px;
         }
     }
+
+    /* Compact admin density. */
+    .panel.panel-default.panel-intro > .panel-heading {
+        padding: 12px 16px;
+        background: #f7f9fc;
+        border-bottom: 1px solid #e5e9f0;
+    }
+
+    .panel.panel-default.panel-intro > .panel-body {
+        padding: 12px;
+    }
+
+    .wb-page {
+        padding: 12px;
+        background: #f3f5f8;
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel,
+    .wb-more-block {
+        border-radius: 8px;
+        box-shadow: none;
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel {
+        padding: 14px;
+    }
+
+    .wb-toolbar h2,
+    .wb-panel h3 {
+        font-size: 18px;
+    }
+
+    .wb-user-card {
+        min-width: 220px;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+
+    .wb-card-grid,
+    .wb-panel-grid,
+    .wb-quick-grid {
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .wb-card-value {
+        font-size: 24px;
+    }
+
+    .wb-table th,
+    .wb-table td {
+        padding: 8px 6px;
+    }
 </style>
 
 <div class="panel panel-default panel-intro">
@@ -203,28 +341,36 @@
                 </div>
             </div>
 
-            <div class="wb-quick-grid">
-                {foreach name="quickPanels" item="panel"}
-                <div class="wb-card">
-                    <h3>{$panel.title}</h3>
-                    <p>{$panel.hint}</p>
-                    <div class="wb-actions">
-                        {foreach name="panel.items" item="item"}
-                        <a href="{$item.url}" class="btn btn-default addtabsit">{$item.title}</a>
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>更多入口和使用说明</h3>
+                    <span>低频功能集中处理</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-quick-grid">
+                        {foreach name="quickPanels" item="panel"}
+                        <div class="wb-card">
+                            <h3>{$panel.title}</h3>
+                            <p>{$panel.hint}</p>
+                            <div class="wb-actions">
+                                {foreach name="panel.items" item="item"}
+                                <a href="{$item.url}" class="btn btn-default addtabsit">{$item.title}</a>
+                                {/foreach}
+                            </div>
+                        </div>
                         {/foreach}
                     </div>
-                </div>
-                {/foreach}
-            </div>
 
-            <div class="wb-usage">
-                <div class="wb-card-value">使用说明</div>
-                <ul>
-                    {foreach name="usageGuide" item="step"}
-                    <li>{$step}</li>
-                    {/foreach}
-                </ul>
-            </div>
+                    <div class="wb-usage" style="margin-bottom:0;">
+                        <div class="wb-card-value">使用说明</div>
+                        <ul>
+                            {foreach name="usageGuide" item="step"}
+                            <li>{$step}</li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
             <div class="wb-card-grid">
                 {foreach name="summaryCards" item="item"}
@@ -297,10 +443,16 @@
                 </div>
             </div>
 
-            <div class="wb-panel-grid">
-                <div class="wb-panel">
-                    <h3>团队高风险任务</h3>
-                    <table class="wb-table">
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>团队风险和负责人负荷</h3>
+                    <span>用于排查卡点</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-panel-grid">
+                        <div class="wb-panel">
+                            <h3>团队高风险任务</h3>
+                            <table class="wb-table">
                         <thead>
                         <tr>
                             <th>任务</th>
@@ -324,12 +476,12 @@
                         <tr><td colspan="5" class="text-center text-muted">当前没有高风险任务</td></tr>
                         {/if}
                         </tbody>
-                    </table>
-                </div>
+                            </table>
+                        </div>
 
-                <div class="wb-panel">
-                    <h3>负责人负荷</h3>
-                    <table class="wb-table">
+                        <div class="wb-panel">
+                            <h3>负责人负荷</h3>
+                            <table class="wb-table">
                         <thead>
                         <tr>
                             <th>负责人</th>
@@ -351,9 +503,11 @@
                         <tr><td colspan="4" class="text-center text-muted">当前没有负责人负荷数据</td></tr>
                         {/if}
                         </tbody>
-                    </table>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>

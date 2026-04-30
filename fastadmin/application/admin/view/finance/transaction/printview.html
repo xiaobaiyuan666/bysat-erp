@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>{$title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @page { size: A4; margin: 12mm; }
+        body { margin: 0; font-family: "Microsoft YaHei", sans-serif; background: #f4f6f8; color: #1f2d3d; }
+        .shell { max-width: 860px; margin: 0 auto; padding: 24px; }
+        .toolbar { display: flex; gap: 10px; margin-bottom: 18px; }
+        .toolbar button { padding: 10px 16px; border: 0; border-radius: 8px; background: #3c8dbc; color: #fff; cursor: pointer; }
+        .toolbar button.secondary { background: #7b8794; }
+        .paper { background: #fff; padding: 28px 32px; border-radius: 16px; box-shadow: 0 10px 32px rgba(31, 45, 61, 0.08); }
+        .header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; padding-bottom: 16px; border-bottom: 2px solid #dce7f4; }
+        .company { margin: 0 0 6px; font-size: 22px; font-weight: 700; }
+        .system, .meta, .text-muted { color: #6b7b8d; font-size: 13px; line-height: 1.8; }
+        .doc-tag { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; background: #eef6ff; color: #2f78c4; font-size: 12px; font-weight: 700; }
+        .brand-mark { width: 56px; height: 56px; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3c8dbc 0%, #6fb1fc 100%); color: #fff; font-size: 22px; font-weight: 700; }
+        .header-main { display: flex; gap: 14px; align-items: center; }
+        .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; margin-top: 18px; }
+        .field { padding: 12px 0; border-bottom: 1px solid #edf2f7; }
+        .field span { display: block; color: #6b7b8d; font-size: 12px; margin-bottom: 4px; }
+        .field strong { font-size: 15px; color: #1f2d3d; }
+        .full { grid-column: 1 / -1; }
+        .footnote { margin-top: 18px; padding: 12px 14px; border-radius: 10px; background: #f7fafc; border: 1px solid #e7eef6; color: #6b7b8d; font-size: 12px; line-height: 1.8; }
+        .sign-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+        .sign-box { padding-top: 28px; border-top: 1px dashed #c8d4e3; color: #6b7b8d; font-size: 13px; }
+        @media print { body { background: #fff; } .shell { max-width: none; padding: 0; } .toolbar { display: none; } .paper { box-shadow: none; border-radius: 0; padding: 0; } }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <div class="toolbar">
+        <button type="button" onclick="window.print()">打印 / 另存为 PDF</button>
+        <button type="button" class="secondary" onclick="window.history.back()">返回</button>
+    </div>
+    <div class="paper">
+        <div class="header">
+            <div class="header-main">
+                <div class="brand-mark">猿</div>
+                <div>
+                    <div class="company">{$brandInfo.company_name}</div>
+                    <div class="system">{$brandInfo.system_name}</div>
+                    <div class="text-muted">{$brandInfo.website}</div>
+                </div>
+            </div>
+            <div style="text-align:right;">
+                <div class="doc-tag">财务流水打印单</div>
+                <div class="meta" style="margin-top:10px;">打印时间：{$printedAt}</div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="field"><span>记账日期</span><strong>{$row.transaction_date|default='-'}</strong></div>
+            <div class="field"><span>收支类型</span><strong>{$typeText}</strong></div>
+            <div class="field"><span>往来对象</span><strong>{$row.counterparty|default='-'}</strong></div>
+            <div class="field"><span>金额</span><strong>{$amountText}</strong></div>
+            <div class="field"><span>分类</span><strong>{$row.category|default='-'}</strong></div>
+            <div class="field"><span>支付方式</span><strong>{$paymentMethodText}</strong></div>
+            <div class="field"><span>所属项目</span><strong>{$row.project_name|default='-'}</strong></div>
+            <div class="field"><span>附件数量</span><strong>{$attachmentCount}</strong></div>
+            <div class="field full"><span>备注</span><strong>{$row.notes|default='-'}</strong></div>
+            <div class="field"><span>记录人</span><strong>{$row.created_by_name|default='-'}</strong></div>
+            <div class="field"><span>更新时间</span><strong>{$row.record_updated_at|default='-'}</strong></div>
+        </div>
+        <div class="footnote">说明：本打印单用于内部财务留档、台账核对和附件补齐确认。若需作为正式业务凭证，请结合审批记录、票据附件和银行回单一并留存。</div>
+        <div class="sign-row">
+            <div class="sign-box">制单人签字：</div>
+            <div class="sign-box">复核人签字：</div>
+            <div class="sign-box">负责人签字：</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -38,7 +38,7 @@ function Get-RunningProcess {
 
 function Get-AdminEntryFile {
     $candidate = Get-ChildItem -Path $public -Filter '*.php' -File |
-        Where-Object { $_.Name -notin @('index.php', 'router.php') } |
+        Where-Object { $_.Name -notin @('index.php', 'router.php', 'install.php') } |
         Sort-Object Name |
         Select-Object -First 1
 

@@ -1,11 +1,14 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-
+    <div class="alert alert-warning" style="margin:0 0 18px;">
+        风险与变更页用于统一记录项目风险、已发生问题、需求变更和外部依赖，避免散落在聊天里。
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('App_project_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-app_project_id" data-rule="required" class="form-control selectpicker" name="row[app_project_id]">
+                <option value="">请选择</option>
                 {foreach name="appProjectList" item="vo"}
-                <option value="{$key}" {in name="key" value="$row.app_project_id"}selected{/in}>{$vo}</option>
+                <option value="{$key}" {if $key==$row.app_project_id}selected{/if}>{$vo}</option>
                 {/foreach}
             </select>
         </div>
@@ -21,7 +24,7 @@
         <div class="col-xs-12 col-sm-8">
             <select id="c-type" data-rule="required" class="form-control selectpicker" name="row[type]">
                 {foreach name="typeList" item="vo"}
-                <option value="{$key}" {in name="key" value="$row.type"}selected{/in}>{$vo}</option>
+                <option value="{$key}" {if $key==$row.type}selected{/if}>{$vo}</option>
                 {/foreach}
             </select>
         </div>
@@ -31,7 +34,7 @@
         <div class="col-xs-12 col-sm-8">
             <select id="c-level" data-rule="required" class="form-control selectpicker" name="row[level]">
                 {foreach name="levelList" item="vo"}
-                <option value="{$key}" {in name="key" value="$row.level"}selected{/in}>{$vo}</option>
+                <option value="{$key}" {if $key==$row.level}selected{/if}>{$vo}</option>
                 {/foreach}
             </select>
         </div>
@@ -51,7 +54,7 @@
         <div class="col-xs-12 col-sm-8">
             <select id="c-owner_admin_id" data-rule="required" class="form-control selectpicker" name="row[owner_admin_id]">
                 {foreach name="staffList" item="vo"}
-                <option value="{$key}" {in name="key" value="$row.owner_admin_id"}selected{/in}>{$vo}</option>
+                <option value="{$key}" {if $key==$row.owner_admin_id}selected{/if}>{$vo}</option>
                 {/foreach}
             </select>
         </div>

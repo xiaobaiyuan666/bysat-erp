@@ -18,24 +18,197 @@ class AiWorkspaceService
     public function getBootstrapData(int $settingId = 0): array
     {
         $setting = $settingId > 0 ? $this->getSettingById($settingId) : $this->getDefaultSetting();
-        $contexts = [
-            'finance' => $this->buildFinanceContext(),
-            'project' => $this->buildProjectContext(),
-            'app' => $this->buildAppContext(),
-            'business' => $this->buildBusinessContext(),
-        ];
+        $contexts = $this->getContextMap();
 
         return [
             'setting' => $this->maskSetting($setting),
             'diagnostic' => $this->buildSettingDiagnostic($setting),
-            'settings' => $this->getAvailableSettings(),
             'presets' => $this->getPresets(),
             'focuses' => $this->getFocuses(),
             'examples' => $this->getExamples(),
             'summary_cards' => $this->getSummaryCards($contexts),
             'messages' => $this->getConversationMessages(),
+            'pending_task' => $this->getLatestPendingTask(),
             'context_sections' => $this->getContextSectionLabels(),
             'workspace_actions' => $this->getWorkspaceActions(),
+        ];
+    }
+
+    public function submitTask(string $prompt, string $focus = 'overview', string $presetKey = '', int $settingId = 0, array $options = []): array
+    {
+        $prompt = trim($prompt);
+        $preset = $this->getPresetByKey($presetKey);
+        $focusConfig = $this->getFocusConfig($focus);
+        $quickMode = !empty($options['quick_mode']);
+
+        if ($prompt === '' && !$preset) {
+            return [
+                'ok' => false,
+                'error' => '请输入问题，或者先点一个常用分析。',
+            ];
+        }
+
+        $setting = $settingId > 0 ? $this->getSettingById($settingId) : $this->getDefaultSetting();
+        if (!$setting || !$this->isConfigured($setting)) {
+            return [
+                'ok' => false,
+                'error' => '当前还没有可用的模型配置，请先到 AI 配置里补齐 Base URL、API Key 和模型名称。',
+                'diagnostic' => $this->buildSettingDiagnostic($setting),
+                'workspace_actions' => $this->getWorkspaceActions($focusConfig['key']),
+                'suggestions' => [],
+            ];
+        }
+
+        $adminId = $this->getCurrentAdminId();
+        if ($adminId <= 0) {
+            return [
+                'ok' => false,
+                'error' => '登录状态已失效，请刷新页面后重试。',
+            ];
+        }
+
+        $this->ensureTaskTable();
+
+        $taskId = (int) Db::name('ai_task')->insertGetId([
+            'admin_id' => $adminId,
+            'prompt' => $prompt,
+            'focus' => $focusConfig['key'],
+            'preset_key' => $preset ? (string) $preset['key'] : '',
+            'setting_id' => (int) ($setting['id'] ?? 0),
+            'quick_mode' => $quickMode ? 1 : 0,
+            'status' => 'queued',
+            'result_json' => '',
+            'error_message' => '',
+            'started_at' => null,
+            'finished_at' => null,
+            'createtime' => time(),
+            'updatetime' => time(),
+        ]);
+
+        $task = $this->getTaskRow($taskId);
+        if (!$task) {
+            return [
+                'ok' => false,
+                'error' => '任务创建失败，请稍后重试。',
+            ];
+        }
+
+        return [
+            'ok' => true,
+            'task' => $this->presentTask($task),
+            'setting' => $this->maskSetting($setting),
+            'focus' => $focusConfig,
+        ];
+    }
+
+    public function runTask(int $taskId): array
+    {
+        $this->ensureTaskTable();
+
+        $task = $this->getTaskRow($taskId);
+        if (!$task) {
+            return [
+                'ok' => false,
+                'error' => '任务不存在或已被删除。',
+            ];
+        }
+
+        if ((int) ($task['admin_id'] ?? 0) !== $this->getCurrentAdminId()) {
+            return [
+                'ok' => false,
+                'error' => '你无权执行这条 AI 任务。',
+            ];
+        }
+
+        $status = (string) ($task['status'] ?? 'queued');
+        if (in_array($status, ['done', 'failed', 'processing'], true)) {
+            return [
+                'ok' => $status !== 'failed',
+                'task' => $this->presentTask($task),
+                'result' => $this->decodeTaskResult((string) ($task['result_json'] ?? '')),
+                'error' => (string) ($task['error_message'] ?? ''),
+            ];
+        }
+
+        $affected = Db::name('ai_task')
+            ->where('id', $taskId)
+            ->where('status', 'queued')
+            ->update([
+                'status' => 'processing',
+                'started_at' => date('Y-m-d H:i:s'),
+                'error_message' => '',
+                'updatetime' => time(),
+            ]);
+
+        if (!$affected) {
+            $latest = $this->getTaskRow($taskId);
+            return [
+                'ok' => true,
+                'task' => $latest ? $this->presentTask($latest) : null,
+                'result' => $latest ? $this->decodeTaskResult((string) ($latest['result_json'] ?? '')) : null,
+            ];
+        }
+
+        @ignore_user_abort(true);
+        @set_time_limit(0);
+
+        $result = $this->ask(
+            (string) ($task['prompt'] ?? ''),
+            (string) ($task['focus'] ?? 'overview'),
+            (string) ($task['preset_key'] ?? ''),
+            (int) ($task['setting_id'] ?? 0),
+            [
+                'quick_mode' => !empty($task['quick_mode']),
+            ]
+        );
+
+        if (!empty($result['ok'])) {
+            Db::name('ai_task')
+                ->where('id', $taskId)
+                ->update([
+                    'status' => 'done',
+                    'result_json' => json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+                    'error_message' => '',
+                    'finished_at' => date('Y-m-d H:i:s'),
+                    'updatetime' => time(),
+                ]);
+        } else {
+            Db::name('ai_task')
+                ->where('id', $taskId)
+                ->update([
+                    'status' => 'failed',
+                    'result_json' => json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
+                    'error_message' => (string) ($result['error'] ?? 'AI 后台分析失败，请稍后重试。'),
+                    'finished_at' => date('Y-m-d H:i:s'),
+                    'updatetime' => time(),
+                ]);
+        }
+
+        $latest = $this->getTaskRow($taskId);
+        return [
+            'ok' => !empty($result['ok']),
+            'task' => $latest ? $this->presentTask($latest) : null,
+            'result' => $result,
+            'error' => (string) ($result['error'] ?? ''),
+        ];
+    }
+
+    public function getTaskStatus(int $taskId): array
+    {
+        $this->ensureTaskTable();
+
+        $task = $this->getTaskRow($taskId);
+        if (!$task || (int) ($task['admin_id'] ?? 0) !== $this->getCurrentAdminId()) {
+            return [
+                'ok' => false,
+                'error' => '任务不存在或你无权查看。',
+            ];
+        }
+
+        return [
+            'ok' => true,
+            'task' => $this->presentTask($task),
+            'result' => $this->decodeTaskResult((string) ($task['result_json'] ?? '')),
         ];
     }
 
@@ -180,18 +353,13 @@ class AiWorkspaceService
             }
         }
 
-        $contexts = [
-            'finance' => $this->buildFinanceContext(),
-            'project' => $this->buildProjectContext(),
-            'app' => $this->buildAppContext(),
-            'business' => $this->buildBusinessContext(),
-        ];
+        $contexts = $this->getContextMap();
         $context = [
             'generated_at' => date('Y-m-d H:i:s'),
             'focus' => $focusConfig['key'],
             'summary_cards' => $this->getSummaryCards($contexts),
         ];
-        foreach (['finance', 'project', 'app', 'business'] as $module) {
+        foreach (array_keys($contexts) as $module) {
             if ($focusConfig['key'] === 'overview' || $focusConfig['key'] === $module) {
                 $context[$module] = $contexts[$module];
             }
@@ -233,9 +401,9 @@ class AiWorkspaceService
                 $activeSetting = $candidateSetting;
                 $diagnostic = [
                     'type' => 'warning',
-                    'title' => '首页已启用快速分析模式',
-                    'message' => '为了避免首页长时间等待，本次已优先使用快模型和精简上下文完成分析。需要更完整的分析时，再进完整 AI 工作台。',
-                    'action_label' => '打开完整 AI',
+                    'title' => '已启用快速模式',
+                    'message' => '本次优先使用更快的模型和精简上下文，先给你可执行结果。如果需要更完整的分析，可以切到深度模式再问一次。',
+                    'action_label' => '继续对话',
                     'action_url' => $this->makeUrl('ai/conversation/index', ['focus' => $focusConfig['key']]),
                 ];
                 break;
@@ -248,9 +416,9 @@ class AiWorkspaceService
                     $result = $retry;
                     $diagnostic = [
                         'type' => 'warning',
-                        'title' => '已自动切到轻量分析模式',
-                        'message' => '完整业务上下文响应偏慢，本次已改用精简摘要完成回答。若你更重视速度，建议把默认模型切到更快的版本。',
-                        'action_label' => '去调整模型',
+                        'title' => '已切到精简分析',
+                        'message' => '完整上下文响应偏慢，本次已改用精简摘要完成回答。如果你更在意速度，建议把默认模型切到更快的版本。',
+                        'action_label' => '调整模型',
                         'action_url' => $this->makeUrl('ai/setting/edit', ['ids' => (int) ($setting['id'] ?? 0)]),
                     ];
                 } else {
@@ -268,7 +436,7 @@ class AiWorkspaceService
                             'type' => 'warning',
                             'title' => '主模型响应偏慢，已自动切换',
                             'message' => '当前配置的 ' . (string) ($setting['model'] ?? '主模型') . ' 没有在限定时间内返回结果，本次已临时改用 ' . $fallbackModel . ' 完成回答。建议去 AI 配置里把默认模型切到更快的版本。',
-                            'action_label' => '去调整模型',
+                            'action_label' => '调整模型',
                             'action_url' => $this->makeUrl('ai/setting/edit', ['ids' => (int) ($setting['id'] ?? 0)]),
                         ];
                         break;
@@ -290,9 +458,9 @@ class AiWorkspaceService
                     'type' => 'warning',
                     'title' => $quickMode ? '快速模式超时，已切换系统兜底分析' : '模型超时，已切换系统兜底分析',
                     'message' => $quickMode
-                        ? '首页为了避免长时间等待，已经跳过慢模型并直接给出系统兜底分析。需要更完整的分析时，再进完整 AI 工作台。'
-                        : '当前网关没有在限定时间内返回结果，本次回答改用系统内置业务规则生成。你仍然可以继续打开财务、项目、APP 或客户跟进草稿页处理。',
-                    'action_label' => '去调整模型',
+                        ? '本次为了避免长时间等待，已经跳过慢模型并直接给出系统兜底分析。需要更完整的分析时，可以切到深度模式再问一次。'
+                        : '当前网关没有在限定时间内返回结果，本次回答改用系统内置业务规则生成。你仍然可以继续打开财务、项目、项目运营或客户跟进草稿页处理。',
+                    'action_label' => '调整模型',
                     'action_url' => $this->makeUrl('ai/setting/edit', ['ids' => (int) ($setting['id'] ?? 0)]),
                 ],
                 'summary_cards' => $this->getSummaryCards($contexts),
@@ -318,6 +486,24 @@ class AiWorkspaceService
     public function clearConversation(): void
     {
         Db::name('ai_conversation')->where('id', '>', 0)->delete();
+    }
+
+    protected function getLatestPendingTask(): ?array
+    {
+        $this->ensureTaskTable();
+
+        $adminId = $this->getCurrentAdminId();
+        if ($adminId <= 0) {
+            return null;
+        }
+
+        $task = Db::name('ai_task')
+            ->where('admin_id', $adminId)
+            ->where('status', 'in', ['queued', 'processing'])
+            ->order('id', 'desc')
+            ->find();
+
+        return $task ? $this->presentTask($task) : null;
     }
 
     public function getConversationMessages(int $limit = 18): array
@@ -356,6 +542,173 @@ class AiWorkspaceService
             'createtime' => time(),
             'updatetime' => time(),
         ]);
+    }
+
+    protected function getCurrentAdminId(): int
+    {
+        return (int) Auth::instance()->id;
+    }
+
+    protected function getTaskRow(int $taskId): ?array
+    {
+        if ($taskId <= 0) {
+            return null;
+        }
+
+        $this->ensureTaskTable();
+
+        $row = Db::name('ai_task')->where('id', $taskId)->find();
+        return $row ?: null;
+    }
+
+    protected function presentTask(array $row): array
+    {
+        $status = (string) ($row['status'] ?? 'queued');
+        $result = $this->decodeTaskResult((string) ($row['result_json'] ?? ''));
+        $durationSeconds = $this->resolveTaskDurationSeconds($row);
+
+        return [
+            'id' => (int) ($row['id'] ?? 0),
+            'status' => $status,
+            'status_text' => $this->getTaskStatusText($status),
+            'status_message' => $this->getTaskStatusMessage($status, !empty($row['quick_mode']), (string) ($row['error_message'] ?? '')),
+            'prompt' => (string) ($row['prompt'] ?? ''),
+            'focus' => (string) ($row['focus'] ?? 'overview'),
+            'preset_key' => (string) ($row['preset_key'] ?? ''),
+            'setting_id' => (int) ($row['setting_id'] ?? 0),
+            'quick_mode' => !empty($row['quick_mode']),
+            'started_at' => (string) ($row['started_at'] ?? ''),
+            'finished_at' => (string) ($row['finished_at'] ?? ''),
+            'created_at' => !empty($row['createtime']) ? date('Y-m-d H:i:s', (int) $row['createtime']) : '',
+            'duration_seconds' => $durationSeconds,
+            'duration_label' => $this->formatTaskDurationLabel($durationSeconds),
+            'error_message' => (string) ($row['error_message'] ?? ''),
+            'result' => $result,
+        ];
+    }
+
+    protected function resolveTaskDurationSeconds(array $row): float
+    {
+        $createdAt = !empty($row['createtime']) ? (int) $row['createtime'] : 0;
+        if ($createdAt <= 0) {
+            return 0.0;
+        }
+
+        $finishedAt = !empty($row['finished_at']) ? strtotime((string) $row['finished_at']) : 0;
+        $startedAt = !empty($row['started_at']) ? strtotime((string) $row['started_at']) : 0;
+
+        $endAt = $finishedAt > 0 ? $finishedAt : time();
+        $beginAt = $startedAt > 0 ? $startedAt : $createdAt;
+
+        if ($endAt < $beginAt) {
+            $beginAt = $createdAt;
+        }
+
+        return max(0, round($endAt - $beginAt, 1));
+    }
+
+    protected function formatTaskDurationLabel(float $seconds): string
+    {
+        if ($seconds <= 0) {
+            return '';
+        }
+
+        if ($seconds < 60) {
+            return rtrim(rtrim(number_format($seconds, $seconds < 10 ? 1 : 0, '.', ''), '0'), '.') . ' 秒';
+        }
+
+        $minutes = floor($seconds / 60);
+        $remain = (int) round($seconds - ($minutes * 60));
+        if ($remain <= 0) {
+            return $minutes . ' 分钟';
+        }
+
+        return $minutes . ' 分 ' . $remain . ' 秒';
+    }
+
+    protected function decodeTaskResult(string $payload): ?array
+    {
+        $payload = trim($payload);
+        if ($payload === '') {
+            return null;
+        }
+
+        $decoded = json_decode($payload, true);
+        return is_array($decoded) ? $decoded : null;
+    }
+
+    protected function getTaskStatusText(string $status): string
+    {
+        $map = [
+            'queued' => '排队中',
+            'processing' => '分析中',
+            'done' => '已完成',
+            'failed' => '失败',
+        ];
+
+        return $map[$status] ?? '未知';
+    }
+
+    protected function getTaskStatusMessage(string $status, bool $quickMode, string $errorMessage = ''): string
+    {
+        switch ($status) {
+            case 'queued':
+                return $quickMode
+                    ? '任务已提交，正在排队做快速分析。你可以继续浏览其他页面。'
+                    : '任务已提交，正在排队做深度分析。你可以继续浏览其他页面。';
+            case 'processing':
+                return $quickMode
+                    ? 'AI 正在后台做快速分析，结果会自动回到当前页面。'
+                    : 'AI 正在后台做深度分析，结果会自动回到当前页面。';
+            case 'done':
+                return '后台分析已完成。';
+            case 'failed':
+                return $errorMessage !== '' ? $errorMessage : '后台分析失败，请稍后重试。';
+            default:
+                return '任务状态未知，请刷新后重试。';
+        }
+    }
+
+    protected function ensureTaskTable(): void
+    {
+        static $ensured = false;
+        if ($ensured) {
+            return;
+        }
+
+        $table = config('database.prefix') . 'ai_task';
+        try {
+            $exists = Db::query("SHOW TABLES LIKE '{$table}'");
+            if ($exists) {
+                $ensured = true;
+                return;
+            }
+        } catch (\Throwable $e) {
+        }
+
+        Db::execute(
+            "CREATE TABLE IF NOT EXISTS `{$table}` (
+                `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                `admin_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理员',
+                `prompt` text COMMENT '原始问题',
+                `focus` varchar(30) NOT NULL DEFAULT 'overview' COMMENT '分析范围',
+                `preset_key` varchar(60) NOT NULL DEFAULT '' COMMENT '预设',
+                `setting_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '模型配置',
+                `quick_mode` tinyint(1) NOT NULL DEFAULT '1' COMMENT '快速模式',
+                `status` enum('queued','processing','done','failed') NOT NULL DEFAULT 'queued' COMMENT '任务状态',
+                `result_json` longtext COMMENT '结果 JSON',
+                `error_message` varchar(500) NOT NULL DEFAULT '' COMMENT '错误信息',
+                `started_at` datetime DEFAULT NULL COMMENT '开始时间',
+                `finished_at` datetime DEFAULT NULL COMMENT '完成时间',
+                `createtime` bigint(16) DEFAULT NULL,
+                `updatetime` bigint(16) DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `idx_ai_task_admin_status` (`admin_id`,`status`),
+                KEY `idx_ai_task_createtime` (`createtime`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='AI 后台任务'"
+        );
+
+        $ensured = true;
     }
 
     protected function decorateSetting(array $row, bool $maskApiKey = true): array
@@ -488,7 +841,7 @@ class AiWorkspaceService
     {
         $defaultPrompt = implode("\n", [
             '你是软件公司的经营与执行助手，服务对象包括老板、财务负责人、项目经理、运营负责人和销售负责人。',
-            '你的回答只能基于系统提供的数据，不允许编造不存在的金额、日期、客户、项目、APP、版本、审批或单据信息。',
+            '你的回答只能基于系统提供的数据，不允许编造不存在的金额、日期、客户、项目、项目运营事项、版本、审批或单据信息。',
             '默认使用简体中文，表达直接务实，优先给出今天就能执行的建议。',
             '回答时优先按下面结构输出：',
             '1. 先给结论',
@@ -516,19 +869,19 @@ class AiWorkspaceService
         if ($this->isAnthropicCodingEndpoint((string) ($setting['base_url'] ?? ''))) {
             return [
                 'ok' => false,
-                'error' => '瑜版挸澧犳繅顐㈠晸閻ㄥ嫭妲搁梼鍧楀櫡娴?Coding Plan 閻?Anthropic 閸忕厧顔愰崷鏉挎絻閿涘奔绲鹃張顒傞兇缂佺喕铔嬮惃鍕Ц OpenAI 閸楀繗顔呴敍灞肩瑝閼崇晫娲块幒銉ゅ▏閻劏绻栨稉顏勬勾閸р偓閵?',
+                'error' => '当前地址是 Anthropic Coding Plan 协议，不是 OpenAI 兼容协议。ERP 只能接 OpenAI 兼容的 chat/completions 接口，请改成通用兼容地址。',
             ];
         }
 
         if ($this->isDashscopeCodingEndpoint((string) ($setting['base_url'] ?? ''))) {
             return [
                 'ok' => false,
-                'error' => '瑜版挸澧犻柊宥囩枂娴ｈ法鏁ら惃鍕Ц闂冨潡鍣锋禍?Coding Plan閵嗗倹鐗撮幑顔肩暭閺傚綊妾洪崚璁圭礉Coding Plan 娑撳秷鍏橀幒銉ュ煂鏉╂瑥顨?ERP 閸氬骸褰撮敍宀冾嚞閺€鍦暏闂冨潡鍣锋禍鎴犳閻愮厧鍚嬬€硅膩瀵繑鍨ㄩ崗璺虹暊闁氨鏁?OpenAI 閸忕厧顔愰幒銉ュ經閵?',
+                'error' => '当前地址是阿里云 Coding Plan 专用接口，不能直接给 ERP 业务系统使用。请改用百炼兼容模式或其他 OpenAI 兼容网关。',
             ];
         }
 
         if (!function_exists('curl_init')) {
-            return ['ok' => false, 'error' => '瑜版挸澧?PHP 閻滎垰顣ㄩ張顏勬儙閻?cURL 閹碘晛鐫嶉敍灞炬￥濞夋洝顕Ч鍌浤侀崹瀣复閸欙絻鈧?'];
+            return ['ok' => false, 'error' => '当前 PHP 环境没有启用 cURL 扩展，模型请求无法发出。请先在服务器里启用 cURL。'];
         }
 
         $payload = [
@@ -552,8 +905,8 @@ class AiWorkspaceService
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
-            CURLOPT_TIMEOUT => isset($setting['request_timeout']) ? max(4, (int) $setting['request_timeout']) : 18,
-            CURLOPT_CONNECTTIMEOUT => isset($setting['connect_timeout']) ? max(2, (int) $setting['connect_timeout']) : 8,
+            CURLOPT_TIMEOUT => isset($setting['request_timeout']) ? max(8, (int) $setting['request_timeout']) : 45,
+            CURLOPT_CONNECTTIMEOUT => isset($setting['connect_timeout']) ? max(3, (int) $setting['connect_timeout']) : 10,
             CURLOPT_NOSIGNAL => true,
         ]);
 
@@ -578,7 +931,7 @@ class AiWorkspaceService
 
         $decoded = json_decode($raw, true);
         if ($statusCode < 200 || $statusCode >= 300) {
-            $message = $decoded['error']['message'] ?? ('濡€崇€烽幒銉ュ經鏉╂柨娲?HTTP ' . $statusCode);
+            $message = $decoded['error']['message'] ?? ('模型接口返回异常 HTTP ' . $statusCode);
             return [
                 'ok' => false,
                 'error' => $this->normalizeHttpError((string) $message, $statusCode, $endpoint),
@@ -591,7 +944,7 @@ class AiWorkspaceService
         }
 
         if (!is_string($content) || trim($content) === '') {
-            return ['ok' => false, 'error' => '濡€崇€锋潻鏂挎礀閸愬懎顔愭稉铏光敄閵?'];
+            return ['ok' => false, 'error' => '模型已返回响应，但没有解析出有效内容。'];
         }
 
         return ['ok' => true, 'content' => trim($content)];
@@ -749,15 +1102,15 @@ class AiWorkspaceService
         if ($fastCandidates) {
             $candidate = $setting;
             $candidate['model'] = $fastCandidates[0];
-            $candidate['request_timeout'] = 6;
-            $candidate['connect_timeout'] = 3;
-            $candidate['max_tokens'] = 220;
+            $candidate['request_timeout'] = 15;
+            $candidate['connect_timeout'] = 5;
+            $candidate['max_tokens'] = 260;
             $candidates[] = $candidate;
         } else {
             $current = $setting;
-            $current['request_timeout'] = 6;
-            $current['connect_timeout'] = 3;
-            $current['max_tokens'] = 220;
+            $current['request_timeout'] = 15;
+            $current['connect_timeout'] = 5;
+            $current['max_tokens'] = 260;
             $candidates[] = $current;
         }
 
@@ -818,15 +1171,10 @@ class AiWorkspaceService
     protected function getSummaryCards(array $contexts = []): array
     {
         if (!$contexts) {
-            $contexts = [
-                'finance' => $this->buildFinanceContext(),
-                'project' => $this->buildProjectContext(),
-                'app' => $this->buildAppContext(),
-                'business' => $this->buildBusinessContext(),
-            ];
+            $contexts = $this->getContextMap();
         }
 
-        return [
+        $cards = [
             [
                 'label' => '本月收入',
                 'value' => $this->formatMoney($contexts['finance']['summary']['month_income']),
@@ -852,21 +1200,21 @@ class AiWorkspaceService
                 'value' => (string) $contexts['project']['summary']['active_project_count'],
                 'hint' => '执行中和交付中的项目',
             ],
-            [
-                'label' => 'APP 问题',
+        ];
+
+        if (isset($contexts['app'])) {
+            $cards[] = [
+                'label' => '运营问题',
                 'value' => (string) $contexts['app']['summary']['open_issue_count'],
                 'hint' => '未关闭的问题记录',
-            ],
-        ];
+            ];
+        }
+
+        return $cards;
     }
     protected function buildContext(string $focus): array
     {
-        $contexts = [
-            'finance' => $this->buildFinanceContext(),
-            'project' => $this->buildProjectContext(),
-            'app' => $this->buildAppContext(),
-            'business' => $this->buildBusinessContext(),
-        ];
+        $contexts = $this->getContextMap();
 
         $context = [
             'generated_at' => date('Y-m-d H:i:s'),
@@ -874,7 +1222,7 @@ class AiWorkspaceService
             'summary_cards' => $this->getSummaryCards($contexts),
         ];
 
-        foreach (['finance', 'project', 'app', 'business'] as $module) {
+        foreach (array_keys($contexts) as $module) {
             if ($focus === 'overview' || $focus === $module) {
                 $context[$module] = $contexts[$module];
             }
@@ -1077,15 +1425,35 @@ class AiWorkspaceService
         ];
     }
 
+    protected function getContextMap(): array
+    {
+        $contexts = [
+            'finance' => $this->buildFinanceContext(),
+            'project' => $this->buildProjectContext(),
+            'business' => $this->buildBusinessContext(),
+        ];
+
+        if ($this->canAccess('app/workbench/index')) {
+            $contexts['app'] = $this->buildAppContext();
+        }
+
+        return $contexts;
+    }
+
     protected function getFocuses(): array
     {
-        return [
-            ['key' => 'overview', 'label' => '综合经营', 'description' => '把财务、项目、APP 运营和客户合同一起纳入分析。'],
+        $items = [
+            ['key' => 'overview', 'label' => '综合经营', 'description' => '把当前可用模块一起纳入分析，给出今天最先处理的动作。'],
             ['key' => 'finance', 'label' => '财务', 'description' => '重点看现金流、回款、付款、单据和智能记账。'],
             ['key' => 'project', 'label' => '项目交付', 'description' => '重点看项目进度、逾期任务、风险和负责人负荷。'],
-            ['key' => 'app', 'label' => 'APP 运营', 'description' => '重点看问题记录、研发联动、版本发布和资料。'],
             ['key' => 'business', 'label' => '客户与合同', 'description' => '重点看客户跟进、合同、回款计划、付款计划和审批。'],
         ];
+
+        if ($this->canAccess('app/workbench/index')) {
+            $items[] = ['key' => 'app', 'label' => '项目运营', 'description' => '重点看问题记录、研发联动、版本发布和资料。'];
+        }
+
+        return $items;
     }
     protected function getFocusConfig(string $focus): array
     {
@@ -1100,15 +1468,18 @@ class AiWorkspaceService
 
     protected function getPresets(): array
     {
-        return [
-            ['key' => 'daily-brief', 'label' => '经营日报', 'focus' => 'overview', 'description' => '先看今天最该处理什么，适合老板和负责人直接点。', 'prompt' => '请基于当前数据输出一份经营日报，按“结论 / 关键依据 / 今天要做什么 / 本周要盯什么”回答。'],
-            ['key' => 'cash-risk', 'label' => '现金流风险', 'focus' => 'finance', 'description' => '判断未来 30 天的资金压力和风险点。', 'prompt' => '请基于当前财务数据评估未来 30 天现金流风险，指出最关键的 3 个风险点，并给出今天和本周的动作建议。'],
-            ['key' => 'collection-plan', 'label' => '回款建议', 'focus' => 'finance', 'description' => '梳理待回款优先级和催收动作。', 'prompt' => '请基于待回款、回款计划和逾期单据，列出最该优先推进的客户、金额、风险和下一步催款动作。'],
-            ['key' => 'project-risk', 'label' => '项目复盘', 'focus' => 'project', 'description' => '找出最危险的项目和逾期任务。', 'prompt' => '请基于当前项目和任务数据，找出最需要优先处理的项目风险和逾期任务，并给出项目经理层面的动作建议。'],
-            ['key' => 'app-review', 'label' => 'APP 问题分析', 'focus' => 'app', 'description' => '看问题、研发待办和版本发布风险。', 'prompt' => '请基于 APP 运营数据分析当前最值得关注的问题、研发待办和版本发布风险，并给出运营和技术的协同建议。'],
-            ['key' => 'contract-risk', 'label' => '合同与回款', 'focus' => 'business', 'description' => '看合同推进、回款节奏和审批卡点。', 'prompt' => '请基于客户、合同、回款计划和审批数据，找出当前最需要推进的合同、回款和审批事项，并给出执行清单。'],
-            ['key' => 'payment-review', 'label' => '付款安排', 'focus' => 'business', 'description' => '看本周要批、要付和会逾期的付款计划。', 'prompt' => '请基于付款计划、费用申请和审批中心数据，给出本周最应该处理的付款安排和审批建议。'],
+        $items = [
+            ['key' => 'today-priority', 'label' => '今日优先级', 'focus' => 'overview', 'description' => '直接告诉我今天先处理什么。', 'prompt' => '请基于当前经营数据，按“先做什么 / 为什么 / 不做会有什么影响”给出今天最该优先处理的 5 件事。'],
+            ['key' => 'cash-risk', 'label' => '财务待办', 'focus' => 'finance', 'description' => '把回款、付款和风险拆成今天可执行的动作。', 'prompt' => '请基于当前财务数据，输出“今天要做 / 本周要盯 / 风险提醒”三段财务待办。'],
+            ['key' => 'project-risk', 'label' => '项目风险', 'focus' => 'project', 'description' => '找出最危险的项目和逾期任务。', 'prompt' => '请基于当前项目和任务数据，找出最需要优先处理的项目风险和逾期任务，并给出负责人动作建议。'],
+            ['key' => 'contract-risk', 'label' => '合同回款', 'focus' => 'business', 'description' => '看合同推进、回款和审批卡点。', 'prompt' => '请基于客户、合同、回款计划和审批数据，列出当前最需要推进的合同、回款和审批事项，并给出执行顺序。'],
         ];
+
+        if ($this->canAccess('app/workbench/index')) {
+            $items[] = ['key' => 'app-review', 'label' => '项目运营推进', 'focus' => 'app', 'description' => '看问题、研发待办和发版优先级。', 'prompt' => '请基于项目运营数据，按“先处理的问题 / 要联动的研发 / 要确认的发版事项”给出执行建议。'];
+        }
+
+        return $items;
     }
 
     protected function getPresetByKey(string $key): ?array
@@ -1124,24 +1495,33 @@ class AiWorkspaceService
 
     protected function getExamples(): array
     {
-        return [
-            '今天最该先催哪几笔回款？',
-            '审批中心里哪些单子今天必须先批？',
-            '哪个交付项目最危险，负责人应该先做什么？',
-            'APP 最近的问题主要集中在哪个模块？',
-            '未来 30 天现金流有没有明显压力？',
-            '本周最该处理的付款和费用申请有哪些？',
+        $items = [
+            '今天我最应该先处理哪 5 件事？',
+            '哪些回款今天必须先催？',
+            '哪个项目风险最高，负责人先做什么？',
+            '审批中心里今天必须先批哪些单子？',
         ];
+
+        if ($this->canAccess('app/workbench/index')) {
+            $items[] = '项目运营当前最急的问题和发版是什么？';
+        }
+
+        return $items;
     }
 
     protected function getContextSectionLabels(): array
     {
-        return [
+        $items = [
             'finance' => '财务流水、应收应付、近期收支和逾期单据。',
             'project' => '项目台账、任务清单、逾期任务和负责人负荷。',
-            'app' => 'APP 台账、问题记录、研发联动、版本发布和资料。',
             'business' => '客户档案、合同、回款计划、付款计划、费用申请和审批中心。',
         ];
+
+        if ($this->canAccess('app/workbench/index')) {
+            $items['app'] = '项目台账、问题记录、研发联动、版本发布和资料。';
+        }
+
+        return $items;
     }
 
     protected function getWorkspaceActions(string $focus = 'overview'): array
@@ -1149,11 +1529,14 @@ class AiWorkspaceService
         $actions = [
             ['key' => 'finance-workbench', 'label' => '财务工作台', 'hint' => '看回款、付款、单据和智能记账。', 'icon' => 'fa fa-rmb', 'url' => $this->makeUrl('finance/workbench/index'), 'focuses' => ['overview', 'finance']],
             ['key' => 'project-workbench', 'label' => '项目工作台', 'hint' => '看交付风险、逾期任务和负责人负荷。', 'icon' => 'fa fa-tasks', 'url' => $this->makeUrl('project/workbench/index'), 'focuses' => ['overview', 'project']],
-            ['key' => 'app-workbench', 'label' => 'APP 运营工作台', 'hint' => '看问题、研发联动、发版和资料。', 'icon' => 'fa fa-mobile', 'url' => $this->makeUrl('app/workbench/index'), 'focuses' => ['overview', 'app']],
-            ['key' => 'contract-index', 'label' => '合同台账', 'hint' => '看合同推进、金额和状态。', 'icon' => 'fa fa-file-text-o', 'url' => $this->makeUrl('business/contract/index'), 'focuses' => ['overview', 'business']],
             ['key' => 'approval-center', 'label' => '审批中心', 'hint' => '看合同审批、付款审批和费用审批。', 'icon' => 'fa fa-check-square-o', 'url' => $this->makeUrl('business/approval/index'), 'focuses' => ['overview', 'business', 'finance']],
-            ['key' => 'ai-setting', 'label' => 'AI 配置', 'hint' => '补模型配置、测试连接、切换默认模型。', 'icon' => 'fa fa-sliders', 'url' => $this->makeUrl('ai/setting/index'), 'focuses' => ['overview', 'finance', 'project', 'app', 'business']],
+            ['key' => 'contract-index', 'label' => '合同台账', 'hint' => '看合同推进、金额和状态。', 'icon' => 'fa fa-file-text-o', 'url' => $this->makeUrl('business/contract/index'), 'focuses' => ['overview', 'business']],
+            ['key' => 'ai-setting', 'label' => 'AI 配置', 'hint' => '补模型配置、测试连接、切换默认模型。', 'icon' => 'fa fa-sliders', 'url' => $this->makeUrl('ai/setting/index'), 'focuses' => ['overview', 'finance', 'project', 'business', 'app']],
         ];
+
+        if ($this->canAccess('app/workbench/index')) {
+            $actions[] = ['key' => 'app-workbench', 'label' => '项目运营工作台', 'hint' => '看问题、研发联动、发版和资料。', 'icon' => 'fa fa-mobile', 'url' => $this->makeUrl('app/workbench/index'), 'focuses' => ['overview', 'app']];
+        }
 
         $filtered = [];
         foreach ($actions as $action) {
@@ -1191,7 +1574,7 @@ class AiWorkspaceService
                 $actions[] = ['kind' => 'link', 'label' => '打开项目工作台', 'description' => '去项目台账继续处理任务和风险。', 'url' => $this->makeUrl('project/workbench/index'), 'icon' => 'fa fa-tasks'];
                 break;
             case 'app':
-                $actions[] = ['kind' => 'prompt', 'label' => '拆成运营/研发动作', 'description' => '把结论拆成运营和研发两边的动作。', 'prompt' => '请把上面的 APP 结论拆成“运营动作 / 研发动作 / 发版注意事项”三部分。'];
+                $actions[] = ['kind' => 'prompt', 'label' => '拆成运营/研发动作', 'description' => '把结论拆成运营和研发两边的动作。', 'prompt' => '请把上面的项目运营结论拆成“运营动作 / 研发动作 / 发版注意事项”三部分。'];
                 $actions[] = ['kind' => 'copy', 'label' => '复制为问题跟进草稿', 'description' => '生成可贴到问题记录或客服回告里的草稿。', 'content' => $this->buildDraftTemplate('问题跟进草稿', $answer, ['问题摘要', '处理建议', '下一步回告'])];
                 $actions[] = ['kind' => 'link', 'label' => '打开问题跟进（带草稿）', 'description' => '先把 AI 结论带到问题跟进页，再选择对应问题保存。', 'url' => $this->makeUrl('app/issue_followup/add', [
                     'type' => 'follow_up',
@@ -1200,7 +1583,7 @@ class AiWorkspaceService
                     'content' => $this->buildDraftTemplate('AI问题跟进', $answer, ['当前判断', '处理建议']),
                     'next_action' => $this->limitText('请按 AI 结论继续推进，并补充回告时间与责任人：' . $answer, 180),
                 ]), 'icon' => 'fa fa-commenting-o'];
-                $actions[] = ['kind' => 'link', 'label' => '打开 APP 运营工作台', 'description' => '回到问题、研发联动和发版页面继续处理。', 'url' => $this->makeUrl('app/workbench/index'), 'icon' => 'fa fa-mobile'];
+                $actions[] = ['kind' => 'link', 'label' => '打开项目运营工作台', 'description' => '回到问题、研发联动和发版页面继续处理。', 'url' => $this->makeUrl('app/workbench/index'), 'icon' => 'fa fa-mobile'];
                 break;
             case 'business':
                 $actions[] = ['kind' => 'prompt', 'label' => '改成合同执行清单', 'description' => '输出合同、回款、付款和审批的执行顺序。', 'prompt' => '请把上面的分析改成“今天处理 / 本周推进 / 需要审批”的合同执行清单。'];
@@ -1266,7 +1649,7 @@ class AiWorkspaceService
                 break;
             case 'app':
                 $summary = $contexts['app']['summary'];
-                $lines[] = '当前 APP 运营最该先处理未关闭问题和待发布版本，避免问题积压。';
+                $lines[] = '当前项目运营最该先处理未关闭问题和待发布版本，避免问题积压。';
                 $lines[] = '';
                 $lines[] = '关键依据：';
                 $lines[] = '- 未关闭问题：' . (int) $summary['open_issue_count'];
@@ -1305,7 +1688,7 @@ class AiWorkspaceService
                 $lines[] = '';
                 $lines[] = '建议动作：';
                 $lines[] = '- 今天：先处理待审批、待回款和高风险项目。';
-                $lines[] = '- 本周：跟进 APP 问题闭环和付款安排。';
+                $lines[] = '- 本周：跟进项目运营问题闭环和付款安排。';
                 $lines[] = '- 本月：补齐台账、附件和跟进记录。';
                 break;
         }
@@ -1353,6 +1736,51 @@ class AiWorkspaceService
 
         return strlen($text) > $limit ? substr($text, 0, $limit - 3) . '...' : $text;
     }
+
+    protected function canAccess(string $rule): bool
+    {
+        if (strpos($rule, 'app/') === 0 && !$this->isModuleEnabled('app')) {
+            return false;
+        }
+
+        try {
+            return (bool) Auth::instance()->check($rule);
+        } catch (\Throwable $e) {
+            return true;
+        }
+    }
+
+    protected function isModuleEnabled(string $moduleKey): bool
+    {
+        static $cache = [];
+        if (array_key_exists($moduleKey, $cache)) {
+            return $cache[$moduleKey];
+        }
+
+        try {
+            $service = new ErpModuleService();
+            $service->ensureStorage();
+            $cache[$moduleKey] = $service->isEnabled($moduleKey);
+        } catch (\Throwable $e) {
+            $cache[$moduleKey] = true;
+        }
+
+        return $cache[$moduleKey];
+    }
+
+    protected function tableExists(string $table): bool
+    {
+        static $cache = [];
+        if (array_key_exists($table, $cache)) {
+            return $cache[$table];
+        }
+
+        $fullTable = config('database.prefix') . $table;
+        $cache[$table] = !empty(Db::query("SHOW TABLES LIKE '{$fullTable}'"));
+
+        return $cache[$table];
+    }
+
     protected function makeUrl(string $route, array $params = []): string
     {
         return (string) url($route, $params);

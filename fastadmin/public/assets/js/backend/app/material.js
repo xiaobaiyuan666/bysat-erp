@@ -18,6 +18,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             var url = $('#c-download_url').val() || '';
             $('#c-file_path').val(url);
         };
+
         Form.events.faupload($form);
         Form.events.faselect($form);
         $('#c-download_url').on('change keyup', syncFilePath);
@@ -44,18 +45,35 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 pk: 'id',
                 sortName: 'updated_on',
+                sortOrder: 'desc',
                 fixedColumns: true,
                 fixedRightNumber: 1,
                 columns: [[
                     {checkbox: true},
-                    {field: 'title', title: __('Title'), operate: 'LIKE'},
-                    {field: 'category', title: __('Category'), searchList: {'manual': __('Category manual'), 'faq': __('Category faq'), 'training': __('Category training'), 'script': __('Category script'), 'report': __('Category report'), 'other': __('Category other')}, formatter: Table.api.formatter.normal},
-                    {field: 'owner', title: __('Owner'), operate: 'LIKE'},
-                    {field: 'version_tag', title: __('Version_tag'), operate: 'LIKE'},
-                    {field: 'applicable_versions', title: __('Applicable_versions'), operate: 'LIKE'},
-                    {field: 'archive_status', title: __('Archive_status'), searchList: {'active': __('Archive_status active'), 'archived': __('Archive_status archived')}, formatter: Table.api.formatter.status},
-                    {field: 'expires_on', title: __('Expires_on'), operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
-                    {field: 'updated_on', title: __('Updated_on'), operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
+                    {field: 'title', title: '资料名称', operate: 'LIKE'},
+                    {
+                        field: 'category',
+                        title: '资料分类',
+                        searchList: {
+                            manual: '操作手册',
+                            faq: 'FAQ',
+                            training: '培训资料',
+                            script: '脚本',
+                            report: '报告',
+                            other: '其他'
+                        },
+                        formatter: Table.api.formatter.normal
+                    },
+                    {field: 'owner', title: '负责人', operate: 'LIKE'},
+                    {field: 'applicable_versions', title: '适用范围/版本', operate: 'LIKE'},
+                    {field: 'version_tag', title: '版本标签', operate: 'LIKE'},
+                    {
+                        field: 'archive_status',
+                        title: '状态',
+                        searchList: {active: '在用', archived: '已归档'},
+                        formatter: Table.api.formatter.status
+                    },
+                    {field: 'updated_on', title: '更新日期', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
                     {
                         field: 'operate',
                         title: __('Operate'),
@@ -64,9 +82,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         buttons: [
                             {
                                 name: 'app_project',
-                                text: '所属APP',
-                                title: '查看所属APP项目',
-                                icon: 'fa fa-mobile',
+                                text: '所属项目',
+                                title: '查看所属项目',
+                                icon: 'fa fa-sitemap',
                                 classname: 'btn btn-primary btn-xs btn-dialog',
                                 url: appProjectUrl,
                                 visible: function (row) {
@@ -76,8 +94,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             },
                             {
                                 name: 'view_material',
-                                text: '查看文件',
-                                title: '打开资料文件',
+                                text: '打开附件',
+                                title: '打开资料附件或下载地址',
                                 icon: 'fa fa-file-text-o',
                                 classname: 'btn btn-info btn-xs btn-addtabs',
                                 url: viewMaterialUrl,
@@ -119,5 +137,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             }
         }
     };
+
     return Controller;
 });

@@ -1,4 +1,6 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="erp-form-note">修改流水时优先核对日期、收支类型、往来对象和金额；附件可以重新选择或后续补传。</div>
+    <div class="erp-form-section">基础信息</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">记账日期:</label>
         <div class="col-xs-12 col-sm-8">
@@ -33,6 +35,7 @@
             <input id="c-amount" data-rule="required" class="form-control" step="0.01" name="row[amount]" type="number" value="{$row.amount|htmlentities}">
         </div>
     </div>
+    <div class="erp-form-section">结算与归属</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">支付方式:</label>
         <div class="col-xs-12 col-sm-8">
@@ -53,6 +56,7 @@
             </select>
         </div>
     </div>
+    <div class="erp-form-section">备注与附件</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">备注:</label>
         <div class="col-xs-12 col-sm-8">

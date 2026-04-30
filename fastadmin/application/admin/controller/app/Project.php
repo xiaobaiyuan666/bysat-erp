@@ -4,15 +4,14 @@ namespace app\admin\controller\app;
 
 use app\admin\library\traits\ErpAuditHelper;
 use app\admin\library\traits\ErpCrudHelper;
-use app\common\controller\Backend;
 use think\Db;
 
 /**
- * APP运营项目
+ * 项目运营项目
  *
  * @icon fa fa-circle-o
  */
-class Project extends Backend
+class Project extends Base
 {
     use ErpAuditHelper;
     use ErpCrudHelper;
@@ -25,7 +24,9 @@ class Project extends Backend
     public function _initialize()
     {
         parent::_initialize();
+        $this->ensureProjectTypeSupport();
         $this->model = new \app\admin\model\App\Project();
+        $this->view->assign('projectTypeList', $this->model->getProjectTypeList());
         $this->view->assign('lifecycleStageList', $this->model->getLifecycleStageList());
         $this->view->assign('statusList', $this->model->getStatusList());
         $this->view->assign('priorityList', $this->model->getPriorityList());
@@ -45,6 +46,7 @@ class Project extends Backend
         }
 
         $params = $this->preExcludeFields($params);
+        $params['project_type'] = (string) ($params['project_type'] ?? 'app');
         $this->fillLegacyId($params, 'app_project');
         $this->fillStaffName($params, 'manager_admin_id', 'manager');
         $this->fillRelationLegacy($params, 'project', 'project_id', 'project_legacy_id');
@@ -53,7 +55,13 @@ class Project extends Backend
         try {
             $result = $this->model->allowField(true)->save($params);
             if ($result !== false) {
-                $this->recordBusinessAudit('app_project', 'add', 'APP运营项目', $params, '新增APP运营项目：' . ($params['app_name'] ?: '未命名APP') . ' / ' . ($params['name'] ?: '未命名项目'));
+                $this->recordBusinessAudit(
+                    'app_project',
+                    'add',
+                    '项目运营项目',
+                    $params,
+                    '新增项目运营项目：' . (($params['app_name'] ?? '') ?: '未命名主体') . ' / ' . (($params['name'] ?? '') ?: '未命名项目')
+                );
             }
             Db::commit();
         } catch (\think\exception\ValidateException | \think\exception\PDOException | \Exception $e) {
@@ -85,6 +93,7 @@ class Project extends Backend
         }
 
         $params = $this->preExcludeFields($params);
+        $params['project_type'] = (string) ($params['project_type'] ?? ($row['project_type'] ?? 'app'));
         $params['legacy_id'] = $row['legacy_id'];
         $this->fillStaffName($params, 'manager_admin_id', 'manager');
         $this->fillRelationLegacy($params, 'project', 'project_id', 'project_legacy_id');
@@ -93,7 +102,13 @@ class Project extends Backend
         try {
             $result = $row->allowField(true)->save($params);
             if ($result !== false) {
-                $this->recordBusinessAudit('app_project', 'edit', 'APP运营项目', array_merge($row->toArray(), $params), '更新APP运营项目：' . (($params['app_name'] ?? $row['app_name']) ?: '未命名APP') . ' / ' . (($params['name'] ?? $row['name']) ?: '未命名项目'));
+                $this->recordBusinessAudit(
+                    'app_project',
+                    'edit',
+                    '项目运营项目',
+                    array_merge($row->toArray(), $params),
+                    '更新项目运营项目：' . ((($params['app_name'] ?? $row['app_name']) ?: '未命名主体')) . ' / ' . ((($params['name'] ?? $row['name']) ?: '未命名项目'))
+                );
             }
             Db::commit();
         } catch (\think\exception\ValidateException | \think\exception\PDOException | \Exception $e) {
@@ -109,8 +124,33 @@ class Project extends Backend
 
     public function del($ids = null)
     {
-        $this->deleteWithAudit($ids, 'app_project', 'APP运营项目', function ($row) {
-            return '删除APP运营项目：' . ($row['app_name'] ?: '未命名APP') . ' / ' . ($row['name'] ?: '未命名项目');
+        $this->deleteWithAudit($ids, 'app_project', '项目运营项目', function ($row) {
+            return '删除项目运营项目：' . (($row['app_name'] ?? '') ?: '未命名主体') . ' / ' . (($row['name'] ?? '') ?: '未命名项目');
         });
+    }
+
+    protected function ensureProjectTypeSupport(): void
+    {
+        if ($this->tableHasColumn('app_project', 'project_type')) {
+            return;
+        }
+
+        $table = config('database.prefix') . 'app_project';
+        Db::execute("ALTER TABLE `{$table}` ADD COLUMN `project_type` varchar(30) NOT NULL DEFAULT 'app' COMMENT '项目类型' AFTER `name`");
+        Db::name('app_project')->where('project_type', '')->update(['project_type' => 'app']);
+    }
+
+    protected function tableHasColumn(string $table, string $column): bool
+    {
+        static $cache = [];
+        $cacheKey = $table . '.' . $column;
+        if (array_key_exists($cacheKey, $cache)) {
+            return $cache[$cacheKey];
+        }
+
+        $fullTable = config('database.prefix') . $table;
+        $cache[$cacheKey] = !empty(Db::query("SHOW COLUMNS FROM `{$fullTable}` LIKE '{$column}'"));
+
+        return $cache[$cacheKey];
     }
 }

@@ -4,18 +4,17 @@ namespace app\admin\controller\app;
 
 use app\admin\library\traits\ErpAuditHelper;
 use app\admin\library\traits\ErpCrudHelper;
-use app\common\controller\Backend;
 use think\Db;
 use think\Exception;
 use think\exception\PDOException;
 use think\exception\ValidateException;
 
 /**
- * 运营里程碑
+ * 项目里程碑
  *
  * @icon fa fa-circle-o
  */
-class Milestone extends Backend
+class Milestone extends Base
 {
     use ErpAuditHelper;
     use ErpCrudHelper;
@@ -30,7 +29,7 @@ class Milestone extends Backend
         parent::_initialize();
         $this->model = new \app\admin\model\App\Milestone();
         $this->view->assign('statusList', $this->model->getStatusList());
-        $this->view->assign('appProjectList', $this->getAppProjectOptions(false));
+        $this->view->assign('appProjectList', $this->getTypedProjectOptions(false));
         $this->view->assign('staffList', $this->getStaffOptions(false));
     }
 
@@ -56,7 +55,7 @@ class Milestone extends Backend
             }
             $result = $this->model->allowField(true)->save($params);
             if ($result !== false) {
-                $this->recordBusinessAudit('app_milestone', 'add', '运营里程碑', $params, '新增运营里程碑：' . ($params['title'] ?: '未命名里程碑'));
+                $this->recordBusinessAudit('app_milestone', 'add', '项目里程碑', $params, '新增项目里程碑：' . (($params['title'] ?? '') ?: '未命名里程碑'));
             }
             Db::commit();
         } catch (ValidateException | PDOException | Exception $e) {
@@ -104,7 +103,7 @@ class Milestone extends Backend
             }
             $result = $row->allowField(true)->save($params);
             if ($result !== false) {
-                $this->recordBusinessAudit('app_milestone', 'edit', '运营里程碑', array_merge($row->toArray(), $params), '更新运营里程碑：' . (($params['title'] ?? $row['title']) ?: '未命名里程碑'));
+                $this->recordBusinessAudit('app_milestone', 'edit', '项目里程碑', array_merge($row->toArray(), $params), '更新项目里程碑：' . ((($params['title'] ?? $row['title']) ?: '未命名里程碑')));
             }
             Db::commit();
         } catch (ValidateException | PDOException | Exception $e) {
@@ -119,7 +118,7 @@ class Milestone extends Backend
         $this->success();
     }
 
-    protected function prepareMilestoneParams(array $params, $isCreate)
+    protected function prepareMilestoneParams(array $params, bool $isCreate): array
     {
         $params = $this->preExcludeFields($params);
         $this->fillLegacyId($params, 'app_milestone');
@@ -131,7 +130,7 @@ class Milestone extends Backend
         }
 
         $params['status'] = $params['status'] ?: 'pending';
-        $params['progress'] = isset($params['progress']) && $params['progress'] !== '' ? (int)$params['progress'] : 0;
+        $params['progress'] = isset($params['progress']) && $params['progress'] !== '' ? (int) $params['progress'] : 0;
 
         if ($isCreate && empty($params['legacy_id'])) {
             $params['legacy_id'] = $this->generateLegacyId('app_milestone');
@@ -142,8 +141,60 @@ class Milestone extends Backend
 
     public function del($ids = null)
     {
-        $this->deleteWithAudit($ids, 'app_milestone', '运营里程碑', function ($row) {
-            return '删除运营里程碑：' . ($row['title'] ?: '未命名里程碑');
+        $this->deleteWithAudit($ids, 'app_milestone', '项目里程碑', function ($row) {
+            return '删除项目里程碑：' . (($row['title'] ?? '') ?: '未命名里程碑');
         });
+    }
+
+    protected function getTypedProjectOptions(bool $includeEmpty = true): array
+    {
+        $options = $includeEmpty ? [0 => '未关联'] : [];
+        $fields = ['id', 'app_name', 'name', 'app_version', 'status'];
+        if ($this->tableHasColumn('app_project', 'project_type')) {
+            $fields[] = 'project_type';
+        }
+
+        $rows = Db::name('app_project')
+            ->field(implode(',', $fields))
+            ->order('status', 'asc')
+            ->order('app_name', 'asc')
+            ->select();
+
+        $typeMap = [
+            'app' => 'APP',
+            'miniprogram' => '小程序',
+            'website' => '官网/网站',
+            'campaign' => '活动投放',
+            'private_domain' => '私域运营',
+            'other' => '其他',
+        ];
+
+        foreach ($rows as $row) {
+            $typeText = $typeMap[$row['project_type'] ?? 'app'] ?? '其他';
+            $label = '[' . $typeText . '] ' . $row['app_name'];
+            if (!empty($row['name'])) {
+                $label .= ' / ' . $row['name'];
+            }
+            if (!empty($row['app_version'])) {
+                $label .= ' / ' . $row['app_version'];
+            }
+            $options[(int) $row['id']] = $label;
+        }
+
+        return $options;
+    }
+
+    protected function tableHasColumn(string $table, string $column): bool
+    {
+        static $cache = [];
+        $cacheKey = $table . '.' . $column;
+        if (array_key_exists($cacheKey, $cache)) {
+            return $cache[$cacheKey];
+        }
+
+        $fullTable = config('database.prefix') . $table;
+        $cache[$cacheKey] = !empty(Db::query("SHOW COLUMNS FROM `{$fullTable}` LIKE '{$column}'"));
+
+        return $cache[$cacheKey];
     }
 }

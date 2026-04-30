@@ -1,9 +1,12 @@
 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-
+    <div class="alert alert-info" style="margin:0 0 18px;">
+        里程碑用于跟踪项目节点，不区分 APP、小程序还是官网，核心是把负责人、时间点和交付物记录清楚。
+    </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('App_project_id')}:</label>
         <div class="col-xs-12 col-sm-8">
             <select id="c-app_project_id" data-rule="required" class="form-control selectpicker" name="row[app_project_id]">
+                <option value="">请选择</option>
                 {foreach name="appProjectList" item="vo"}
                 <option value="{$key}">{$vo}</option>
                 {/foreach}
@@ -13,7 +16,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Title')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="">
+            <input id="c-title" data-rule="required" class="form-control" name="row[title]" type="text" value="" placeholder="例如：完成官网首页改版 / 小程序提交审核">
         </div>
     </div>
     <div class="form-group">
@@ -51,13 +54,13 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Deliverable')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-deliverable" data-rule="required" class="form-control" name="row[deliverable]" type="text" value="">
+            <input id="c-deliverable" data-rule="required" class="form-control" name="row[deliverable]" type="text" value="" placeholder="例如：设计稿、已上线页面、提测包、数据报表">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Notes')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <textarea id="c-notes" class="form-control" rows="5" name="row[notes]" cols="50"></textarea>
+            <textarea id="c-notes" class="form-control" rows="5" name="row[notes]" cols="50" placeholder="补充节点说明"></textarea>
         </div>
     </div>
     <div class="form-group layer-footer">

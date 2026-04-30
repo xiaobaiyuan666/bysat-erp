@@ -2,11 +2,11 @@
 
 return [
     'Legacy_id' => '旧系统ID',
-    'App_project_legacy_id' => 'APP项目旧ID',
-    'App_project_id' => '所属APP项目',
-    'Report_date' => '周报日期',
-    'Owner' => '提交人',
-    'Owner_admin_id' => '提交人后台账号',
+    'App_project_legacy_id' => '项目旧ID',
+    'App_project_id' => '所属项目',
+    'Report_date' => '汇报日期',
+    'Owner' => '汇报人',
+    'Owner_admin_id' => '汇报人账号',
     'Summary' => '本周概述',
     'Result' => '阶段结果',
     'Next_actions' => '下步动作',

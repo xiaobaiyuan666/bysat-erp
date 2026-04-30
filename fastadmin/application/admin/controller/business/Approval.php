@@ -871,7 +871,9 @@ class Approval extends Backend
             }
 
             Db::name('business_payment_request')->where('id', $objectId)->update($payload);
+            return;
         }
+
     }
 
     protected function buildApprovalTemplateMap(): array
@@ -994,7 +996,6 @@ class Approval extends Backend
         if ($objectType === 'payment_request') {
             return round((float) Db::name('business_payment_request')->where('id', (int) ($params['payment_request_id'] ?? 0))->value('request_amount'), 2);
         }
-
         return 0.0;
     }
 

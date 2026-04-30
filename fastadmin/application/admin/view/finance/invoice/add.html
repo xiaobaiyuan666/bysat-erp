@@ -1,4 +1,6 @@
 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="erp-form-note">用于记录应收、应付等未结清单据。先填类型、标题、对象、金额和到期日，后续再根据实际收付款更新状态。</div>
+    <div class="erp-form-section">单据信息</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">单据类型:</label>
         <div class="col-xs-12 col-sm-8">
@@ -33,6 +35,7 @@
             <input id="c-due_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[due_date]" type="text" value="{:date('Y-m-d')}">
         </div>
     </div>
+    <div class="erp-form-section">状态与归属</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">状态:</label>
         <div class="col-xs-12 col-sm-8">
@@ -53,6 +56,7 @@
             </select>
         </div>
     </div>
+    <div class="erp-form-section">备注与附件</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">备注:</label>
         <div class="col-xs-12 col-sm-8">

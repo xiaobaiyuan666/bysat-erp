@@ -14,6 +14,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
     var buildPresetQuery = function () {
         var query = new URLSearchParams(window.location.search);
         var preset = {filter: {}, op: {}};
+
         if (query.get('ids')) {
             preset.filter.id = query.get('ids');
             preset.op.id = 'IN';
@@ -22,6 +23,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             preset.filter.app_project_id = query.get('app_project_id');
             preset.op.app_project_id = '=';
         }
+
         return preset;
     };
 
@@ -64,17 +66,28 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 },
                 columns: [[
                     {checkbox: true},
-                    {field: 'title', title: __('Title'), operate: 'LIKE'},
-                    {field: 'type', title: __('Type'), searchList: {'bug': __('Type bug'), 'improvement': __('Type improvement'), 'upgrade': __('Type upgrade'), 'task': __('Type task')}, formatter: Table.api.formatter.normal},
-                    {field: 'status', title: __('Status'), searchList: {'pending': __('Status pending'), 'processing': __('Status processing'), 'testing': __('Status testing'), 'ready': __('Status ready'), 'done': __('Status done'), 'closed': __('Status closed')}, formatter: Table.api.formatter.status},
-                    {field: 'priority', title: __('Priority'), searchList: {'low': __('Priority low'), 'medium': __('Priority medium'), 'high': __('Priority high'), 'urgent': __('Priority urgent')}, formatter: Table.api.formatter.normal},
-                    {field: 'severity', title: __('Severity'), searchList: {'low': __('Severity low'), 'medium': __('Severity medium'), 'high': __('Severity high'), 'blocker': __('Severity blocker')}, formatter: Table.api.formatter.normal},
-                    {field: 'source', title: __('Source'), searchList: {'operations': __('Source operations'), 'product': __('Source product'), 'customer': __('Source customer'), 'sales': __('Source sales'), 'service': __('Source service')}, formatter: Table.api.formatter.normal},
-                    {field: 'app_module', title: __('App_module'), operate: 'LIKE'},
-                    {field: 'app_version', title: __('App_version'), operate: 'LIKE'},
-                    {field: 'owner', title: __('Owner'), operate: 'LIKE'},
-                    {field: 'reporter', title: __('Reporter'), operate: 'LIKE'},
-                    {field: 'due_date', title: __('Due_date'), operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
+                    {field: 'title', title: '标题', operate: 'LIKE'},
+                    {field: 'app_module', title: '模块', operate: 'LIKE'},
+                    {
+                        field: 'type',
+                        title: '类型',
+                        searchList: {bug: 'Bug', improvement: '优化', upgrade: '升级', task: '任务'},
+                        formatter: Table.api.formatter.normal
+                    },
+                    {
+                        field: 'status',
+                        title: '状态',
+                        searchList: {pending: '待处理', processing: '处理中', testing: '待测试', ready: '待发布', done: '已完成', closed: '已关闭'},
+                        formatter: Table.api.formatter.status
+                    },
+                    {
+                        field: 'priority',
+                        title: '优先级',
+                        searchList: {low: '低', medium: '中', high: '高', urgent: '紧急'},
+                        formatter: Table.api.formatter.normal
+                    },
+                    {field: 'owner', title: '负责人', operate: 'LIKE'},
+                    {field: 'due_date', title: '截止日期', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
                     {
                         field: 'operate',
                         title: __('Operate'),
@@ -83,8 +96,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         buttons: [
                             {
                                 name: 'app_project',
-                                text: '所属APP',
-                                title: '查看所属APP项目',
+                                text: '所属 APP',
+                                title: '查看所属 APP 项目',
                                 icon: 'fa fa-mobile',
                                 classname: 'btn btn-info btn-xs btn-dialog',
                                 url: 'app/project/edit/ids/{app_project_id}',
@@ -122,5 +135,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             }
         }
     };
+
     return Controller;
 });

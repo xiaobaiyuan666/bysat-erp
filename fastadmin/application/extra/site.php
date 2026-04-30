@@ -1,10 +1,10 @@
 <?php
 
 return array (
-  'name' => 'My Website',
+  'name' => 'ERP AI 管理系统',
   'beian' => '',
   'cdnurl' => '',
-  'version' => '1.0.1',
+  'version' => '2.0.0',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 
@@ -13,27 +13,33 @@ return array (
     'frontend' => 'zh-cn',
   ),
   'fixedpage' => 'dashboard',
-  'agreement' => '协议内容',
+  'agreement' => '',
+  'login_subtitle' => '综合型中小企业业务管理系统',
+  'admin_logo_mini' => 'ERP',
+  'admin_logo_text' => 'ERP AI 管理系统',
+  'site_home_url' => '',
+  'site_home_label' => '官网',
+  'copyright' => '',
   'categorytype' => 
   array (
-    'default' => 'Default',
-    'page' => 'Page',
-    'article' => 'Article',
-    'test' => 'Test',
+    'default' => '默认分类',
+    'page' => '单页',
+    'article' => '文章',
+    'test' => '测试',
   ),
   'configgroup' => 
   array (
-    'basic' => 'Basic',
-    'email' => 'Email',
-    'dictionary' => 'Dictionary',
-    'user' => 'User',
-    'example' => 'Example',
+    'basic' => '基础配置',
+    'email' => '邮件配置',
+    'dictionary' => '字典配置',
+    'user' => '用户配置',
+    'example' => '示例配置',
   ),
   'attachmentcategory' => 
   array (
-    'category1' => 'Category1',
-    'category2' => 'Category2',
-    'custom' => 'Custom',
+    'category1' => '分类一',
+    'category2' => '分类二',
+    'custom' => '自定义',
   ),
   'mail_type' => '1',
   'mail_smtp_host' => 'smtp.qq.com',

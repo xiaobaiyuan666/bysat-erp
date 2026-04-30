@@ -1,5 +1,7 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
 
+    <div class="erp-form-note">编辑任务时优先更新状态、执行人、截止日期和实际工时，任务说明保留关键过程即可。</div>
+    <div class="erp-form-section">任务基础</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">所属项目:</label>
         <div class="col-xs-12 col-sm-8">
@@ -48,6 +50,7 @@
             </select>
         </div>
     </div>
+    <div class="erp-form-section">排期与工时</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Due_date')}:</label>
         <div class="col-xs-12 col-sm-8">
@@ -66,6 +69,7 @@
             <input id="c-actual_hours" data-rule="required" class="form-control" step="0.01" name="row[actual_hours]" type="number" value="{$row.actual_hours|htmlentities}">
         </div>
     </div>
+    <div class="erp-form-section">任务说明</div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Notes')}:</label>
         <div class="col-xs-12 col-sm-8">

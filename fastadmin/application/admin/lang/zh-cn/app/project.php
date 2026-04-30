@@ -2,9 +2,16 @@
 
 return [
     'Legacy_id' => '旧系统ID',
+    'Project_type' => '项目类型',
+    'Project_type app' => 'APP',
+    'Project_type miniprogram' => '小程序',
+    'Project_type website' => '官网/网站',
+    'Project_type campaign' => '活动投放',
+    'Project_type private_domain' => '私域运营',
+    'Project_type other' => '其他',
     'Name' => '运营项目',
-    'App_name' => 'APP名称',
-    'App_version' => '当前版本',
+    'App_name' => '项目主体',
+    'App_version' => '版本/阶段号',
     'Lifecycle_stage' => '生命周期',
     'Lifecycle_stage idea' => '构思',
     'Lifecycle_stage validation' => '验证',

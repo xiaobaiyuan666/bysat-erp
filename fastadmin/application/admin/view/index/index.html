@@ -42,7 +42,7 @@
             <footer class="main-footer hide">
                 <div class="pull-right hidden-xs">
                 </div>
-                <strong>Copyright &copy; 2017-{:date("Y")} <a href="__PUBLIC__">{$site.name|htmlentities}</a>.</strong> All rights reserved.
+                <strong>Copyright &copy; 2017-{:date("Y")} {if config('site.site_home_url')}<a href="{:htmlentities((string)config('site.site_home_url'))}" target="_blank">{:htmlentities((string)(config('site.site_home_label') ?: config('site.name') ?: 'ERP AI 管理系统'))}</a>{else/}{:htmlentities((string)(config('site.name') ?: 'ERP AI 管理系统'))}{/if}.</strong> {:htmlentities((string)(config('site.copyright') ?: config('site.beian') ?: ''))}
             </footer>
 
             <!-- 右侧控制栏 -->

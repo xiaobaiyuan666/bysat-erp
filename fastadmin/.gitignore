@@ -2,6 +2,7 @@
 /thinkphp/
 /vendor/
 /runtime/*
+/data/updater/*
 /addons/*
 /public/assets/libs/
 /public/assets/addons/*

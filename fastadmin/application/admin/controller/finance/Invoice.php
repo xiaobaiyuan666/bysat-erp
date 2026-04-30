@@ -7,6 +7,7 @@ use app\admin\library\traits\ErpCrudHelper;
 use app\common\controller\Backend;
 use think\Db;
 use think\Exception;
+use think\Config;
 use think\exception\PDOException;
 use think\exception\ValidateException;
 
@@ -19,6 +20,8 @@ class Invoice extends Backend
 {
     use ErpAuditHelper;
     use ErpCrudHelper;
+
+    protected $noNeedRight = ['printview'];
 
     /**
      * @var \app\admin\model\Finance\Invoice
@@ -69,7 +72,7 @@ class Invoice extends Backend
             }
             $result = $this->model->allowField(true)->save($params);
             if ($result !== false) {
-                $this->recordBusinessAudit('finance_invoice', 'add', '应收应付', $params, '新增单据：' . ($params['title'] ?: '未命名单据') . ' / ' . $params['amount']);
+                $this->recordBusinessAudit('finance_invoice', 'add', '应收应付', $params, '新增账单：' . ($params['title'] ?: '未命名单据') . ' / ' . $params['amount']);
             }
             Db::commit();
         } catch (ValidateException | PDOException | Exception $e) {
@@ -123,7 +126,7 @@ class Invoice extends Backend
             }
             $result = $row->allowField(true)->save($params);
             if ($result !== false) {
-                $this->recordBusinessAudit('finance_invoice', 'edit', '应收应付', array_merge($row->toArray(), $params), '更新单据：' . (($params['title'] ?? $row['title']) ?: '未命名单据') . ' / ' . ($params['amount'] ?? $row['amount']));
+                $this->recordBusinessAudit('finance_invoice', 'edit', '应收应付', array_merge($row->toArray(), $params), '更新账单：' . (($params['title'] ?? $row['title']) ?: '未命名单据') . ' / ' . ($params['amount'] ?? $row['amount']));
             }
             Db::commit();
         } catch (ValidateException | PDOException | Exception $e) {
@@ -141,7 +144,66 @@ class Invoice extends Backend
     public function del($ids = null)
     {
         $this->deleteWithAudit($ids, 'finance_invoice', '应收应付', function ($row) {
-            return '删除单据：' . ($row['title'] ?: '未命名单据') . ' / ' . $row['amount'];
+            return '删除账单：' . ($row['title'] ?: '未命名单据') . ' / ' . $row['amount'];
         });
+    }
+
+    public function printview($ids = null)
+    {
+        $this->guardReadPermission();
+
+        $row = $this->model->get($ids);
+        if (!$row) {
+            $this->error(__('No Results were found'));
+        }
+
+        $this->view->engine->layout(false);
+        $this->view->assign([
+            'title' => '账单打印预览',
+            'row' => $row,
+            'kindText' => $this->model->getKindList()[$row['kind']] ?? $row['kind'],
+            'statusText' => $this->model->getStatusList()[$row['status']] ?? ($row['status'] ?: '-'),
+            'amountText' => $this->formatMoney((float)$row['amount']),
+            'attachmentCount' => $this->countAttachments($row['attachment_ids_json'] ?? '[]'),
+            'brandInfo' => $this->buildBrandInfo(),
+            'printedAt' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $this->view->fetch('finance/invoice/printview');
+    }
+
+    protected function guardReadPermission(): void
+    {
+        if (!$this->auth->check('finance/invoice/index')) {
+            $this->error('你没有权限访问账单');
+        }
+    }
+
+    protected function countAttachments($value): int
+    {
+        if (is_array($value)) {
+            return count($value);
+        }
+
+        $decoded = json_decode((string)$value, true);
+        return is_array($decoded) ? count($decoded) : 0;
+    }
+
+    protected function formatMoney(float $value): string
+    {
+        $prefix = $value < 0 ? '-￥' : '￥';
+        return $prefix . number_format(abs($value), 2);
+    }
+
+    protected function buildBrandInfo(): array
+    {
+        $siteName = (string)(Config::get('site.name') ?: 'ERP AI 管理系统');
+
+        return [
+            'company_name' => $siteName,
+            'system_name' => (string)(Config::get('site.login_subtitle') ?: '企业 ERP AI 智能管理系统'),
+            'website' => (string)(Config::get('site.site_home_label') ?: Config::get('site.site_home_url') ?: ''),
+            'copyright' => (string)(Config::get('site.copyright') ?: Config::get('site.beian') ?: ''),
+        ];
     }
 }

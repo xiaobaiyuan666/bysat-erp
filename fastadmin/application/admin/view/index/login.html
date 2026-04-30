@@ -64,6 +64,30 @@
             z-index: 99;
         }
 
+        .login-brand {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .login-brand-title {
+            margin: 12px 0 6px;
+            color: #1f2d3d;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .login-brand-subtitle,
+        .login-brand-note {
+            color: #6b7b88;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .login-brand-note {
+            margin-top: 8px;
+        }
+
         #login-form {
             margin-top: 20px;
         }
@@ -98,6 +122,19 @@
                 <div class="login-form">
                     <img id="profile-img" class="profile-img-card" src="__CDN__/assets/img/avatar.png"/>
                     <p id="profile-name" class="profile-name-card"></p>
+                    <div class="login-brand">
+                        <div class="login-brand-title">{:htmlentities((string)(config('site.name') ?: 'ERP AI 管理系统'))}</div>
+                        {if config('site.login_subtitle')}
+                        <div class="login-brand-subtitle">{:htmlentities((string)config('site.login_subtitle'))}</div>
+                        {/if}
+                        {if config('site.copyright') || config('site.site_home_url')}
+                        <div class="login-brand-note">
+                            {if config('site.copyright')}{:htmlentities((string)config('site.copyright'))}{/if}
+                            {if config('site.copyright') && config('site.site_home_url')} · {/if}
+                            {if config('site.site_home_url')}<a href="{:htmlentities((string)config('site.site_home_url'))}" target="_blank">{:htmlentities((string)(config('site.site_home_label') ?: config('site.site_home_url')))}</a>{/if}
+                        </div>
+                        {/if}
+                    </div>
 
                     <form action="" method="post" id="login-form">
                         <!--@AdminLoginFormBegin-->

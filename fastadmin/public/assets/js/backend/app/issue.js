@@ -14,6 +14,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
     var buildPresetQuery = function () {
         var query = new URLSearchParams(window.location.search);
         var preset = {filter: {}, op: {}};
+
         if (query.get('assignee_admin_id')) {
             preset.filter.assignee_admin_id = query.get('assignee_admin_id');
             preset.op.assignee_admin_id = '=';
@@ -34,14 +35,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             preset.filter.app_project_id = query.get('app_project_id');
             preset.op.app_project_id = '=';
         }
+
         return preset;
     };
 
     var presetQuery = buildPresetQuery();
-
-    var yesNoFormatter = function (value) {
-        return value ? '<span class="label label-success">是</span>' : '<span class="label label-default">否</span>';
-    };
 
     var Controller = {
         index: function () {
@@ -77,11 +75,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [[
                     {checkbox: true},
                     {field: 'ticket_no', title: '问题单号', operate: 'LIKE'},
-                    {field: 'customer', title: '客户名称', operate: 'LIKE'},
                     {field: 'title', title: '问题标题', operate: 'LIKE'},
+                    {field: 'customer', title: '客户', operate: 'LIKE'},
                     {
                         field: 'category',
-                        title: '问题分类',
+                        title: '分类',
                         searchList: {
                             bug: 'Bug',
                             usage: '使用咨询',
@@ -92,22 +90,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         },
                         formatter: Table.api.formatter.normal
                     },
-                    {
-                        field: 'source',
-                        title: '来源',
-                        searchList: {
-                            customer: '客户',
-                            training: '培训',
-                            sales: '销售',
-                            operations: '运营',
-                            other: '其他'
-                        },
-                        formatter: Table.api.formatter.normal
-                    },
                     {field: 'assignee', title: '受理人', operate: 'LIKE'},
                     {
                         field: 'status',
-                        title: '处理状态',
+                        title: '状态',
                         searchList: {
                             'new': '新建',
                             'processing': '处理中',
@@ -124,9 +110,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         searchList: {'low': '低', 'medium': '中', 'high': '高', 'urgent': '紧急'},
                         formatter: Table.api.formatter.normal
                     },
-                    {field: 'resolve_due_at', title: '承诺解决时间', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
-                    {field: 'customer_notified', title: '已回告客户', searchList: {0: '否', 1: '是'}, formatter: yesNoFormatter},
-                    {field: 'customer_confirmed', title: '客户已确认', searchList: {0: '否', 1: '是'}, formatter: yesNoFormatter},
                     {field: 'last_follow_up_at', title: '最近跟进', operate: 'RANGE', addclass: 'datetimerange', autocomplete: false},
                     {
                         field: 'operate',
@@ -175,5 +158,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             }
         }
     };
+
     return Controller;
 });

@@ -1,4 +1,36 @@
 <style>
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .panel.panel-default.panel-intro,
+    .panel.panel-default.panel-intro > .panel-body {
+        overflow-x: hidden;
+    }
+
+    .panel.panel-default.panel-intro .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .panel.panel-default.panel-intro [class^="col-"],
+    .panel.panel-default.panel-intro [class*=" col-"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    body.inside-header.inside-aside .tab-content.tab-addtabs .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    body.inside-header.inside-aside .tab-content.tab-addtabs [class^="col-"],
+    body.inside-header.inside-aside .tab-content.tab-addtabs [class*=" col-"] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     .wb-page {
         padding: 18px;
         background: #f5f7fa;
@@ -93,7 +125,9 @@
     }
 
     .wb-card-grid,
-    .wb-panel-grid {
+    .wb-panel-grid,
+    .wb-report-snapshot-grid,
+    .wb-report-grid {
         display: grid;
         gap: 16px;
     }
@@ -104,6 +138,16 @@
 
     .wb-panel-grid {
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .wb-report-snapshot-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        margin-bottom: 16px;
+    }
+
+    .wb-report-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        margin-bottom: 16px;
     }
 
     .wb-quick-grid {
@@ -142,6 +186,52 @@
         font-size: 12px;
         line-height: 1.8;
         list-style: decimal;
+    }
+
+    .wb-more-block {
+        margin-bottom: 16px;
+        background: #fff;
+        border: 1px solid #e8eef5;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(31, 45, 61, 0.05);
+        overflow: hidden;
+    }
+
+    .wb-more-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px 0;
+    }
+
+    .wb-more-head h3 {
+        margin: 0;
+        color: #1f2d3d;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .wb-more-head span {
+        color: #8a98a8;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .wb-more-body {
+        padding: 12px 18px 18px;
+    }
+
+    @media (max-width: 560px) {
+        .wb-more-head {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .wb-more-head span {
+            white-space: normal;
+        }
     }
 
     .wb-card-value {
@@ -216,8 +306,14 @@
         text-align: left;
     }
 
+    .wb-smart-examples {
+        max-height: 72px;
+        overflow: hidden;
+    }
+
     .wb-smart-result {
-        min-height: 100%;
+        align-self: start;
+        min-height: 220px;
         border: 1px dashed #d9e4f2;
         border-radius: 10px;
         background: #fbfdff;
@@ -265,6 +361,244 @@
         margin-top: 10px;
     }
 
+    .wb-preview-list {
+        display: grid;
+        gap: 12px;
+    }
+
+    .wb-preview-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 10px;
+        background: #fbfdff;
+        border: 1px solid #e6eef7;
+    }
+
+    .wb-preview-main {
+        min-width: 0;
+    }
+
+    .wb-preview-top,
+    .wb-report-row-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .wb-preview-title,
+    .wb-report-title {
+        margin: 0;
+        color: #1f2d3d;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .wb-preview-meta,
+    .wb-report-meta,
+    .wb-report-stats {
+        color: #6b7b8d;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+
+    .wb-preview-amount {
+        color: #1f2d3d;
+        font-size: 20px;
+        font-weight: 700;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .wb-report-card {
+        border: 1px solid #e5edf6;
+        border-radius: 10px;
+        padding: 14px;
+        background: #fff;
+    }
+
+    .wb-report-kpi {
+        display: grid;
+        gap: 8px;
+    }
+
+    .wb-report-kpi strong {
+        color: #1f2d3d;
+        font-size: 22px;
+        line-height: 1.1;
+    }
+
+    .wb-trend {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        width: fit-content;
+    }
+
+    .wb-trend.is-up {
+        background: #ecf9f0;
+        color: #1d9d57;
+    }
+
+    .wb-trend.is-down {
+        background: #fff1f0;
+        color: #d93025;
+    }
+
+    .wb-trend.is-flat {
+        background: #eef4fa;
+        color: #52616b;
+    }
+
+    .wb-report-table {
+        display: grid;
+        gap: 10px;
+    }
+
+    .wb-report-row {
+        padding: 12px;
+        border-radius: 10px;
+        background: #fbfdff;
+        border: 1px solid #e7eef6;
+    }
+
+    .wb-report-bar {
+        margin-top: 10px;
+        height: 8px;
+        border-radius: 999px;
+        background: #edf3f9;
+        overflow: hidden;
+    }
+
+    .wb-report-bar span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #6fb1fc 0%, #3c8dbc 100%);
+    }
+
+    .wb-alert-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .wb-alert-card {
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid #e5edf6;
+        background: #fff;
+    }
+
+    .wb-alert-card.is-danger {
+        background: #fff4f3;
+        border-color: #ffd8d4;
+    }
+
+    .wb-alert-card.is-warning {
+        background: #fff9ef;
+        border-color: #ffe2b8;
+    }
+
+    .wb-alert-card.is-info {
+        background: #f6fbff;
+        border-color: #dcecff;
+    }
+
+    .wb-alert-card.is-ok {
+        background: #f2fbf5;
+        border-color: #d5f0df;
+    }
+
+    .wb-alert-title {
+        margin: 0 0 6px;
+        color: #1f2d3d;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .wb-alert-summary {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1f2d3d;
+        margin-bottom: 6px;
+    }
+
+    .wb-report-action-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .wb-trend-grid,
+    .wb-aging-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .wb-trend-chart {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 12px;
+        border-radius: 10px;
+        background: linear-gradient(180deg, #fbfdff 0%, #f5f9fe 100%);
+        border: 1px solid #e6eef7;
+    }
+
+    .wb-trend-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+        color: #6b7b8d;
+        font-size: 12px;
+    }
+
+    .wb-trend-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .wb-trend-legend i {
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        border-radius: 999px;
+    }
+
+    .wb-aging-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .wb-aging-row {
+        padding: 12px;
+        border-radius: 10px;
+        background: #fbfdff;
+        border: 1px solid #e7eef6;
+    }
+
+    .wb-aging-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
     @media (max-width: 1200px) {
         .wb-smart-body {
             grid-template-columns: 1fr;
@@ -282,6 +616,107 @@
         .wb-smart {
             padding: 16px;
         }
+
+        .wb-preview-item {
+            grid-template-columns: 1fr;
+        }
+
+        .wb-preview-amount {
+            text-align: left;
+        }
+    }
+
+    /* Compact admin density: reduce oversized cards and keep finance work focused. */
+    .panel.panel-default.panel-intro > .panel-heading {
+        padding: 12px 16px;
+        background: #f7f9fc;
+        border-bottom: 1px solid #e5e9f0;
+    }
+
+    .panel.panel-default.panel-intro > .panel-body {
+        padding: 12px;
+    }
+
+    .wb-page {
+        padding: 12px;
+        background: #f3f5f8;
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel,
+    .wb-smart,
+    .wb-more-block {
+        border-radius: 8px;
+        box-shadow: none;
+    }
+
+    .wb-toolbar,
+    .wb-card,
+    .wb-panel,
+    .wb-smart {
+        padding: 14px;
+    }
+
+    .wb-toolbar h2,
+    .wb-panel h3,
+    .wb-smart h3 {
+        font-size: 18px;
+    }
+
+    .wb-toolbar-header {
+        align-items: center;
+    }
+
+    .wb-user-card {
+        min-width: 220px;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+
+    .wb-actions,
+    .wb-smart-actions,
+    .wb-smart-examples {
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .wb-card-grid,
+    .wb-panel-grid,
+    .wb-report-snapshot-grid,
+    .wb-report-grid,
+    .wb-quick-grid {
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .wb-card-value,
+    .wb-report-kpi strong {
+        font-size: 24px;
+    }
+
+    .wb-smart-body {
+        gap: 12px;
+    }
+
+    .wb-smart-form textarea {
+        min-height: 90px;
+    }
+
+    .wb-smart-result {
+        min-height: 160px;
+    }
+
+    .wb-table th,
+    .wb-table td {
+        padding: 8px 6px;
+    }
+
+    .wb-preview-item,
+    .wb-alert-card,
+    .wb-aging-row,
+    .wb-report-row {
+        border-radius: 8px;
     }
 </style>
 
@@ -310,69 +745,85 @@
                 </div>
             </div>
 
-            <div class="wb-quick-grid">
-                {foreach name="quickPanels" item="panel"}
-                <div class="wb-card">
-                    <h3>{$panel.title}</h3>
-                    <p>{$panel.hint}</p>
-                    <div class="wb-actions">
-                        {foreach name="panel.items" item="item"}
-                        <a href="{$item.url}" class="btn btn-default addtabsit">{$item.title}</a>
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>更多快捷入口和使用说明</h3>
+                    <span>低频入口集中放置</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-quick-grid">
+                        {foreach name="quickPanels" item="panel"}
+                        <div class="wb-card">
+                            <h3>{$panel.title}</h3>
+                            <p>{$panel.hint}</p>
+                            <div class="wb-actions">
+                                {foreach name="panel.items" item="item"}
+                                <a href="{$item.url}" class="btn btn-default addtabsit">{$item.title}</a>
+                                {/foreach}
+                            </div>
+                        </div>
                         {/foreach}
                     </div>
-                </div>
-                {/foreach}
-            </div>
 
-            <div class="wb-usage">
-                <div class="wb-card-value">使用说明</div>
-                <ul>
-                    {foreach name="usageGuide" item="step"}
-                    <li>{$step}</li>
-                    {/foreach}
-                </ul>
-            </div>
-
-            <div class="wb-smart" id="smart-bookkeeping">
-                <div class="wb-smart-head">
-                    <div>
-                        <h3>智能记账</h3>
-                        <p>输入一句话，系统会优先调用大模型提取记账结构，失败时自动走规则兜底。确认草稿后再写入系统。</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="wb-smart-badge" data-role="model-badge">正在读取模型配置</div>
-                        <div class="wb-help" data-role="model-hint" style="margin-top:6px;">模型优先，规则兜底</div>
+                    <div class="wb-usage" style="margin-bottom:0;">
+                        <div class="wb-card-value">使用说明</div>
+                        <ul>
+                            {foreach name="usageGuide" item="step"}
+                            <li>{$step}</li>
+                            {/foreach}
+                        </ul>
                     </div>
                 </div>
+            </section>
 
-                <div class="wb-smart-body">
-                    <div class="wb-smart-form">
-                        <div class="form-group">
-                            <label class="control-label">一句话描述</label>
-                            <textarea class="form-control" data-role="smart-text" placeholder="例如：今天给晨光办公付款 100 元，微信支付，办公用品。"></textarea>
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>智能记账（一句话录入）</h3>
+                    <span>确认后再写入系统</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-smart" id="smart-bookkeeping" style="margin-bottom:0;">
+                        <div class="wb-smart-head">
+                            <div>
+                                <h3>智能记账</h3>
+                                <p>输入一句话，系统会优先调用大模型提取记账结构，失败时自动走规则兜底。确认草稿后再写入系统。</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="wb-smart-badge" data-role="model-badge">正在读取模型配置</div>
+                                <div class="wb-help" data-role="model-hint" style="margin-top:6px;">模型优先，规则兜底</div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">关联项目（可选）</label>
-                            <select class="form-control" data-role="project-select">
-                                <option value="">不指定项目</option>
-                            </select>
-                        </div>
-                        <div class="wb-smart-hint">
-                            <strong>使用建议：</strong>
-                            <span>已经发生的收款或付款，会优先生成财务流水；还未发生、属于待收待付或应收应付的，会优先生成单据草稿。</span>
-                        </div>
-                        <div class="wb-smart-examples" data-role="examples"></div>
-                        <div class="wb-smart-actions">
-                            <button type="button" class="btn btn-primary" data-action="parse"><i class="fa fa-magic"></i> 智能解析</button>
-                            <button type="button" class="btn btn-default" data-action="clear"><i class="fa fa-eraser"></i> 清空</button>
-                        </div>
-                    </div>
 
-                    <div class="wb-smart-result" data-role="result-panel">
-                        <div class="wb-smart-empty">先输入一句话，再点“智能解析”。这里会先生成草稿，确认无误后再写入系统，不会直接落账。</div>
+                        <div class="wb-smart-body">
+                            <div class="wb-smart-form">
+                                <div class="form-group">
+                                    <label class="control-label">一句话描述</label>
+                                    <textarea class="form-control" data-role="smart-text" placeholder="例如：今天给晨光办公付款 100 元，微信支付，办公用品。"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">关联项目（可选）</label>
+                                    <select class="form-control" data-role="project-select">
+                                        <option value="">不指定项目</option>
+                                    </select>
+                                </div>
+                                <div class="wb-smart-hint">
+                                    <strong>使用建议：</strong>
+                                    <span>已经发生的收款或付款，会优先生成财务流水；还未发生、属于待收待付或应收应付的，会优先生成单据草稿。</span>
+                                </div>
+                                <div class="wb-smart-examples" data-role="examples"></div>
+                                <div class="wb-smart-actions">
+                                    <button type="button" class="btn btn-primary" data-action="parse"><i class="fa fa-magic"></i> 智能解析</button>
+                                    <button type="button" class="btn btn-default" data-action="clear"><i class="fa fa-eraser"></i> 清空</button>
+                                </div>
+                            </div>
+
+                            <div class="wb-smart-result" data-role="result-panel">
+                                <div class="wb-smart-empty">先输入一句话，再点“智能解析”。这里会先生成草稿，确认无误后再写入系统，不会直接落账。</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <div class="wb-card-grid">
                 {foreach name="summaryCards" item="item"}
@@ -385,10 +836,165 @@
                 {/foreach}
             </div>
 
-            <div class="wb-panel-grid">
-                <div class="wb-panel">
-                    <h3>待我审批</h3>
-                    <table class="wb-table">
+            <div class="wb-report-snapshot-grid">
+                {foreach name="reportSnapshots" item="item"}
+                <div class="wb-card wb-report-card">
+                    <div class="wb-report-kpi">
+                        <div class="wb-report-title">{$item.title}</div>
+                        <div class="wb-report-meta">{$item.label}</div>
+                        <strong>{$item.net_text}</strong>
+                        <span class="wb-trend {$item.trend_class}">{$item.trend_text}</span>
+                        <div class="wb-report-stats">收入 {$item.income_text} / 支出 {$item.expense_text}</div>
+                        <div class="wb-report-stats">应收 {$item.receivable_text} / 应付 {$item.payable_text}</div>
+                        <div class="wb-report-stats">流水 {$item.transactions} 笔 / 账单 {$item.invoices} 笔</div>
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+
+            <div class="wb-alert-grid">
+                {foreach name="financeAlerts" item="item"}
+                <div class="wb-alert-card is-{$item.level}">
+                    <div class="wb-alert-title">{$item.title}</div>
+                    <div class="wb-alert-summary">{$item.summary}</div>
+                    <div class="wb-report-meta">{$item.detail}</div>
+                    <div style="margin-top:12px;">
+                        <a href="{$item.url}" class="btn btn-default btn-sm addtabsit">{$item.action}</a>
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+
+            <div class="wb-report-action-bar">
+                {foreach name="reportActions" item="item"}
+                <a href="{$item.url}" class="{$item.class}" {if $item.dialog}data-area='["92%","92%"]'{else /}target="{$item.target}"{/if}>{$item.title}</a>
+                {/foreach}
+            </div>
+
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>趋势、账龄和统计明细</h3>
+                    <span>老板看账辅助数据</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-trend-grid">
+                        {foreach name="trendSeries" item="item"}
+                        <div class="wb-panel">
+                            <h3>{$item.title}趋势</h3>
+                            <svg class="wb-trend-chart" viewBox="{$item.view_box}" preserveAspectRatio="none">
+                                {foreach name="item.series" item="line"}
+                                <polyline fill="none" stroke="{$line.color}" stroke-width="3" points="{$line.polyline}"></polyline>
+                                {foreach name="line.points" item="point"}
+                                <circle cx="{$point.x}" cy="{$point.y}" r="3.5" fill="{$line.color}">
+                                    <title>{$line.name} / {$point.label} / {$point.value_text}</title>
+                                </circle>
+                                {/foreach}
+                                {/foreach}
+                                {foreach name="item.labels" item="label"}
+                                <text x="{$label.x}" y="{$label.y}" text-anchor="middle" font-size="11" fill="#7b8794">{$label.label}</text>
+                                {/foreach}
+                            </svg>
+                            <div class="wb-trend-legend">
+                                <span><i style="background:#1d9d57;"></i> 收入</span>
+                                <span><i style="background:#d93025;"></i> 支出</span>
+                                <span><i style="background:#3c8dbc;"></i> 净流入</span>
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+
+                    <div class="wb-aging-grid">
+                        {foreach name="agingSections" item="section"}
+                        <div class="wb-panel">
+                            <h3>{$section.title}</h3>
+                            <div class="wb-report-meta">7 天内即将到期 {$section.due_soon_count} 笔 / {$section.due_soon_text}</div>
+                            <div class="wb-aging-list">
+                                {foreach name="section.rows" item="row"}
+                                <div class="wb-aging-row">
+                                    <div class="wb-aging-top">
+                                        <div class="wb-report-title">{$row.label}</div>
+                                        <div class="wb-report-stats">{$row.count} 笔 / {$row.amount_text}</div>
+                                    </div>
+                                    <div class="wb-report-meta">{$row.hint}</div>
+                                    <div class="wb-report-bar"><span style="width: {$row.bar_width}%"></span></div>
+                                </div>
+                                {/foreach}
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </section>
+
+            <div class="wb-panel">
+                <h3>账单预览</h3>
+                <div class="wb-preview-list">
+                    {volist name="billPreview" id="item"}
+                    <div class="wb-preview-item">
+                        <div class="wb-preview-main">
+                            <div class="wb-preview-top">
+                                <div>
+                                    <span class="wb-tag">{$item.badge}</span>
+                                    <span class="wb-tag">{$item.type_text}</span>
+                                </div>
+                                <div class="wb-preview-meta">{$item.date|default='-'}</div>
+                            </div>
+                            <div class="wb-preview-title" style="margin-top:8px;">{$item.title}</div>
+                            <div class="wb-preview-meta">{$item.meta}</div>
+                            <div class="wb-preview-meta">状态：{$item.status_text}</div>
+                            <div style="margin-top:10px;">
+                                <a href="{$item.url}" class="btn btn-default btn-xs addtabsit">打开账单</a>
+                                <a href="{$item.print_url}" class="btn btn-primary btn-xs btn-dialog" data-area='["88%","92%"]'>打印</a>
+                            </div>
+                        </div>
+                        <div class="wb-preview-amount">{$item.amount_text}</div>
+                    </div>
+                    {/volist}
+                    {if empty($billPreview)}
+                    <div class="text-center text-muted">当前还没有可预览的账单和流水</div>
+                    {/if}
+                </div>
+            </div>
+
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>日/周/月报表明细</h3>
+                    <span>可导出对账</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-report-grid">
+                        {foreach name="reportSections" item="section"}
+                        <div class="wb-panel">
+                            <h3>{$section.title}</h3>
+                            <div class="wb-report-table">
+                                {volist name="section.rows" id="row"}
+                                <div class="wb-report-row">
+                                    <div class="wb-report-row-top">
+                                        <div class="wb-report-title">{$row.label}</div>
+                                        <div class="wb-report-stats">流水 {$row.transaction_count} 笔 / 账单 {$row.invoice_count} 笔</div>
+                                    </div>
+                                    <div class="wb-report-meta">收入 {$row.income_text} / 支出 {$row.expense_text} / 净流入 {$row.net_text}</div>
+                                    <div class="wb-report-meta">应收 {$row.receivable_text} / 应付 {$row.payable_text}</div>
+                                    <div class="wb-report-bar"><span style="width: {$row.bar_width}%"></span></div>
+                                </div>
+                                {/volist}
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </section>
+
+            <section class="wb-more-block">
+                <div class="wb-more-head">
+                    <h3>审批、单据、附件和流水列表</h3>
+                    <span>日常处理区</span>
+                </div>
+                <div class="wb-more-body">
+                    <div class="wb-panel-grid">
+                        <div class="wb-panel">
+                            <h3>待我审批</h3>
+                            <table class="wb-table">
                         <thead>
                         <tr>
                             <th>审批单</th>
@@ -412,12 +1018,12 @@
                         <tr><td colspan="5" class="text-center text-muted">当前没有待我审批的事项</td></tr>
                         {/if}
                         </tbody>
-                    </table>
-                </div>
+                            </table>
+                        </div>
 
-                <div class="wb-panel">
-                    <h3>单据待办</h3>
-                    <table class="wb-table">
+                        <div class="wb-panel">
+                            <h3>单据待办</h3>
+                            <table class="wb-table">
                         <thead>
                         <tr>
                             <th>标题</th>
@@ -443,14 +1049,14 @@
                         <tr><td colspan="6" class="text-center text-muted">当前没有待处理单据</td></tr>
                         {/if}
                         </tbody>
-                    </table>
-                </div>
-            </div>
+                            </table>
+                        </div>
+                    </div>
 
-            <div class="wb-panel-grid">
-                <div class="wb-panel">
-                    <h3>待补附件</h3>
-                    <table class="wb-table">
+                    <div class="wb-panel-grid">
+                        <div class="wb-panel">
+                            <h3>待补附件</h3>
+                            <table class="wb-table">
                         <thead>
                         <tr>
                             <th>日期</th>
@@ -474,12 +1080,12 @@
                         <tr><td colspan="5" class="text-center text-muted">当前没有待补附件的流水</td></tr>
                         {/if}
                         </tbody>
-                    </table>
-                </div>
+                            </table>
+                        </div>
 
-                <div class="wb-panel">
-                    <h3>最近流水</h3>
-                    <table class="wb-table">
+                        <div class="wb-panel">
+                            <h3>最近流水</h3>
+                            <table class="wb-table">
                         <thead>
                         <tr>
                             <th>日期</th>
@@ -505,9 +1111,11 @@
                         <tr><td colspan="6" class="text-center text-muted">当前没有流水数据</td></tr>
                         {/if}
                         </tbody>
-                    </table>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </div>
